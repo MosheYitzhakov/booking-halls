@@ -4,7 +4,7 @@ import "react-jewish-datepicker/dist/index.css";
 
 export default function Calendar({ setDate, date =null }) {
 
-    const [basicJewishDay, setBasicJewishDay] = React.useState(new Date());
+    const [basicJewishDay, setBasicJewishDay] = React.useState();
 
     return (
         <div style={{ width: "40%" }}>

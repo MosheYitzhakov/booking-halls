@@ -46,18 +46,18 @@ export default function Hall({ hall }) {
       <CardContent sx={{ flex: '1 0 auto' }}>
         <Typography gutterBottom variant="h5" component="div">
           שם אולם
-        </Typography>
         <Typography variant="h6" color="text.secondary">
           מינימום
         </Typography>
         <Typography variant="h6" color="text.secondary">
           מינימום מנות
         </Typography>
+        </Typography>
       </CardContent>
       <CardActions>
       </CardActions>
       <CardMedia
-        sx={{ flex: '1 0 auto', width: 250 }}
+        sx={{ flex: '1 0 auto', width: 250 ,display:"inline-block"}}
         image="https://www.kolhazman.co.il/wp-content/uploads/thumbs/%D7%90%D7%95%D7%9C%D7%9E%D7%99-%D7%90%D7%A8%D7%9E%D7%95%D7%A0%D7%95%D7%AA-%D7%97%D7%9F02-30q3hhvbyo4mte3mzaqe4q.jpg"
         title="green iguana"
       />

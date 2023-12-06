@@ -23,7 +23,7 @@ if(name === "all halls"){
       };
       const top100Films = [{ label: "hall" },{ label: "all halls" }]
     return (
-        <div>
+        <div style={{display:"inline-block"}}>
             <Autocomplete
                     disablePortal
                     id="combo-box-demo"

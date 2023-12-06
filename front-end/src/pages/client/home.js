@@ -11,15 +11,15 @@ export const Home = () => {
     console.log("this is in home " + date);
     return (
         <>
-            <div>
+           
                 <SelectionButton/>
-            </div>
-            <div>
                 <Calendar setDate={setDate}/>
-             {/* { halls &&  */}
+          
+            <div>
+             {/* { halls &&   */}
              <> <HallForList date={date} hall={halls}/>
                 <HallForList hall={halls}/></>
-                {/* } */}
+                {/*  }  */}
             </div>
 
         </>

@@ -18,7 +18,11 @@ export const Home = () => {
             <div>
              {/* { halls &&   */}
              <> <HallForList date={date} hall={halls}/>
-                <HallForList hall={halls}/></>
+                <HallForList hall={halls}/>
+                <HallForList hall={halls}/>
+                <HallForList hall={halls}/>
+                
+                </>
                 {/*  }  */}
             </div>
 

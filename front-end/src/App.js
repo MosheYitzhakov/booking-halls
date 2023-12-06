@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Hall } from './pages/client/hall';
 import { Home } from './pages/client/home';
 import { Login } from './pages/manager/login';
-import { MainM } from './pages/manager/main';
+import { Main } from './pages/manager/main';
 import { FutureOrders } from './pages/manager/futureOrders';
 import { AllOrders } from './pages/manager/allOrders';
 import { Settings } from './pages/manager/settings';
@@ -27,7 +27,7 @@ function App() {
 
         <Route path="managers/" element={<Login />} />
         <Route path="managers/login" element={<Login />} />
-        <Route path="managers/:name" element={<MainM /> ? <MainM /> : <Err />}>
+        <Route path="managers/:name" element={<Main /> ? <Main /> : <Err />}>
           <Route path="futureOrders" element={<FutureOrders /> ? <FutureOrders /> : <Err />} />
           <Route path="allOrders" element={<AllOrders /> ? <AllOrders /> : <Err />} />
           <Route path="settings" element={<Settings /> ? <Settings /> : <Err />} />

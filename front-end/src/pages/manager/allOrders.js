@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { Typography } from '@mui/material';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -44,8 +45,9 @@ const rows = [
 export function AllOrders() {
   return (
     <div style={{ height: 600, width: '70%' }}>
+     <Typography> כל ההזמנות </Typography> 
+     
       <DataGrid
-
         rows={rows}
         columns={columns}
         initialState={{

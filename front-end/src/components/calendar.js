@@ -17,7 +17,8 @@ export default function Calendar({ setDate, date =null }) {
                 value={date? date: basicJewishDay}
                 isHebrew
                 canSelect={dontSelectTuesdays}
-                onClick={(day) => {
+                onClick={
+                    (day) => {
                     console.log("this is in Calendar" + day.jewishDateStrHebrew);
                     setDate(day.jewishDateStrHebrew)
                     setBasicJewishDay(day.date);

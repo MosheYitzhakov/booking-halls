@@ -24,7 +24,6 @@ export const Hall = () => {
             {/* <FromOrder/> */}
             </div>
             <div style={{display:"inline-block"}}>
-            <h1>חשבונית</h1>
             <BasicTable/>
             </div>
             <ContactUs />

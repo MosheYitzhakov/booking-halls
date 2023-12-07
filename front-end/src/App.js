@@ -28,9 +28,9 @@ function App() {
         <Route path="managers/" element={<Login />} />
         <Route path="managers/login" element={<Login />} />
         <Route path="managers/:name" element={<Main /> ? <Main /> : <Err />}>
+          <Route path="settings" element={<Settings /> ? <Settings /> : <Err />} />
           <Route path="futureOrders" element={<FutureOrders /> ? <FutureOrders /> : <Err />} />
           <Route path="allOrders" element={<AllOrders /> ? <AllOrders /> : <Err />} />
-          <Route path="settings" element={<Settings /> ? <Settings /> : <Err />} />
           <Route path="invoices" element={<Invoices /> ? <Invoices /> : <Err />} />
         </Route>
 

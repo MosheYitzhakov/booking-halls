@@ -6,14 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography, colors } from '@mui/material';
+import { Button } from '@mui/material';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
 const rows = [
-  createData('מנות מבוגר', 159, 6.0, 24),
+ createData( 'מנות מבוגר',<Button onClick={()=>{console.log(123)}}> 159</Button>, 6.0, 24),
   createData('מנות ילדים', 237, 9.0, 37),
   createData('מנות בר', 262, 16.0, 2),
   createData('מחיר אולם', 305, 3.7, 67),

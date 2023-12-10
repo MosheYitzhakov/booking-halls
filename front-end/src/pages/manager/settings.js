@@ -8,13 +8,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Input } from '@mui/material';
+import { TableSettingManager } from '../../components/tableManager';
 
 
 
 const theme = createTheme();
-// const change =(e)=>{
-// console.log(e);
-// }
+
 export function Settings() {
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -42,9 +41,6 @@ export function Settings() {
                         py: 6,
                     }}
                 >
-                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-        </Avatar> */}
                     <Typography component="h1" variant="h5">
                         הגדרות
                     </Typography>
@@ -119,34 +115,33 @@ export function Settings() {
                                     autoComplete="family-name"
                                 />
                             </Grid>
-                       
-                       
-                          
-                             
-                                <Grid item xs={12}>
-                                    <fieldset>
-                                        <p> סוג מנות</p>
-                                        <label><input type='checkbox'
-                                        //  checked={false}
-                                        /> פרמיום </label>
-                                        <label><input type='checkbox'
-                                        //  checked={false}
-                                        />  רגיל </label>
+                            <Grid item xs={12}>
 
-                                    </fieldset>
-                                </Grid>
-                          
+                                <TableSettingManager />
+                            </Grid>
+
+                            <Grid item xs={6}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                <Typography variant='h5'>בטל שינוים </Typography>
+                                </Button>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    <Typography variant='h5' color={'yellow'}>עדכן </Typography>
+                                </Button>
+                            </Grid>
                         </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                           <Typography variant='h5' color={'yellow'}>עדכן </Typography> 
-                        </Button>
-
-                        <Input type='file'/>
+                        {/* <Input type='file' /> */}
 
                     </Box>
                 </Box>

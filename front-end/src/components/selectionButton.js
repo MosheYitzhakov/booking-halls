@@ -1,14 +1,14 @@
 import { Autocomplete, TextField } from '@mui/material';
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const SelectionButton = () => {
-
+    const navigate = useNavigate()
     const handlePageHall = async (name) => {
         if (name === "all halls") {
 
         } else {
-            Navigate(`/halls/${name}`)
+            navigate(`/halls/${name}`)
         }
         // Implement your login logic here
         // console.log(`Login attempt with username: ${username} and password: ${password}`);
@@ -21,9 +21,7 @@ export const SelectionButton = () => {
         //   return setIncorrect(true)
         // }
     };
-
     const top100Films = [{ label: "hall" }, { label: "all halls" }]
-    
     return (
         <div style={{ display: "inline-block" }}>
             <Autocomplete

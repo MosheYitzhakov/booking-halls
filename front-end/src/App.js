@@ -10,11 +10,6 @@ import { Settings } from './pages/manager/settings';
 import { Invoices } from './pages/manager/Invoices';
 import { Err } from './error';
 import Header from './components/header';
-// import { Home } from "./components/home";
-// import { Info } from "./components/info";
-// import { Todos } from "./components/todos";
-// import { Posts } from "./components/posts";
-// import { Err } from "./components/error";
 
 function App() {
   return (
@@ -35,7 +30,6 @@ function App() {
         </Route>
 
         <Route path="*" element={<Err />} />
-        {/* <Route path="*" element={<Err />} /> */}
       </Routes>
     </div>
   );

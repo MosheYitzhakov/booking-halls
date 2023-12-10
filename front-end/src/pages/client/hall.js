@@ -5,7 +5,6 @@ import { ContactUs } from '../../components/contactUs';
 import QuiltedImageList from '../../components/imgesPH';
 import Calendar from '../../components/calendar';
 import FullWidthTabs from '../../components/froms/navTabs';
-import { FromOrder } from '../../components/froms/fromOrder';
 import BasicTable from '../../components/tableOredr';
 
 export const Hall = () => {
@@ -16,17 +15,14 @@ export const Hall = () => {
             <QuiltedImageList/>
             <h1> {`${name} שם האולם `}</h1>
             <div>
-                {/* <input type="text" name="name" placeholder="התאריך הנבחר " /> */}
                 <Calendar />
             </div>
             <div style={{display:"inline-block"}}>
             <FullWidthTabs/>
-            {/* <FromOrder/> */}
             </div>
             <div style={{display:"inline-block"}}>
             <BasicTable/>
             </div>
             <ContactUs />
-            {/* <From /> */}
         </div>)
 }

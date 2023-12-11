@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-// const { checkDBConnection } = require('../databases/dbConnection')
+const { checkDBConnection } = require('../database/dbConnection')
 const cors =require('cors')
 const path = require('path')
 const clientR = require('./routers/client')
@@ -34,10 +34,10 @@ app.use('/*', (req, res) => res.send('not found'))
 
 
 
-// const connection = checkDBConnection()
-// if(connection){
+const connection = checkDBConnection()
+if(connection){
  const port = process.env.PORT || 3335;
     app.listen(port, () => console.log(`Server is running on port ${port}`))
-// } else{
-//     console.log('Error al conectar a la base de datos')
-// }
+} else{
+    console.log('Error al conectar a la base de datos')
+}

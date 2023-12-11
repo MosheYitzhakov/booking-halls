@@ -3,7 +3,7 @@ const pool = mySQL.createPool({
     host: 'localhost',
     user: 'root',
     password: 'Sr0583261045',
-    database: 'information_system'
+    database: 'halls'
 })
 const checkDBConnection = async () => {
     try {

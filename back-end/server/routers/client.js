@@ -1,18 +1,22 @@
 const express = require('express');
-// const { getComments, newComment, deleteComm } =require('../../databases/dbComments')
+const { getNameHalls } =require('../../database/dbHalls')
 const router = express.Router();
 module.exports = router;
 
 router.get('/halls/:name', async (req, res) => {
     try {
-        // let postId = req.params.id_post;
-        // const user = await getComments(postId)
-        res.send(req.params.name)
-        // if (!user.length) {
-        //     res.status(401).json('No found posts')
-        // } else {
-        //     res.send(user)
-        // }
+        const halls_name = req.params.name;
+        let halls;
+        if(halls_name === 'allHalls'){
+            halls = await getNameHalls()
+        }else{
+            halls = await getNameHalls(halls_name)
+        }
+        if (!halls.length) {
+            res.status(401).json('No found hall')
+        } else {
+            res.send(halls)
+        }
     } catch (error) {
         res.send(error.message)
     }

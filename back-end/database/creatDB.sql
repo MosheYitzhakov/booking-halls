@@ -71,3 +71,9 @@ CREATE TABLE `managers_halls`(
     `id_hall` BIGINT NOT NULL,
     PRIMARY KEY (`id`)
 );
+ALTER TABLE `halls`.`users` 
+CHANGE COLUMN `side` `side` CHAR(255) NULL DEFAULT NULL ;
+
+INSERT INTO `halls`.`users`
+ (`id_user`, `degree`, `name`, `phone`, `email`, `password`) 
+ VALUES ('1', 'manager', 'menashe', '0505021045', 'menashe@hall.com', '123123');

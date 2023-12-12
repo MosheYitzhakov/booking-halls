@@ -46,19 +46,31 @@ const getHalls = async (name_hall = null, date = null) => {
 //        return error.message 
 //     }
 // }
-const putSetting = async () => {
-    console.log(args);
-    return args
-    // try {
-    //     const sql = `
-    // INSERT INTO comments (id_post, name, email,body)
-    // VALUES (?,?,?,?)`
-    // const [{ affectedRows, insertId }] = await pool.query(sql, [id_post, name, email,body])
-    // if (affectedRows) return await getComments(id_post,insertId)
-    //     return 'The comment cannot be inserted'
-    // } catch (error) {
-    //    return error.message 
-    // }
-}
+const putSetting = async (id_hall, ...args) => {
+    const [all] = [...args]
+    let toSql = "";
 
+    for (const key in all) {
+        if (all[key] === null) return -1
+        toSql += `${key}= "${all[key]}",`
+    }
+
+    if (toSql === -1) return "You cannot enter empty values"
+   
+    toSql = toSql.slice(0, -1)
+    //   return toSql;
+    try {
+        const sql = `
+        UPDATE hall
+    SET ${toSql}
+    WHERE id_hall = "${id_invoice}"
+    `
+        // const [{ affectedRows }] = await pool.query(sql,[id_hall]);
+        // if (affectedRows) return await getTodos(id_user)
+        // return 'not update'
+        return sql
+    } catch (error) {
+        return error.message
+    }
+}
 module.exports = { getHalls, putSetting }

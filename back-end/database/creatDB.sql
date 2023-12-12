@@ -1,4 +1,6 @@
+DROP  SCHEMA if exists 'halls'
 CREATE SCHEMA `halls` ;
+DROP TABLE if exists 'orders'
 CREATE TABLE `orders`(
     `id_order` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `id_hall` BIGINT NOT NULL,

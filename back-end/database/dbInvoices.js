@@ -16,21 +16,38 @@ const getInvoices = async () => {
 
 }
 
-const putInvoices = async (id_user = null, name = null) => {
-    // try {
-    //     const sql = `
-    // INSERT INTO comments (id_post, name, email,body)
-    // VALUES (?,?,?,?)`
-    // const [{ affectedRows, insertId }] = await pool.query(sql, [id_post, name, email,body])
-    // if (affectedRows) return await getComments(id_post,insertId)
-    //     return 'The comment cannot be inserted'
-    // } catch (error) {
-    //    return error.message 
+const putInvoices = async (id_invoice, ...args) => {
+    
+    const [ all ] = [...args]
+    // if(!all) return "You cannot enter empty values"
+console.log(typeof all);
+    // let toSql = "";
+    // for (const key in all) {
+    //    if(all[key]===null) return -1
+    //    toSql +=`${key}= "${all[key]}",`
     // }
+    // toSql = toSql.slice(0,-1)
+//   return toSql;
+    try {
+    //     const sql = `
+    //     UPDATE invoices
+    // SET ${toSql}
+    // WHERE id_invoice = "${id_invoice}"
+    // `
 
 
-
+        // const [{ affectedRows }] = await pool.query(sql);
+        // if (affectedRows) return await getTodos(id_user)
+        // return 'not update'
+        return "all"
+    } catch (error) {
+        return error.message
+    }
 }
+
+
+
+
 const postInvoices = async (id_user, payment, date, hebrew_date) => {
     try {
         const sql = `
@@ -62,4 +79,4 @@ const deleteInvoices = async (id_post, id_comment) => {
     // }
 }
 
-module.exports = {}
+module.exports = {putInvoices}

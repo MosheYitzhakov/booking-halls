@@ -1,17 +1,12 @@
 const { pool } = require('./dbConnection')
 
 const getInvoices = async () => {
-    let toSql = "";
-    // if (id_comment) {
-    //     toSql = `AND id_comment = "${id_comment}"`
-    // }
     try {
         const sql = `
         SELECT name,phone,email,side,payment,date 
         FROM invoices
         JOIN users
         USING(id_user)
-
         `
         const [res] = await pool.query(sql);
         return res;

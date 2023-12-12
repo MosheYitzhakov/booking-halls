@@ -1,5 +1,5 @@
 const express = require('express');
-// const { getComments, newComment, deleteComm } =require('../../databases/dbComments')
+const { putSetting } =require('../../../database/dbHalls')
 const router = express.Router();
 module.exports = router;
 
@@ -20,7 +20,8 @@ router.get("/", async (req, res) => {
 .put("/:idHall", async (req, res) => {
     try {
         let postId = req.params;
-        res.send(postId)
+        const sett =await putSetting({as:12,dd:"sdds",aa:"ddf",zz:234})
+        res.send(sett)
         // const user = await getComments(postId)
         // if (!user.length) {
         //     res.status(401).json('No found posts')

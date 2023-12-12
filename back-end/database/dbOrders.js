@@ -1,25 +1,26 @@
 const { pool } = require('./dbConnection')
 
 const getOrders = async (id_hall, date = null) => {
-    let toSql = "";
+    let toSql = "WHERE id_hall = ?";
     if (date) {
-        toSql = `JOIN events_schedule es
+        toSql = `
+        JOIN events_schedule es
         USING(id_hall)
-        WHERE es.date >= '${date}'`
+        WHERE es.date >= '${date}'
+        AND id_hall = ?`
     }
     try {
         const sql = `
-        SELECT * 
+        SELECT *, K.name AS nameA,C.name AS nameB
         FROM customers_orders
-        JOIN users
-        USING(id_user)
+        JOIN users AS C ON (id_c=C.id_user)
+        JOIN users AS K ON (id_k=K.id_user)
         JOIN orders
         USING(id_order)
         ${toSql}
-        WHERE id_hall = ?
         order by customers_orders.id_order
         `
-        const [res] = await pool.query(sql,[id_hall]);
+        const [res] = await pool.query(sql, [id_hall]);
         return res;
     } catch (error) {
         return error.message
@@ -27,7 +28,7 @@ const getOrders = async (id_hall, date = null) => {
 
 }
 
-const putOrders = async (id_user = null, name = null) => {
+const putOrders = async (id_order, name = null) => {
     // try {
     //     const sql = `
     // INSERT INTO comments (id_post, name, email,body)
@@ -73,4 +74,4 @@ const deleteOrders = async (id_post, id_comment) => {
     // }
 }
 
-module.exports = {getOrders}
+module.exports = { getOrders }

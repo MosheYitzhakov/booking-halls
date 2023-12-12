@@ -5,19 +5,18 @@ const getEvents = async (id_hall) => {
     // if (id_comment) {
     //     toSql = `AND id_comment = "${id_comment}"`
     // }
-    // try {
-    //     const sql = `
-    //     SELECT *
-    //     FROM comments
-    //     WHERE id_post = "${id_post}" 
-    //     ${toSql}
-    //     ORDER BY id_comment;
-    //     `
-    //     const [res] = await pool.query(sql);
-    //     return res;
-    // } catch (error) {
-    //     return error.message
-    // }
+    try {
+        const sql = `
+        SELECT *
+        FROM events_schedule
+        WHERE id_hall = ? 
+        ORDER BY date DESC;
+        `
+        const [res] = await pool.query(sql,[id_hall]);
+        return res;
+    } catch (error) {
+        return error.message
+    }
 
 }
 
@@ -36,7 +35,7 @@ const putEvents = async ( id_user = null, name = null)=>{
 
 
 }
-const postEvents = async ( id_hall, hebrew_date,date)=>{
+const postEvents = async (id_hall, hebrew_date,date)=>{
     try {
         const sql = `
     INSERT INTO events_schedule (id_hall, hebrew_date, date)
@@ -47,10 +46,8 @@ const postEvents = async ( id_hall, hebrew_date,date)=>{
     } catch (error) {
        return error.message 
     }
-    
-    
-    
     }
+    
 const deleteEvents =async (id_post,id_comment) =>{
     // try {
     //     const sql = `

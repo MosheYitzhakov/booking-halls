@@ -1,81 +1,89 @@
-DROP  SCHEMA if exists 'halls'
+DROP  SCHEMA if exists halls;
 CREATE SCHEMA `halls` ;
-DROP TABLE if exists 'orders'
-CREATE TABLE `orders`(
-    `id_order` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `id_hall` BIGINT NOT NULL,
-    `num_guests` BIGINT NOT NULL,
-    `num_m_adults` BIGINT NOT NULL,
-    `num_m_children` BIGINT NOT NULL,
-    `num_m_bar` BIGINT NOT NULL,
-    `type` CHAR(255) NOT NULL,
-    `total_payment` BIGINT NOT NULL,
-    PRIMARY KEY (`id_order`)
-);
+DROP TABLE if exists 
+users,
+orders,
+managers_halls,
+invoices,
+images,
+halls,
+events_schedule,
+customers_orders;
 
-CREATE TABLE `events schedule`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `id_hall` BIGINT NOT NULL,
-    `hebrew_date` VARCHAR(255) NOT NULL,
-    `date` DATE NOT NULL,
-     PRIMARY KEY (`id`)
-);
+CREATE TABLE `users` (
+  `id_user` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `degree` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone` bigint NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` bigint DEFAULT NULL,
+  `side` char(255) DEFAULT NULL,
+  PRIMARY KEY (`id_user`),
+  UNIQUE KEY `password` (`password`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `users`(
-    `id_user` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `degree` VARCHAR(255) NOT NULL,
-    `name` VARCHAR(255) NOT NULL,
-    `phone` BIGINT NOT NULL,
-    `email` VARCHAR(255) NOT NULL,
-    `password` BIGINT NOT NULL,
-    `side` CHAR(255) NOT NULL,
-     PRIMARY KEY (`id_user`),
-     UNIQUE(`password`)
-);
-CREATE TABLE `invoices`(
-    `id_invoice` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `id_user` VARCHAR(255) NOT NULL,
-    `payment` BIGINT NOT NULL,
-    `date` BIGINT NOT NULL,
-     PRIMARY KEY (`id_invoice`)
-);
-CREATE TABLE `halls`(
-    `id_hall` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `name_hall` VARCHAR(255) NOT NULL,
-    `base price` BIGINT NOT NULL,
-    `min_guests` BIGINT NOT NULL,
-    `max_guests` BIGINT NOT NULL,
-    `min_meals` BIGINT NOT NULL,
-    `p_b_adults` BIGINT NOT NULL,
-    `p_b_children` BIGINT NOT NULL,
-    `p_b_bar` BIGINT NOT NULL,
-    `p_p_adults` BIGINT NOT NULL,
-    `p_p_children` BIGINT NOT NULL,
-    `p_p_bar` BIGINT NOT NULL,
-    `down_payment` BIGINT NOT NULL,
-    PRIMARY KEY (`id_hall`)
-);
-CREATE TABLE `images`(
-    `id_image` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `id_hall` BIGINT NOT NULL,
-    PRIMARY KEY(`id_image`)
-);
-CREATE TABLE `customers_orders`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `id_user` BIGINT NOT NULL,
-    `id_order` BIGINT NOT NULL,
-    PRIMARY KEY (`id`)
-);
+CREATE TABLE `orders` (
+  `id_order` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id_hall` bigint NOT NULL,
+  `num_guests` bigint NOT NULL,
+  `num_m_adults` bigint NOT NULL,
+  `num_m_children` bigint NOT NULL,
+  `num_m_bar` bigint NOT NULL,
+  `type` char(255) NOT NULL,
+  `total_payment` bigint NOT NULL,
+  PRIMARY KEY (`id_order`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `managers_halls`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `id_user` BIGINT NOT NULL,
-    `id_hall` BIGINT NOT NULL,
-    PRIMARY KEY (`id`)
-);
-ALTER TABLE `halls`.`users` 
-CHANGE COLUMN `side` `side` CHAR(255) NULL DEFAULT NULL ;
+CREATE TABLE `managers_halls` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` bigint NOT NULL,
+  `id_hall` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `halls`.`users`
- (`id_user`, `degree`, `name`, `phone`, `email`, `password`) 
- VALUES ('1', 'manager', 'menashe', '0505021045', 'menashe@hall.com', '123123');
+CREATE TABLE `invoices` (
+  `id_invoice` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` varchar(255) NOT NULL,
+  `payment` bigint NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id_invoice`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `images` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `id_hall` bigint NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `halls` (
+  `id_hall` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name_hall` varchar(255) NOT NULL,
+  `base_price` bigint NOT NULL,
+  `min_guests` bigint NOT NULL,
+  `max_guests` bigint NOT NULL,
+  `min_meals` bigint NOT NULL,
+  `p_b_adults` bigint NOT NULL,
+  `p_b_children` bigint NOT NULL,
+  `p_b_bar` bigint NOT NULL,
+  `p_p_adults` bigint NOT NULL,
+  `p_p_children` bigint NOT NULL,
+  `p_p_bar` bigint NOT NULL,
+  `down_payment` bigint NOT NULL,
+  PRIMARY KEY (`id_hall`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `events_schedule` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id_hall` bigint NOT NULL,
+  `hebrew_date` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `customers_orders` (
+  `id_c` bigint NOT NULL,
+  `id_order` bigint NOT NULL,
+  `id_k` bigint NOT NULL,
+  PRIMARY KEY (`id_c`,`id_order`,`id_k`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

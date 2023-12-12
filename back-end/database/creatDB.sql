@@ -1,14 +1,15 @@
 DROP  SCHEMA if exists halls;
 CREATE SCHEMA `halls` ;
-DROP TABLE if exists 
-users,
-orders,
-managers_halls,
-invoices,
-images,
-halls,
-events_schedule,
-customers_orders;
+
+-- DROP TABLE if exists 
+-- users,
+-- orders,
+-- managers_halls,
+-- invoices,
+-- images,
+-- halls,
+-- events_schedule,
+-- customers_orders;
 
 CREATE TABLE `users` (
   `id_user` bigint unsigned NOT NULL AUTO_INCREMENT,

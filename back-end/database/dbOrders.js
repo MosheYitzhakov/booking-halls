@@ -57,6 +57,7 @@ const putOrders = async (id_order, ...args) => {
 
 
 }
+
 const postOrders = async (id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment) => {
     try {
         const sql = `

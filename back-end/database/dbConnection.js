@@ -1,10 +1,12 @@
 const mySQL = require('mysql2/promise');
+
 const pool = mySQL.createPool({
     host: 'localhost',
     user: 'root',
     password: 'Sr0583261045',
     database: 'halls'
 })
+
 const checkDBConnection = async () => {
     try {
         const connection = await pool.getConnection();
@@ -17,4 +19,5 @@ const checkDBConnection = async () => {
         return false;
     }
 }
+
 module.exports = {checkDBConnection, pool}

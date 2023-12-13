@@ -23,6 +23,7 @@ const getHalls = async (id_hall = null, date = null) => {
         return error.message
     }
 }
+
 const putSetting = async (id_hall, ...args) => {
     const [all] = [...args]
     let toSql = "";

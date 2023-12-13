@@ -33,6 +33,7 @@ const putImages = async (id_image, name) => {
     }
 
 }
+
 const postImages = async (id_hall, name) => {
     try {
         const sql = `

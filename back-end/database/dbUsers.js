@@ -9,13 +9,14 @@ const getManager = async (name, password) => {
         AND password = ?
         ORDER BY name;
         `
-        const [res] = await pool.query(sql, [name,password]);
+        const [res] = await pool.query(sql, [name, password]);
         return res;
     } catch (error) {
         return error.message
     }
 
 }
+
 const getClients = async (name) => {
     try {
         const sql = `
@@ -23,17 +24,16 @@ const getClients = async (name) => {
         FROM uesrs
         WHERE name = ? 
         ORDER BY name;`
-    const [{ affectedRows, insertId }] = await pool.query(sql, [name])
-    if (affectedRows) return await getComments(id_post,insertId)
+        const [{ affectedRows, insertId }] = await pool.query(sql, [name])
+        if (affectedRows) return await getComments(id_post, insertId)
         return 'The comment cannot be inserted'
     } catch (error) {
-       return error.message 
+        return error.message
     }
 
 }
 
-
-const postClient = async (name, phone, email = null, side) => {
+const postUsers = async (name, phone, email = null, side) => {
     try {
         const sql = `
     INSERT INTO uesrs (degree, name,phone, email, side)
@@ -46,7 +46,7 @@ const postClient = async (name, phone, email = null, side) => {
     }
 }
 
-const deleteClient = async (name) => {
+const deleteUsers = async (name) => {
     try {
         const sql = `
     DELETE FROM  users 
@@ -61,4 +61,4 @@ const deleteClient = async (name) => {
     }
 }
 
-module.exports = {}
+module.exports = { getManager, getClients, postUsers, deleteUsers }

@@ -28,18 +28,32 @@ const getOrders = async (id_hall, date = null) => {
 
 }
 
-const putOrders = async (id_order, name = null) => {
-    // try {
-    //     const sql = `
-    // INSERT INTO comments (id_post, name, email,body)
-    // VALUES (?,?,?,?)`
-    // const [{ affectedRows, insertId }] = await pool.query(sql, [id_post, name, email,body])
-    // if (affectedRows) return await getComments(id_post,insertId)
-    //     return 'The comment cannot be inserted'
-    // } catch (error) {
-    //    return error.message 
-    // }
+const putOrders = async (id_order, ...args) => {
+    const [all] = [...args]
+    let toSql = "";
 
+    for (const key in all) {
+        if (!all[key]) return -1
+        toSql += `${key}= "${all[key]}",`
+    }
+
+    if (toSql === -1) return "You cannot enter empty values"
+
+    toSql = toSql.slice(0, -1)
+    //   return toSql;
+    try {
+        const sql = `
+        UPDATE orders
+        SET ${toSql}
+        WHERE id_order = ?
+    `
+
+        const [{ affectedRows }] = await pool.query(sql, [id_order]);
+        if (affectedRows) return "updated order "
+        return 'not update'
+    } catch (error) {
+        return error.message
+    }
 
 
 }
@@ -54,24 +68,21 @@ const postOrders = async (id_hall, num_guests, num_m_adults, num_m_children, num
     } catch (error) {
         return error.message
     }
-
-
-
-}
-const deleteOrders = async (id_post, id_comment) => {
-    // try {
-    //     const sql = `
-    // DELETE FROM  comments 
-    // WHERE id_post ="${id_post}"
-    // AND id_comment= "${id_comment}"
-    // `;
-    // const [{ affectedRows}] = await pool.query(sql, [id_post,id_comment])
-    // if (affectedRows) return await getComments(id_post)
-    //     return 'The comment not deleted'
-    // } catch (error) {
-    //     console.log(123);
-    //    return error.message 
-    // }
 }
 
-module.exports = { getOrders }
+const deleteOrders = async (id_order) => {
+    try {
+        const sql = `
+    DELETE FROM  orders 
+    WHERE id_order =?
+    `;
+        const [{ affectedRows }] = await pool.query(sql, [id_order])
+        if (affectedRows) return `order ${id_order} deleted`
+        return `The order ${id_order} not deleted`
+    } catch (error) {
+        console.log(123);
+        return error.message
+    }
+}
+
+module.exports = { getOrders, putOrders, postOrders, deleteOrders }

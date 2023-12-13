@@ -16,38 +16,6 @@ const getInvoices = async () => {
 
 }
 
-const putInvoices = async (id_invoice, ...args) => {
-    
-    const [ all ] = [...args]
-    // if(!all) return "You cannot enter empty values"
-console.log(typeof all);
-    // let toSql = "";
-    // for (const key in all) {
-    //    if(all[key]===null) return -1
-    //    toSql +=`${key}= "${all[key]}",`
-    // }
-    // toSql = toSql.slice(0,-1)
-//   return toSql;
-    try {
-    //     const sql = `
-    //     UPDATE invoices
-    // SET ${toSql}
-    // WHERE id_invoice = "${id_invoice}"
-    // `
-
-
-        // const [{ affectedRows }] = await pool.query(sql);
-        // if (affectedRows) return await getTodos(id_user)
-        // return 'not update'
-        return "all"
-    } catch (error) {
-        return error.message
-    }
-}
-
-
-
-
 const postInvoices = async (id_user, payment, date, hebrew_date) => {
     try {
         const sql = `
@@ -63,20 +31,5 @@ const postInvoices = async (id_user, payment, date, hebrew_date) => {
 
 
 }
-const deleteInvoices = async (id_post, id_comment) => {
-    // try {
-    //     const sql = `
-    // DELETE FROM  comments 
-    // WHERE id_post ="${id_post}"
-    // AND id_comment= "${id_comment}"
-    // `;
-    // const [{ affectedRows}] = await pool.query(sql, [id_post,id_comment])
-    // if (affectedRows) return await getComments(id_post)
-    //     return 'The comment not deleted'
-    // } catch (error) {
-    //     console.log(123);
-    //    return error.message 
-    // }
-}
 
-module.exports = {putInvoices}
+module.exports = {getInvoices, postInvoices}

@@ -49,4 +49,5 @@ const putSetting = async (id_hall, ...args) => {
         return error.message
     }
 }
+
 module.exports = { getHalls, putSetting }

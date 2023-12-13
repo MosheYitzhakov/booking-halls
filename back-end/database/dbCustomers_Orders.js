@@ -12,3 +12,4 @@ const postCO = async (id_c, id_k,id_order)=>{
        return error.message 
     }
     }
+    module.exports={ postCO };

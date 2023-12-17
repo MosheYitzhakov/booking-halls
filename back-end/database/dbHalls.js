@@ -1,20 +1,14 @@
 const { pool } = require('./dbConnection')
 
-const getHalls = async (id_hall = null, date = null) => {
+const getHalls = async (name = null) => {
     let toSql = "";
-    if (id_hall) {
-        toSql = `WHERE id_hall = "${id_hall}"`
-    }
-    if (date) {
-        toSql = `JOIN events_schedule es
-        WHERE es.hebrew_date IS NOT "${date}"`
+    if (name) {
+        toSql = `WHERE name_hall = "${name}"`
     }
     try {
         const sql = `
         SELECT *
         FROM halls h
-       JOIN images
-        using(id_hall)
         ${toSql}
         `
         const [res] = await pool.query(sql);
@@ -23,7 +17,23 @@ const getHalls = async (id_hall = null, date = null) => {
         return error.message
     }
 }
+const getHallsForDate = async (date) => {
 
+    try {
+        const sql = `
+        SELECT * 
+        FROM halls h 
+        WHERE id_hall 
+        NOT IN (SELECT id_hall 
+            FROM events_schedule es 
+            WHERE es.hebrew_date = '${date}')
+        `
+        const [res] = await pool.query(sql);
+        return res;
+    } catch (error) {
+        return error.message
+    }
+}
 const putSetting = async (id_hall, ...args) => {
     const [all] = [...args]
     let toSql = "";
@@ -43,7 +53,7 @@ const putSetting = async (id_hall, ...args) => {
         SET ${toSql}
         WHERE id_hall = ?
     `
-        const [{ affectedRows }] = await pool.query(sql,[id_hall]);
+        const [{ affectedRows }] = await pool.query(sql, [id_hall]);
         if (affectedRows) return "updated setting "
         return 'not update'
     } catch (error) {
@@ -51,4 +61,4 @@ const putSetting = async (id_hall, ...args) => {
     }
 }
 
-module.exports = { getHalls, putSetting }
+module.exports = { getHalls, putSetting, getHallsForDate }

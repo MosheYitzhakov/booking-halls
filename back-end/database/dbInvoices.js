@@ -19,7 +19,7 @@ const getInvoices = async () => {
 const postInvoices = async (id_user, payment, date, hebrew_date) => {
     try {
         const sql = `
-    INSERT INTO comments (id_user, payment,date,hebrew_date)
+    INSERT INTO invoices (id_user, payment,date,hebrew_date)
     VALUES (?,?,?,?)`
         const [{ affectedRows, insertId }] = await pool.query(sql, [id_user, payment, date, hebrew_date])
         if (affectedRows) return insertId

@@ -33,12 +33,12 @@ const getClients = async (name) => {
 
 }
 
-const postUsers = async (name, phone, email = null, side) => {
+const postClients = async (name, phone, email = null, side) => {
     try {
         const sql = `
-    INSERT INTO uesrs (degree, name,phone, email, side)
-    VALUES (client,?,?,?,?)`
-        const [{ affectedRows, insertId }] = await pool.query(sql, [degree, name, phone, email, side])
+    INSERT INTO users (degree, name,phone, email, side)
+    VALUES (?,?,?,?,?)`
+        const [{ affectedRows, insertId }] = await pool.query(sql, ["client",name, phone, email, side])
         if (affectedRows) return insertId;
         return 'The comment cannot be inserted'
     } catch (error) {
@@ -46,14 +46,14 @@ const postUsers = async (name, phone, email = null, side) => {
     }
 }
 
-const deleteUsers = async (name) => {
+const deleteUsers = async (id_user) => {
     try {
         const sql = `
     DELETE FROM  users 
-    WHERE name =?
+    WHERE id_user =?
     `;
-        const [{ affectedRows }] = await pool.query(sql, [name])
-        if (affectedRows) return console.log(`dalated user ${name}`);
+        const [{ affectedRows }] = await pool.query(sql, [id_user])
+        if (affectedRows) return console.log(`dalated user ${id_user}`);
         return 'The comment not deleted'
     } catch (error) {
         console.log(123);
@@ -61,4 +61,4 @@ const deleteUsers = async (name) => {
     }
 }
 
-module.exports = { getManager, getClients, postUsers, deleteUsers }
+module.exports = { getManager, getClients, postClients, deleteUsers }

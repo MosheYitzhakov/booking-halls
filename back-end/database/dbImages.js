@@ -1,14 +1,18 @@
 const { pool } = require('./dbConnection')
 
-const getImages = async (id_hall) => {
- 
+const getImages = async (id_hall = null) => {
+    let toSql = ""
+    if (id_hall) {
+        toSql = ` WHERE id_hall = "${id_hall}"`
+    }
     try {
-        const sql = `
+        const sql =
+            `
         SELECT *
         FROM images
-        WHERE id_hall = ?
+       ${toSql}
         `
-        const [res] = await pool.query(sql, [id_hall]);
+        const [res] = await pool.query(sql);
         return res;
     } catch (error) {
         return error.message

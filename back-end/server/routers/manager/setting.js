@@ -3,10 +3,10 @@ const { putSetting } =require('../../../database/dbHalls')
 const router = express.Router();
 module.exports = router;
 
-router.get("/", async (req, res) => {
+router.get("/:name", async (req, res) => {
     try {
-        res.send("aaa")
-        // let postId = req.params.id_post;
+        let name = req.params.name;
+        res.send("name")
         // const user = await getComments(postId)
         // if (!user.length) {
         //     res.status(401).json('No found posts')

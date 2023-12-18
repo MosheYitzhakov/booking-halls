@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
-export default function HallForList({ hall }) {
+export default function Hall({ hall }) {
   const navigate = useNavigate();
   console.log(hall);
   const handlePageHall = async (name) => {
@@ -44,6 +43,7 @@ export default function HallForList({ hall }) {
       </CardActions>
       <CardMedia
         sx={{ flex: '1 0 auto', width: 250 ,display:"inline-block"}}
+        // image="https://www.kolhazman.co.il/wp-content/uploads/thumbs/%D7%90%D7%95%D7%9C%D7%9E%D7%99-%D7%90%D7%A8%D7%9E%D7%95%D7%A0%D7%95%D7%AA-%D7%97%D7%9F02-30q3hhvbyo4mte3mzaqe4q.jpg"
         title="green iguana"
         image={require('../images/im.jpeg')}
         alt="Live from space album cover"
@@ -52,4 +52,3 @@ export default function HallForList({ hall }) {
   );
 
 }
-

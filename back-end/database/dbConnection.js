@@ -1,13 +1,16 @@
 const mySQL = require('mysql2/promise');
 
+require("dotenv").config();
+
 const pool = mySQL.createPool({
-    host: 'localhost',
+    host: process.env.HOST,
     user: 'root',
-    password: 'Sr0583261045',
+    password: process.env.PASSWORD,
     database: 'halls'
 })
 
 const checkDBConnection = async () => {
+    console.log(process.env.HOST)
     try {
         const connection = await pool.getConnection();
         console.log("db connected");

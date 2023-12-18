@@ -32,11 +32,11 @@ const putOrders = async (id_order, ...args) => {
     let toSql = "";
 
     for (const key in all) {
-        if (!all[key]) return -1
+        if(all[key] !== null)
         toSql += `${key}= "${all[key]}",`
     }
 
-    if (toSql === -1) return "You cannot enter empty values"
+    if (!toSql) return "You cannot enter empty values"
 
     toSql = toSql.slice(0, -1)
     //   return toSql;
@@ -48,7 +48,7 @@ const putOrders = async (id_order, ...args) => {
     `
 
         const [{ affectedRows }] = await pool.query(sql, [id_order]);
-        if (affectedRows) return "updated order "
+        if (affectedRows) return "updated order"
         return 'not update'
     } catch (error) {
         return error.message

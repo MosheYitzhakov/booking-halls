@@ -39,17 +39,17 @@ const putSetting = async (id_hall, ...args) => {
     let toSql = "";
 
     for (const key in all) {
-        if (!all[key]) return -1
+        if(all[key] !== null)
         toSql += `${key}= "${all[key]}",`
     }
 
-    if (toSql === -1) return "You cannot enter empty values"
+    if (!toSql) return "You cannot enter empty values"
 
     toSql = toSql.slice(0, -1)
     //   return toSql;
     try {
         const sql = `
-        UPDATE hall
+        UPDATE halls
         SET ${toSql}
         WHERE id_hall = ?
     `

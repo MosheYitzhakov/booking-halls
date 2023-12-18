@@ -7,7 +7,6 @@ const getManager = async (name, password) => {
         FROM uesrs
         WHERE name = ?
         AND password = ?
-        ORDER BY name;
         `
         const [res] = await pool.query(sql, [name, password]);
         return res;
@@ -17,16 +16,15 @@ const getManager = async (name, password) => {
 
 }
 
-const getClients = async (name) => {
+const getClients = async (id_user) => {
     try {
         const sql = `
         SELECT *
         FROM uesrs
-        WHERE name = ? 
-        ORDER BY name;`
-        const [{ affectedRows, insertId }] = await pool.query(sql, [name])
-        if (affectedRows) return await getComments(id_post, insertId)
-        return 'The comment cannot be inserted'
+        WHERE id_user = ? 
+  `
+        const [res] = await pool.query(sql, [id_user])
+        return res;
     } catch (error) {
         return error.message
     }
@@ -38,7 +36,7 @@ const postClients = async (name, phone, email = null, side) => {
         const sql = `
     INSERT INTO users (degree, name,phone, email, side)
     VALUES (?,?,?,?,?)`
-        const [{ affectedRows, insertId }] = await pool.query(sql, ["client",name, phone, email, side])
+        const [{ affectedRows, insertId }] = await pool.query(sql, ["client", name, phone, email, side])
         if (affectedRows) return insertId;
         return 'The comment cannot be inserted'
     } catch (error) {

@@ -1,5 +1,19 @@
 const { pool } = require('./dbConnection')
 
+const getCO =async (id_order) => {
+    try {
+        const sql = `
+        SELECT *
+        FROM customers_orders
+        WHERE id_order = ? `
+        const [res] = await pool.query(sql, [id_order])
+    return res;
+    } catch (error) {
+        return error.message
+    }
+
+}
+
 const postCO = async (id_c, id_k, id_order) => {
     try {
         const sql = `
@@ -27,4 +41,4 @@ const deleteCO = async (id_order) => {
     }
 }
 
-module.exports = { postCO, deleteCO };
+module.exports = { postCO, deleteCO, getCO };

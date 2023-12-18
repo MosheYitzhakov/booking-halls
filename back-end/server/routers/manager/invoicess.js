@@ -1,41 +1,36 @@
 const express = require('express');
-const { putInvoices } =require('../../../database/dbInvoices')
+const { postInvoices, getInvoices } = require('../../../database/dbInvoices');
+const { formatJewishDateInHebrew, toJewishDate } = require('jewish-date');
 const router = express.Router();
 module.exports = router;
 
-router.get('/', async (req, res) => {
+router.get('/:id_hall', async (req, res) => {
     try {
-        // const data = req.body
-        // const user = await putInvoices(1, data)
-
-        // res.send(user)
-        res.send("user")
-        // let postId = req.params.id_post;
-        // if (!user.length) {
-        //     res.status(401).json('No found posts')
-        // } else {
-        //     res.send(user)
-        // }
+        let id_hall = req.params.id_hall;
+        const user = await getInvoices(id_hall)
+        if (!user.length) {
+            res.status(401).json('No found invoices')
+        } else {
+            res.send(user)
+        }
     } catch (error) {
         res.send(error.message)
     }
 })
-.put('/:id_invoices', async (req, res) => {
-    try {
-        let id_invoices = req.params.id_invoices;
-        const data = req.body
-        console.log(Object.keys(data).length);
-        if(!Object.keys(data).length){ res.send("length 0") }
-else{
+    .post('/', async (req, res) => {
+        try {
 
-    res.send("not body to put")
-}
-        // const user = await putInvoices(id_invoices, data)
-        
-        // if(!user){
-        // res.send(user)
-        // res.send(user)
-    } catch (error) {
-        res.send(error.message)
-    }
-})
+            const id_user = req.body.id_user
+            const payment = req.body.payment
+
+            const pI = await postInvoices(id_user, payment, new Date().toLocaleString("he-IL"), formatJewishDateInHebrew(toJewishDate(new Date())))
+            if (typeof pI === "number") {
+                res.send(`posted invoices number ${pI}`)
+            } else {
+                res.send(pI)
+            }
+
+        } catch (error) {
+            res.send(error.message)
+        }
+    })

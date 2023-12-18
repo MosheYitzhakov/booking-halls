@@ -3,13 +3,12 @@ const {getOrders } =require('../../../database/dbOrders')
 const router = express.Router();
 module.exports = router;
 
-router.get('/', async (req, res) => {
+router.get('/:idHall', async (req, res) => {
     try {
-        // res.send('allOrders')
-        // let postId = req.params.id_post;
-        const user = await getOrders(1)
+        let idHall = req.params.idHall;
+        const user = await getOrders(idHall)
         if (!user.length) {
-            res.status(401).json('No found posts')
+            res.status(401).json('No found orders')
         } else {
             res.send(user)
         }
@@ -17,19 +16,19 @@ router.get('/', async (req, res) => {
         res.send(error.message)
     }
 })
-.get('/:date', async (req, res) => {
+.get('/futureOrders/:idHall/', async (req, res) => {
     try {
-        res.send("order-id")
-        // let postId = req.params.id_post;
-        // const user = await getComments(postId)
-        // if (!user.length) {
-        //     res.status(401).json('No found posts')
-        // } else {
-        //     res.send(user)
-        // }
+        let idHall = req.params.idHall;
+        const user = await getOrders(idHall,new Date().toISOString().split('T')[0])
+        if (!user.length) {
+            res.status(401).json('No found orders')
+        } else {
+            res.send(user)
+        }
     } catch (error) {
         res.send(error.message)
     }
+    
 })
 .post('/',async (req,res)=>{
     try {

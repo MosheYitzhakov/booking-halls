@@ -102,7 +102,7 @@ router.get('/', async (req, res) => {
                 await deleteUsers(clientCId)
                 return res.send("client k can't updated")
             }
-            const orderId = await postOrders(id_hall, allData.num_guestsO, allData.num_m_adultsO, allData.num_m_childrenO, allData.num_m_barO, allData.typeO, allData.total_paymentO)
+            const orderId = await postOrders(id_hall, allData.num_guestsO, allData.num_m_adultsO, allData.num_m_childrenO, allData.num_m_barO, allData.typeO, allData.total_paymentO,allData.hebrew_dateD,allData.dateD )
 
             const pCO = await postCO(clientCId, clientKId, orderId)
             const pE = await postEvents(id_hall, allData.hebrew_dateD, allData.dateD)

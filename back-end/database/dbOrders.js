@@ -4,18 +4,18 @@ const getOrders = async (id_hall, date = null) => {
     let toSql = "WHERE id_hall = ?";
     if (date) {
         toSql = `
-        JOIN events_schedule es
-        USING(id_hall)
-        WHERE es.date >= '${date}'
+        WHERE o.date >= '${date}'
         AND id_hall = ?`
     }
     try {
         const sql = `
-        SELECT *, K.name AS nameA,C.name AS nameB
+        SELECT o.*, K.name AS nameK,C.name AS nameC,
+        K.phone AS phoneK,C.phone AS phoneC,
+        K.email AS emailK,C.email AS emailC
         FROM customers_orders
         JOIN users AS C ON (id_c=C.id_user)
         JOIN users AS K ON (id_k=K.id_user)
-        JOIN orders
+        JOIN orders o
         USING(id_order)
         ${toSql}
         order by customers_orders.id_order
@@ -25,7 +25,6 @@ const getOrders = async (id_hall, date = null) => {
     } catch (error) {
         return error.message
     }
-
 }
 
 const putOrders = async (id_order, ...args) => {
@@ -58,12 +57,12 @@ const putOrders = async (id_order, ...args) => {
 
 }
 
-const postOrders = async (id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment) => {
+const postOrders = async (id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment, hebrew_date) => {
     try {
         const sql = `
-    INSERT INTO orders (id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment)
-    VALUES (?,?,?,?,?,?,?)`
-        const [{ affectedRows, insertId }] = await pool.query(sql, [id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment])
+    INSERT INTO orders (id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment, hebrew_date, date)
+    VALUES (?,?,?,?,?,?,?,?,?)`
+        const [{ affectedRows, insertId }] = await pool.query(sql, [id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment, hebrew_date, date])
         if (affectedRows) return insertId
         return 'The comment cannot be inserted'
     } catch (error) {

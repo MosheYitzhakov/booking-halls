@@ -21,6 +21,7 @@ export const Home = () => {
         }
         name()
     }, [])
+    console.log(halls);
     return (
         <>
            
@@ -29,10 +30,8 @@ export const Home = () => {
           
             <div>
              { halls &&  
-             <> <HallForList date={date} hall={halls}/>
-                <HallForList hall={halls}/>
-                <HallForList hall={halls}/>
-                <HallForList hall={halls}/>
+             <> <HallForList date={date} halls={halls}/>
+               
                 
                 </>
                  } 

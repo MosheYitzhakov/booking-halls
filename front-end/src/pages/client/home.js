@@ -9,6 +9,7 @@ export const Home = () => {
 
     const [halls, setHalls] = useState()
     const [date, setDate] = useState()
+    const [dateE, setDateE] = useState()
     useEffect(() => {
         async function name() {
             try {
@@ -27,9 +28,9 @@ export const Home = () => {
         <>
 
             <SelectionButton names={nameHalls ? nameHalls : ""} setDate={setDate}/>
-            <Calendar setDate={setDate} date={date}/>
+            <Calendar setDate={setDate} dateE={dateE} setDateE={setDateE} />
             <div>
-                {halls && <HallForList halls={halls} date={date} />
+                {halls && <HallForList halls={halls} dateE={dateE} date={date}/>
 
                 }
             </div>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Hall from './oneHall';
 import instance from '../API';
 
-export default function HallForList({ halls, date }) {
+export default function HallForList({ halls, dateE,date }) {
   const [hallByDate, setHallByDate] = useState()
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function HallForList({ halls, date }) {
     <div>
       {
         mapData.map((hall, i) => {
-          return <Hall key={i} hall={hall} />
+          return <Hall key={i} hall={hall} dateE={dateE}/>
         })}
 
     </div>);

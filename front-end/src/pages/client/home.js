@@ -26,12 +26,11 @@ export const Home = () => {
     return (
         <>
 
-            <SelectionButton names={nameHalls ? nameHalls : ""} />
-            <Calendar setDate={setDate} />
-
+            <SelectionButton names={nameHalls ? nameHalls : ""} setDate={setDate}/>
+            <Calendar setDate={setDate} date={date}/>
             <div>
-                {halls &&
-                    <HallForList date={date} halls={halls} />
+                {halls && <HallForList halls={halls} date={date} />
+
                 }
             </div>
 

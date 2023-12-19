@@ -8,7 +8,7 @@ const { getImages } = require('../../database/dbImages')
 const { postClients, deleteUsers } = require('../../database/dbUsers')
 const { postOrders } = require('../../database/dbOrders')
 const { postCO } = require('../../database/dbCustomers_Orders')
-const { postEvents } = require('../../database/dbEventsSchedule')
+const { postEvents, getEvents } = require('../../database/dbEventsSchedule')
 const { postInvoices } = require('../../database/dbInvoices')
 const router = express.Router();
 module.exports = router;
@@ -21,8 +21,13 @@ router.get('/', async (req, res) => {
 
         }
         const image = await getImages()
-        image.map(v => {
-            halls[v.id_hall - 1] = { ...halls[v.id_hall - 1], images: [...halls[v.id_hall - 1].images, v] }
+        halls.map(v => {
+            for (let i = 0; i < image.length; i++) {
+                if(v.id_hall < image[i].id_hall) return;
+                if(v.id_hall === image[i].id_hall){
+                    v.images.push(image[i])
+                }
+            }
         })
         if (!halls.length || !image.length) {
             res.status(401).json('No found hall')
@@ -47,22 +52,37 @@ router.get('/', async (req, res) => {
             res.send(error.message)
         }
     })
-    .get('/date/:date', async (req, res) => {
+    .get('/dates/', async (req, res) => {
+        try {
+            // const date = req.params.date;
+            const dates = await getEvents()
+            if (!dates.length) throw new Error(`dates not found`)
+
+            res.send(dates)
+        } catch (error) {
+            res.send(error.message)
+        }
+    })
+    .get('/hallsForDate/:date', async (req, res) => {
         try {
             const date = req.params.date;
-            console.log(date);
             const halls = await getHallsForDate(date)
-            const image = await getImages()
-            console.log(image);
-            image.map(v => {
-                console.log(v);
-                halls[v.id_hall - 1] = { ...halls[v.id_hall - 1], images: [...images, v] }
-            })
-            if (!halls.length) {
-                res.status(401).json('No found hall')
-            } else {
-                res.send(halls)
+            if (!halls.length) res.status(401).json('No found hall')
+            for (let i = 0; i < halls.length; i++) {
+                halls[i].images = [];
+
             }
+            const image = await getImages()
+            halls.map(v => {
+                for (let i = 0; i < image.length; i++) {
+                    if(v.id_hall < image[i].id_hall) return;
+                    if(v.id_hall ===image[i].id_hall){
+                        console.log(image[i]);
+                        v.images.push(image[i])
+                    }
+                }
+            })
+            res.send(halls)
         } catch (error) {
             res.send(error.message)
         }
@@ -102,7 +122,7 @@ router.get('/', async (req, res) => {
                 await deleteUsers(clientCId)
                 return res.send("client k can't updated")
             }
-            const orderId = await postOrders(id_hall, allData.num_guestsO, allData.num_m_adultsO, allData.num_m_childrenO, allData.num_m_barO, allData.typeO, allData.total_paymentO,allData.hebrew_dateD,allData.dateD )
+            const orderId = await postOrders(id_hall, allData.num_guestsO, allData.num_m_adultsO, allData.num_m_childrenO, allData.num_m_barO, allData.typeO, allData.total_paymentO, allData.hebrew_dateD, allData.dateD)
 
             const pCO = await postCO(clientCId, clientKId, orderId)
             const pE = await postEvents(id_hall, allData.hebrew_dateD, allData.dateD)

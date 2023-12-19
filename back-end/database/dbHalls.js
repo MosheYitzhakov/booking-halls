@@ -10,6 +10,7 @@ const getHalls = async (name = null) => {
         SELECT *
         FROM halls h
         ${toSql}
+        ORDER BY name_hall;
         `
         const [res] = await pool.query(sql);
         return res;

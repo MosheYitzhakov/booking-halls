@@ -2,7 +2,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const SelectionButton = () => {
+export const SelectionButton = ({names}) => {
     const navigate = useNavigate()
     const handlePageHall = async (name) => {
         if (name === "all halls") {
@@ -21,7 +21,9 @@ export const SelectionButton = () => {
         //   return setIncorrect(true)
         // }
     };
-    const top100Films = [{ label: "hall" }, { label: "all halls" }]
+    // const top100Films = [{ label: "hall" }, { label: "all halls" }]
+    const top100Films = [...names,{label:"all halls"}]
+    console.log(top100Films);
     return (
         <div style={{ display: "inline-block" }}>
             <Autocomplete

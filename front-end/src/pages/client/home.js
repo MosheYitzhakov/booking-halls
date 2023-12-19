@@ -6,10 +6,9 @@ import { SelectionButton } from '../../components/selectionButton';
 import instance from '../../API';
 
 export const Home = () => {
-    
+
     const [halls, setHalls] = useState()
     const [date, setDate] = useState()
-    console.log("this is in home " + date);
     useEffect(() => {
         async function name() {
             try {
@@ -21,20 +20,19 @@ export const Home = () => {
         }
         name()
     }, [])
-    console.log(halls);
+    const nameHalls = halls?.map(({ name_hall }) => {
+        return { label: name_hall }
+    })
     return (
         <>
-           
-                <SelectionButton/>
-                <Calendar setDate={setDate}/>
-          
+
+            <SelectionButton names={nameHalls ? nameHalls : ""} />
+            <Calendar setDate={setDate} />
+
             <div>
-             { halls &&  
-             <> <HallForList date={date} halls={halls}/>
-               
-                
-                </>
-                 } 
+                {halls &&
+                    <HallForList date={date} halls={halls} />
+                }
             </div>
 
         </>

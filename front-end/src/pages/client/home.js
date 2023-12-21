@@ -4,12 +4,16 @@ import HallForList from "../../components/listHall";
 import Calendar from '../../components/calendar';
 import { SelectionButton } from '../../components/selectionButton';
 import instance from '../../API';
+import { UseEffect } from '../../hooks/useEffect';
 
 export const Home = () => {
 
     const [halls, setHalls] = useState()
     const [date, setDate] = useState()
     const [dateE, setDateE] = useState()
+
+    // const getHalls = UseEffect('/')
+    // console.log(getHalls);
     useEffect(() => {
         async function name() {
             try {

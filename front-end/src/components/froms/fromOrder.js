@@ -12,10 +12,8 @@ import BasicTable from '../tableOredr';
 
 
 const theme = createTheme();
-// const change =(e)=>{
-// console.log(e);
-// }
-export function FromOrder() {
+
+export function FromOrder({setActive}) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -23,6 +21,9 @@ export function FromOrder() {
             email: data.get('email'),
             password: data.get('password'),
         });
+        setActive((prv)=>{
+            return prv+1;
+          })
     };
 
     return (
@@ -42,9 +43,7 @@ export function FromOrder() {
                         py: 6,
                     }}
                 >
-                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar> */}
+
                     <Typography component="h1" variant="h5">
                         פריטי הזמנה
                     </Typography>

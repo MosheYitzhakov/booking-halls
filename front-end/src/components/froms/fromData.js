@@ -13,21 +13,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const theme = createTheme();
 
+
+
+export function FromData({setActive}) {
 const handleSubmit = (event) => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
@@ -35,10 +27,13 @@ const handleSubmit = (event) => {
     email: data.get('email'),
     password: data.get('password'),
     family: data.get("lastName"),
-  });
-};
-export function FromData() {
 
+  });
+  setActive((prv)=>{
+    return prv+1;
+  })
+
+};
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
@@ -164,6 +159,7 @@ export function FromData() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              // onClick={()=> handleButton(setActive)}
             >
             המשך
             </Button>

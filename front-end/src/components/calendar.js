@@ -36,7 +36,7 @@ export default function Calendar({ setDate, dateE = null, setDateE, idHall = nul
     }
 
     return (
-        <div style={{ width: "40%", display: "inline-block" }}>
+        <div style={{ width: "40%", display: "inline-block",margin:12 }}>
             <ReactJewishDatePicker
                 value={dateE ? dateE : basicJewishDay}
                 isHebrew

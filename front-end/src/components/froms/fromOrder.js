@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import BasicTable from '../tableOredr';
 
 
 
@@ -104,10 +105,9 @@ export function FromOrder() {
                                         autoComplete="new-password"
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
-                                    
+                                <Grid item xs={8}>
                                     {/* <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                    // control={<Checkbox value="allowExtraEmails" color="primary" />}
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 /> */}
                                     <Grid item xs={12}>

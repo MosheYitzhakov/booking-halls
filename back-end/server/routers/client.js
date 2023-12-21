@@ -63,6 +63,17 @@ router.get('/', async (req, res) => {
             res.send(error.message)
         }
     })
+    .get('/dates/:date', async (req, res) => {
+        try {
+            const date = req.params.date;
+            const dates = await getEvents(date)
+            if (!dates.length) throw new Error(`dates not found`)
+
+            res.send(dates)
+        } catch (error) {
+            res.send(error.message)
+        }
+    })
     .get('/hallsForDate/:date', async (req, res) => {
         try {
             const date = req.params.date;

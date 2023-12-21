@@ -56,14 +56,14 @@ export const Hall = ({ dateState }) => {
             <h1> {`${name} אולמי`}</h1>
             <div>
                 <Calendar setDate={setDate} dateE={dateE} setDateE={setDateE}
-               idHall={hall ? hall.id_hall: " "}
+               idHall={hall?.id_hall}
                 />
             </div>
             <div style={{ display: "inline-block" }}>
                 <FullWidthTabs />
             </div>
             <div style={{ display: "inline-block" }}>
-                <BasicTable />
+                {/* <BasicTable /> */}
             </div>
             <ContactUs />
         </div>)

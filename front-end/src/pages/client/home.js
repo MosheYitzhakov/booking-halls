@@ -28,7 +28,7 @@ export const Home = () => {
         <>
 
             <SelectionButton names={nameHalls ? nameHalls : ""} setDate={setDate}/>
-            <Calendar setDate={setDate} dateE={dateE} setDateE={setDateE} />
+            <Calendar setDate={setDate} dateE={dateE} setDateE={setDateE}/>
             <div>
                 {halls && <HallForList halls={halls} dateE={dateE} date={date}/>
 

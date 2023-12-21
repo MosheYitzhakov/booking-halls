@@ -25,7 +25,13 @@ export function FromOrder({setActive}) {
             return prv+1;
           })
     };
-
+    const handleButton = (setActive) => {
+  
+        setActive((prv) => {
+          return prv - 1;
+        })
+    
+      };
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm">
@@ -121,16 +127,39 @@ export function FromOrder({setActive}) {
 
                                         </fieldset>
                                     </Grid>
+                                    
                                 </Grid>
+                                <Grid item xs={6}>
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                onClick={()=> handleButton(setActive)}
+                >
+                  חזור
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                // onClick={()=> handleButton(setActive)}
+                >
+                  המשך
+                </Button>
+              </Grid>
                             </Grid>
-                            <Button
+                            {/* <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 המשך
-                            </Button>
+                            </Button> */}
                     </Box>
                 </Box>
             </Container>

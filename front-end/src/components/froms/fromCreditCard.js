@@ -3,9 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -26,6 +23,13 @@ export function FromCreditCard({setActive}) {
    
   };
 
+  const handleButton = (setActive) => {
+    setActive((prv) => {
+      return prv - 1;
+    })
+
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
@@ -43,22 +47,12 @@ export function FromCreditCard({setActive}) {
             py: 6,
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
             אשראי
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} >
-                {/* <TextField
-                  fullWidth
-                  disabled
-                  id="outlined-disabled"
-                  label="תאריך הנבחר"
-                  defaultValue="Hello World"
-                /> */}
                 <Typography variant="h5"> סה"כ לתשלום 10500 ש"ח</Typography>
                 <Typography variant="h5">דמי מקדמה 500 ש"ח לסגירת ההזמנה</Typography>
               </Grid>
@@ -84,7 +78,7 @@ export function FromCreditCard({setActive}) {
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
@@ -132,8 +126,19 @@ export function FromCreditCard({setActive}) {
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid> */}
-            </Grid>
-            <Button
+               <Grid item xs={6}>
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                onClick={()=> handleButton(setActive)}
+                >
+                  חזור
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+              <Button
               type="submit"
               fullWidth
               variant="contained"
@@ -141,6 +146,16 @@ export function FromCreditCard({setActive}) {
             >
               סיים הזמנה
             </Button>
+              </Grid>
+            </Grid>
+            {/* <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              סיים הזמנה
+            </Button> */}
 
           </Box>
         </Box>

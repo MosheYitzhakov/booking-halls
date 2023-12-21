@@ -19,21 +19,28 @@ const theme = createTheme();
 
 
 
-export function FromData({setActive}) {
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  console.log({
-    email: data.get('email'),
-    password: data.get('password'),
-    family: data.get("lastName"),
+export function FromData({ setActive }) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+      family: data.get("lastName"),
 
-  });
-  setActive((prv)=>{
-    return prv+1;
-  })
+    });
+    setActive((prv) => {
+      return prv + 1;
+    })
 
-};
+  };
+  // const handleButton = (setActive) => {
+  
+  //   setActive((prv) => {
+  //     return prv - 1;
+  //   })
+
+  // };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
@@ -46,7 +53,7 @@ const handleSubmit = (event) => {
             alignItems: 'center',
             boxShadow: 3,
             borderRadius: 2,
-            background:"white",
+            background: "white",
             px: 4,
             py: 6,
           }}
@@ -74,7 +81,7 @@ const handleSubmit = (event) => {
                   label="משפחה"
                   name="lastName"
                   autoComplete="family"
-                 
+
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -86,7 +93,7 @@ const handleSubmit = (event) => {
                   id="firstName"
                   type="number"
                   label="טלפון"
-                 
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -126,7 +133,7 @@ const handleSubmit = (event) => {
                   id="firstName"
                   type="number"
                   label="טלפון"
-                  //
+                //
                 />
               </Grid>
               <Grid item xs={12}>
@@ -142,27 +149,49 @@ const handleSubmit = (event) => {
               </Grid>
 
               <Grid item xs={12}>
-              <fieldset>
-                <p>  מי מגיש את הבקשה</p>
-                <label><input type='checkbox' 
-                //  checked={false}
-                 />צד חתן </label>
-                <label><input type='checkbox' 
-                //  checked={false}
-                 /> צד כלה </label>
-                
+                <fieldset>
+                  <p>  מי מגיש את הבקשה</p>
+                  <label><input type='checkbox'
+                  //  checked={false}
+                  />צד חתן </label>
+                  <label><input type='checkbox'
+                  //  checked={false}
+                  /> צד כלה </label>
+
                 </fieldset>
               </Grid>
+              {/* <Grid item xs={6}>
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                onClick={()=> handleButton(setActive)}
+                >
+                  חזור
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                // onClick={()=> handleButton(setActive)}
+                >
+                  המשך
+                </Button>
+              </Grid> */}
             </Grid>
             <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              // onClick={()=> handleButton(setActive)}
-            >
-            המשך
-            </Button>
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                המשך
+                            </Button>
+
           </Box>
         </Box>
       </Container>

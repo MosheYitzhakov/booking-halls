@@ -30,7 +30,6 @@ export const Hall = ({ dateState }) => {
         dataHall()
 
     }, [])
-console.log(hall);
     return (
         <div >
             <Nuvbar />
@@ -38,13 +37,16 @@ console.log(hall);
             <Images imgs={hall?.images} />
             
 
-            <div >
+            {/* <div >
                 <Calendar setDate={setDate} dateE={dateE} setDateE={setDateE}
                     idHall={hall?.id_hall}
                 />
-            </div>
+            </div> */}
             <div style={{ display: "inline-block" ,backgroundColor:"#FFF8DC"}}>
-                <FullWidthTabs setDate={setDate} dateE={dateE} setDateE={setDateE} date={date}/>
+                <FullWidthTabs 
+                setDate={setDate} dateE={dateE} setDateE={setDateE} date={date}
+                hall={hall}
+               />
             </div>
             <div style={{ display: "inline-block" }}>
                 {/* <BasicTable /> */}

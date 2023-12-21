@@ -9,17 +9,17 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicTable from '../tableOredr';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import Calendar from '../calendar';
 
 
 
 const theme = createTheme();
 
-export function FromOrder({ setActive }) {
-
-    const [age, setAge] = useState('');
+export function FromOrder({ setActive, setDate, dateE = null, setDateE, hall }) {
+    const [typeO, setTypeO] = useState('b');
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setTypeO(event.target.value);
     };
 
     const handleSubmit = (event) => {
@@ -62,14 +62,21 @@ export function FromOrder({ setActive }) {
                         פריטי הזמנה
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                                <Grid container spacing={2}>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} >
-                                <TextField
+                                {/* <TextField
                                     fullWidth
                                     disabled
                                     id="outlined-disabled"
                                     label="תאריך הנבחר"
                                     defaultValue="Hello World"
+
+                                /> */}
+                                <Typography component="h1" variant="h5">
+                                    תאריך
+                                </Typography>
+                                <Calendar setDate={setDate} dateE={dateE} setDateE={setDateE}
+                                    idHall={hall.id_hall}
                                 />
                             </Grid>
                             <Grid item xs={7} >
@@ -85,69 +92,24 @@ export function FromOrder({ setActive }) {
 
                                 />
                             </Grid>
-                            {/* <Grid item xs={12} >
-                                <TextField
-                                    required
-                                    fullWidth
-                                    type="number"
-                                    id="lastName"
-                                    label="כמה מנות מבוגר"
-                                    name="lastName"
-                                    autoComplete="family-name"
-                                />
-                            </Grid> */}
-                            {/* <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    type="number"
-                                    id="email"
-                                    label="כמה מנות ילדים"
-                                    name="email"
-                                    autoComplete="email"
-                                />
-                            </Grid> */}
 
-                            {/* <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="כמה מנות בר"
-                                    type="number"
-                                    id="password"
-                                    autoComplete="new-password"
-                                />
-                            </Grid> */}
-                            {/* <Grid item xs={8}>
-                                <Grid item xs={12}>
-                                    <fieldset>
-                                        <p> סוג מנות </p>
-                                        <label><input type='checkbox'
-                                        /> פרמיום </label>
-                                        <label><input type='checkbox'
-                                        />  רגיל </label>
-                                    </fieldset>
-                                </Grid>
-
-                            </Grid> */}
-                        <Grid item xs={5}>   <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={age}
-                                    label="Age"
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </FormControl>
-                            </Grid> 
+                            <Grid item xs={5}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label"> רמת מנות </InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={typeO}
+                                        label=" רמת מנות "
+                                        onChange={handleChange}
+                                    >
+                                        <MenuItem  value={"p"}> פרמיום </MenuItem>
+                                        <MenuItem value={"b"}> רגיל </MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
                             <Grid item xs={12}>
-                                <BasicTable />
+                                <BasicTable hall={hall} typeO={typeO}/>
                             </Grid>
                             <Grid item xs={6}>
                                 <Button

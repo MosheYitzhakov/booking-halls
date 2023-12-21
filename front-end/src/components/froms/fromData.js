@@ -1,14 +1,9 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -19,28 +14,52 @@ const theme = createTheme();
 
 
 
-export function FromData({ setActive }) {
+export function FromData({ setActive, setDataOrder, dataOrder }) {
+  const [checkedC, setCheckedC] = useState(false);
+  const [checkedK, setCheckedK] = useState(false);
+
+
+
+  const handleChange = (s) => {
+    if (s === 'c') {
+      setCheckedC(!checkedC)
+      setCheckedK(false)
+    } else {
+      setCheckedC(false)
+      setCheckedK(!checkedK)
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      family: data.get("lastName"),
+
+      emailC: data.get('emailC'),
+      phoneC: data.get('phoneC'),
+      nameC: data.get("nameC"),
+      emailK: data.get('emailK'),
+      phoneK: data.get('phoneK'),
+      nameK: data.get("nameK"),
+      submits: checkedC ? "c" : checkedK ? "k" : "",
 
     });
+    setDataOrder({
+
+      emailC: data.get('emailC'),
+      phoneC: data.get('phoneC'),
+      nameC: data.get("nameC"),
+      emailK: data.get('emailK'),
+      phoneK: data.get('phoneK'),
+      nameK: data.get("nameK"),
+      submits: checkedC ? "c" : checkedK ? "k" : "",
+
+    })
     setActive((prv) => {
       return prv + 1;
     })
 
   };
-  // const handleButton = (setActive) => {
-  
-  //   setActive((prv) => {
-  //     return prv - 1;
-  //   })
 
-  // };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
@@ -58,11 +77,9 @@ export function FromData({ setActive }) {
             py: 6,
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar> */}
+
           <Typography component="h1" variant="h5">
-            פרטים אישים
+            פרטים
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -77,21 +94,19 @@ export function FromData({ setActive }) {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
                   label="משפחה"
-                  name="lastName"
-                  autoComplete="family"
-
+                  name="nameC"
+                  defaultValue={dataOrder?.nameC}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="phoneC"
+                  defaultValue={dataOrder?.phoneC}
                   required
                   fullWidth
-                  id="firstName"
-                  type="number"
+                  type="tel"
                   label="טלפון"
 
                 />
@@ -103,8 +118,9 @@ export function FromData({ setActive }) {
                   id="email"
                   label="איימיל"
                   type='email'
-                  name="email"
-                  autoComplete="email"
+                  name="emailC"
+                  defaultValue={dataOrder?.emailC}
+                // autoComplete="email"
                 />
               </Grid>
 
@@ -120,18 +136,20 @@ export function FromData({ setActive }) {
                   fullWidth
                   id="lastName"
                   label="משפחה"
-                  name="lastName"
+                  name="nameK"
+                  defaultValue={dataOrder?.nameK}
                   autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="phoneK"
+                  defaultValue={dataOrder?.phoneK}
                   required
                   fullWidth
                   id="firstName"
-                  type="number"
+                  type="tel"
                   label="טלפון"
                 //
                 />
@@ -143,54 +161,37 @@ export function FromData({ setActive }) {
                   id="email"
                   label="איימיל"
                   type='email'
-                  name="email"
+                  name="emailK"
+                  defaultValue={dataOrder?.emailK}
                   autoComplete="email"
                 />
               </Grid>
 
               <Grid item xs={12}>
                 <fieldset>
-                  <p>  מי מגיש את הבקשה</p>
-                  <label><input type='checkbox'
-                  //  checked={false}
-                  />צד חתן </label>
-                  <label><input type='checkbox'
-                  //  checked={false}
-                  /> צד כלה </label>
+                  <p> מגיש  הבקשה</p>
+                  <label> צד חתן <input type='checkbox'
+                    checked={checkedK}
+                    onChange={() => handleChange("k")}
+                  /></label>
+
+                  <label> צד כלה <input type='checkbox'
+                    checked={checkedC}
+                    onChange={() => handleChange('c')}
+                  /></label>
 
                 </fieldset>
               </Grid>
-              {/* <Grid item xs={6}>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                onClick={()=> handleButton(setActive)}
-                >
-                  חזור
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                // onClick={()=> handleButton(setActive)}
-                >
-                  המשך
-                </Button>
-              </Grid> */}
+
             </Grid>
             <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                המשך
-                            </Button>
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              המשך
+            </Button>
 
           </Box>
         </Box>

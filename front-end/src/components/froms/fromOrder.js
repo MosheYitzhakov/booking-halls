@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,12 +8,20 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicTable from '../tableOredr';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
 
 const theme = createTheme();
 
-export function FromOrder({setActive}) {
+export function FromOrder({ setActive }) {
+
+    const [age, setAge] = useState('');
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -21,17 +29,17 @@ export function FromOrder({setActive}) {
             email: data.get('email'),
             password: data.get('password'),
         });
-        setActive((prv)=>{
-            return prv+1;
-          })
+        setActive((prv) => {
+            return prv + 1;
+        })
     };
     const handleButton = (setActive) => {
-  
+
         setActive((prv) => {
-          return prv - 1;
+            return prv - 1;
         })
-    
-      };
+
+    };
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm">
@@ -44,7 +52,7 @@ export function FromOrder({setActive}) {
                         alignItems: 'center',
                         boxShadow: 3,
                         borderRadius: 2,
-                        background:"white",
+                        background: "white",
                         px: 4,
                         py: 6,
                     }}
@@ -54,8 +62,17 @@ export function FromOrder({setActive}) {
                         פריטי הזמנה
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
+                                <Grid container spacing={2}>
                             <Grid item xs={12} >
+                                <TextField
+                                    fullWidth
+                                    disabled
+                                    id="outlined-disabled"
+                                    label="תאריך הנבחר"
+                                    defaultValue="Hello World"
+                                />
+                            </Grid>
+                            <Grid item xs={7} >
                                 <TextField
                                     autoComplete="given-name"
                                     name="firstName"
@@ -68,98 +85,92 @@ export function FromOrder({setActive}) {
 
                                 />
                             </Grid>
-                                <Grid item xs={12} >
-                                    <TextField
-                                        fullWidth
-                                        disabled
-                                        id="outlined-disabled"
-                                        label="תאריך הנבחר"
-                                        defaultValue="Hello World"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} >
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        type="number"
-                                        id="lastName"
-                                        label="כמה מנות מבוגר"
-                                        name="lastName"
-                                        autoComplete="family-name"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        type="number"
-                                        id="email"
-                                        label="כמה מנות ילדים"
-                                        name="email"
-                                        autoComplete="email"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        name="password"
-                                        label="כמה מנות בר"
-                                        type="number"
-                                        id="password"
-                                        autoComplete="new-password"
-                                    />
-                                </Grid>
-                                <Grid item xs={8}>
-                                    {/* <FormControlLabel
-                                    // control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                /> */}
-                                    <Grid item xs={12}>
-                                        <fieldset>
-                                            <p> סוג מנות</p>
-                                            <label><input type='checkbox'
-                                            //  checked={false}
-                                            /> פרמיום </label>
-                                            <label><input type='checkbox'
-                                            //  checked={false}
-                                            />  רגיל </label>
+                            {/* <Grid item xs={12} >
+                                <TextField
+                                    required
+                                    fullWidth
+                                    type="number"
+                                    id="lastName"
+                                    label="כמה מנות מבוגר"
+                                    name="lastName"
+                                    autoComplete="family-name"
+                                />
+                            </Grid> */}
+                            {/* <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    type="number"
+                                    id="email"
+                                    label="כמה מנות ילדים"
+                                    name="email"
+                                    autoComplete="email"
+                                />
+                            </Grid> */}
 
-                                        </fieldset>
-                                    </Grid>
-                                    
+                            {/* <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="כמה מנות בר"
+                                    type="number"
+                                    id="password"
+                                    autoComplete="new-password"
+                                />
+                            </Grid> */}
+                            {/* <Grid item xs={8}>
+                                <Grid item xs={12}>
+                                    <fieldset>
+                                        <p> סוג מנות </p>
+                                        <label><input type='checkbox'
+                                        /> פרמיום </label>
+                                        <label><input type='checkbox'
+                                        />  רגיל </label>
+                                    </fieldset>
                                 </Grid>
-                                <Grid item xs={6}>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                onClick={()=> handleButton(setActive)}
-                >
-                  חזור
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                // onClick={()=> handleButton(setActive)}
-                >
-                  המשך
-                </Button>
-              </Grid>
+
+                            </Grid> */}
+                        <Grid item xs={5}>   <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={age}
+                                    label="Age"
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+                            </FormControl>
+                            </Grid> 
+                            <Grid item xs={12}>
+                                <BasicTable />
                             </Grid>
-                            {/* <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                המשך
-                            </Button> */}
+                            <Grid item xs={6}>
+                                <Button
+                                    type="button"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    onClick={() => handleButton(setActive)}
+                                >
+                                    חזור
+                                </Button>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    המשך
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Box>
             </Container>

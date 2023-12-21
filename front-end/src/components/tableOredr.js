@@ -23,7 +23,7 @@ export default function BasicTable() {
   return (
     <TableContainer component={Paper}>
       <h1>סיכום תשלום</h1>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell sx={{ color: "blue" }}>מנות פרמיום</TableCell>

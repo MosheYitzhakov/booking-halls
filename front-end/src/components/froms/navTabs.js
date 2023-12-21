@@ -22,12 +22,14 @@ const steps = [
 ];
 export default function HorizontalLinearAlternativeLabelStepper() {
   const [active, setActive] = useState(1)
+  const [dataOrder, setDataOrder] =useState()
   const from = [
-    <FromData setActive={setActive} />,
-    <FromOrder setActive={setActive} />,
-    <FromCreditCard setActive={setActive} />
+    <FromData setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
+    <FromOrder setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
+    <FromCreditCard setActive={setActive} dataOrder={dataOrder}/>
 
   ]
+  console.log(dataOrder);
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={active} alternativeLabel sx={{ background: "#E6E6FA" }}>

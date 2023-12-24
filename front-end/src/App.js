@@ -10,16 +10,13 @@ import { Settings } from './pages/manager/settings';
 import { Invoices } from './pages/manager/Invoices';
 import { Err } from './error';
 import Header from './components/header';
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 import { Dates } from './hooks/useContext';
 
 
-// export const Dates = createContext()
 
 function App() {
   const [alldates, setallDates] = useState({dateH:"",dateE:""})
-  // const state = useLocation().state;
-  // const dates ={alldates, setallDates}
   return (
     <div className="App">
       <Header />

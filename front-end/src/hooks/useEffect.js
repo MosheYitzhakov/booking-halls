@@ -7,12 +7,7 @@ export const Effect = (url) => {
   const  fetch =async()=>{
     try {
         const { data } = await instance.get(url);
-        if(data.length === 1){
-             setData(data[0])
-        }else{
-            setData(data)
-        }
-       
+        setData(data)
     } catch (error) {
         return error.message
     }

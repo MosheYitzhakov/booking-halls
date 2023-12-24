@@ -22,7 +22,6 @@ const steps = [
   ' סגירת הזמנה ',
 ];
 export default function FullWidthTabs({  hall }) {
-console.log(hall);
   const [active, setActive] = useState(1)
   const [dataOrder, setDataOrder] =useState({id_hall:hall?.id_hall})
   const from = [

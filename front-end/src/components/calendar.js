@@ -41,7 +41,7 @@ export default function Calendar({
         }
         return true;
     }
-console.log(dates);
+// console.log(dates);
     return (
         <div style={{ width: "40%", display: "inline-block", margin: 12 }}>
             <ReactJewishDatePicker

@@ -18,8 +18,8 @@ import { Dates } from './hooks/useContext';
 
 function App() {
   const [alldates, setallDates] = useState({dateH:"",dateE:""})
-  const state = useLocation().state;
-  const dates ={alldates, setallDates}
+  // const state = useLocation().state;
+  // const dates ={alldates, setallDates}
   return (
     <div className="App">
       <Header />
@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/main" element={<Home />} />
-          <Route path="/halls/:name" element={<Hall /> ? <Hall dateState={state ? state.dateE : "not date"} /> : <Hall />} />
+          <Route path="/halls/:name" element={<Hall /> ? <Hall  /> : <Hall />} />
 
         <Route path="managers/" element={<Login />} />
         <Route path="managers/login" element={<Login />} />

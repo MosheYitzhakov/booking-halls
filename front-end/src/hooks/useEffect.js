@@ -1,29 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import instance from "../API";
 
-export const UseEffect = async (url) => {
-    // const [data, setData] = useState()
-
-    useEffect(() => {
-        async function name() {
-            try {
-                const { data } = await instance.get(url);
-                // setData(data)
-                return data
-            } catch (error) {
-                return error.message
-            }
+export const Effect = (url) => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+  const  fetch =async()=>{
+    try {
+        const { data } = await instance.get(url);
+        if(data.length === 1){
+             setData(data[0])
+        }else{
+            setData(data)
         }
-        name()
-    }, [])
-    // try {
-    //         const { dataa } = await instance.get(url);
+       
+    } catch (error) {
+        return error.message
+    }
+  }
+    fetch()
+  }, [url]);
 
-    //         setData(data[0])
-    //      return  data   
-    //     } catch (error) {
-    //         return error.message
-    //     }
-    
+  return data;
+};
 
-}
+export default Effect;

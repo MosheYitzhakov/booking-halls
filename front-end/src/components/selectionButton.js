@@ -3,12 +3,12 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dates } from '../hooks/useContext';
 
-export const SelectionButton = ({ names, setDateE}) => {
+export const SelectionButton = ({ names}) => {
     const [dates, setDates] = useContext(Dates);
     const navigate = useNavigate()
     const handlePageHall = async (name) => {
-        setDates({dateH:false,dateE:false})
         if (name === "all halls") {
+            setDates({dateH:false,dateE:false})
         } else {
             navigate(`/halls/${name}`)
         }

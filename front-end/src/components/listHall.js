@@ -7,6 +7,7 @@ import { Dates } from '../hooks/useContext';
 export default function HallForList({ halls }) {
   const [hallByDate, setHallByDate] = useState(halls)
   const [dates, setDates] = useContext(Dates);
+ 
   useEffect(() => {
     async function name() {
       console.log(dates.dateH);
@@ -17,9 +18,12 @@ export default function HallForList({ halls }) {
       } catch (error) {
         return error.message
       }
-    }
+    } 
+    // if(dates)
      name()
-  },[dates.dateH])
+
+  },[dates])
+  console.log(hallByDate);
   return (
     <div>
       {

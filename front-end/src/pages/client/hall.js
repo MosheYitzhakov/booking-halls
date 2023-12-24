@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ContactUs } from '../../components/contactUs';
 import Calendar from '../../components/calendar';
 import FullWidthTabs from '../../components/froms/navTabs';
-import BasicTable from '../../components/tableOredr';
+import BasicTable from '../../components/froms/tableOredr';
 import "react-image-gallery/styles/css/image-gallery.css";
 import instance from '../../API';
 import Images from '../../components/imageGallery';

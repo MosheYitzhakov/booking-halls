@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,28 +13,47 @@ function createData(name, calories, fat, carbs) {
 }
 
 
-export default function BasicTable({hall, typeO}) {
-  console.log(hall);
-  console.log(typeO);
+export default function BasicTable({ hall, typeO }) {
+  const [meal, setMeal] = useState({
+    adults: "",
+    children: "",
+    bar: "",
+  });
   const typeB = typeO === 'b';
+  const hallPreic = typeB ? { adults: hall.p_b_adults, children: hall.p_b_children, bar: hall.p_b_bar } :
+    { adults: hall.p_p_adults, children: hall.p_p_children, bar: hall.p_p_bar }
+  const sum = {
+    adults: hallPreic.adults * meal.adults,
+    children: hallPreic.children * meal.children,
+    bar: hallPreic.bar * meal.bar
+  }
+
+
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+    setMeal((prev) => ({ ...prev, [name]: value }));
+  }
   const rows = [
-   createData( 'מנות מבוגר',
-   <TextField type='number' label="" variant="filled" />
-   , typeB? hall.p_b_adults
-   : hall.p_p_adults, 24),
-    createData('מנות ילדים', 
-    <TextField type='number' label="" variant="filled" />
-    , typeB? hall.p_b_children
-    : hall.p_p_children, 37),
+    createData('מנות מבוגר',
+      <TextField type='number' label="" variant="filled" name='adults' value={meal.adults} onChange={handleInputChange} />
+      , hallPreic.adults, 
+      sum.adults),
+
+    createData('מנות ילדים',
+      <TextField type='number' label="" variant="filled" name='children' value={meal.children} onChange={handleInputChange} />
+      , hallPreic.children,
+       sum.children),
     createData('מנות בר',
-    <TextField type='number' label="" variant="filled" />
-    , typeB? hall.p_b_bar
-    : hall.p_p_bar
-    , 2),
-    createData('מחיר בסיס לאולם', 
-    1500),
-    createData(' סה"כ לתשלום ', 
-    1500),
+      <TextField type='number' label="" variant="filled" name='bar' value={meal.bar} onChange={handleInputChange} />
+      , hallPreic.bar
+      , sum.bar),
+    createData('מחיר בסיס לאולם',
+      hall.down_payment),
+    createData(' סה"כ לתשלום ',
+      sum.adults +
+      sum.children +
+      sum.bar +
+      hall.down_payment),
   ];
   return (
     <TableContainer component={Paper}>

@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import BasicTable from '../tableOredr';
+import BasicTable from './tableOredr';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Calendar from '../calendar';
 
@@ -64,14 +64,6 @@ export function FromOrder({ setActive, setDate, dateE = null, setDateE, hall }) 
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} >
-                                {/* <TextField
-                                    fullWidth
-                                    disabled
-                                    id="outlined-disabled"
-                                    label="תאריך הנבחר"
-                                    defaultValue="Hello World"
-
-                                /> */}
                                 <Typography component="h1" variant="h5">
                                     תאריך
                                 </Typography>

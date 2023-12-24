@@ -21,7 +21,9 @@ const postCO = async (id_c, id_k, id_order) => {
     VALUES (?,?,?)`
         const [{ affectedRows, insertId }] = await pool.query(sql, [id_c, id_k, id_order])
         if (affectedRows) return insertId
-        return 'The comment cannot be inserted'
+        throw new Error ('Failed to add data')
+   
+
     } catch (error) {
         return error.message
     }

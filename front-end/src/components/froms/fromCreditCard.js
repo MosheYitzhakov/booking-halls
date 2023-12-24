@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Cards from 'react-credit-cards-2';
+import instance from '../../API';
 
 export function FromCreditCard({ setActive, dataOrder }) {
   const [state, setState] = useState({
@@ -16,7 +17,7 @@ export function FromCreditCard({ setActive, dataOrder }) {
     name: '',
     focus: '',
   });
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     // const data = new FormData(event.currentTarget);
     // console.log({
@@ -24,7 +25,13 @@ export function FromCreditCard({ setActive, dataOrder }) {
     //   password: data.get('password'),
     // });
     console.log(dataOrder);
+    try {
+      const { data } = await instance.post(`/craetOrder`,{dataOrder});
 
+      
+  } catch (error) {
+      return error.message
+  }
   };
 
   const handleButton = (setActive) => {

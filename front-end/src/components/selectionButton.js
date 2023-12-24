@@ -1,12 +1,14 @@
 import { Autocomplete, TextField } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Dates } from '../hooks/useContext';
 
 export const SelectionButton = ({ names, setDateE}) => {
+    const [dates, setDates] = useContext(Dates);
     const navigate = useNavigate()
     const handlePageHall = async (name) => {
+        setDates({dateH:false,dateE:false})
         if (name === "all halls") {
-            setDateE(false)
         } else {
             navigate(`/halls/${name}`)
         }

@@ -5,16 +5,9 @@ import Calendar from '../../components/calendar';
 import { SelectionButton } from '../../components/selectionButton';
 import instance from '../../API';
 import { UseEffect } from '../../hooks/useEffect';
-import { Dates } from '../../hooks/useContext';
 
 export const Home = () => {
-const dates= useContext(Dates)
     const [halls, setHalls] = useState()
-    const [date, setDate] = useState()
-    const [dateE, setDateE] = useState()
-
-    // const getHalls = UseEffect('/')
-    // console.log(getHalls);
     useEffect(() => {
         async function name() {
             try {
@@ -31,20 +24,11 @@ const dates= useContext(Dates)
     })
     return (
         <>
-
-            <SelectionButton names={nameHalls ? nameHalls : ""} 
-            setDateE={setDateE}
+            <SelectionButton names={nameHalls ? nameHalls : ""}
             />
-            <Calendar 
-            // setDate={setDate} 
-            // dateE={dateE} setDateE={setDateE}
-            />
+            <Calendar />
             <div>
-                {halls && <HallForList halls={halls} dateE={dateE}
-                 date={date}
-                 />
-
-                }
+                {halls && <HallForList halls={halls} />}
             </div>
 
         </>

@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import { Dates } from "../hooks/useContext";
 
 export default function Calendar({
- idHall = null,setDateOE }) {
+ idHall = null,setDateOE =null }) {
     // const [dates, setDates] = useContext(Dates)
     const [basicJewishDay, setBasicJewishDay] = useState();
     const [eventsSchedule, seteventsSchedule] = useState();
@@ -59,7 +59,7 @@ console.log(dates);
                         // setDateE(day.date);
                         // console.log(new Date(day.date));
                         // console.log(day.jewishDateStr);
-                        setDateOE(new Date(day.date).toLocaleDateString("he-IL"));
+                        setDateOE &&  setDateOE(new Date(day.date).toLocaleDateString("he-IL"));
                     }}
 
             />

@@ -31,7 +31,7 @@ const getClients = async (id_user) => {
 
 }
 
-const postClients = async (name, phone, email = null, side) => {
+const postClients = async ( name, phone, email = null, side) => {
     try {
         const sql = `
     INSERT INTO users (degree, name,phone, email, side)

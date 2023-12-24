@@ -43,7 +43,7 @@ const postEvents = async (id_hall, hebrew_date, date) => {
     VALUES (?,?,?)`
         const [{ affectedRows, insertId }] = await pool.query(sql, [id_hall, hebrew_date, date])
         if (affectedRows) return insertId
-        return 'The comment cannot be inserted'
+        throw new Error ('Failed to add data')
     } catch (error) {
         return error.message
     }

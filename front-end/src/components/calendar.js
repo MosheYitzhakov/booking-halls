@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { ReactJewishDatePicker } from "react-jewish-datepicker";
 import instance from '../API';
 import "react-jewish-datepicker/dist/index.css";
+import { TextField } from "@mui/material";
 
-export default function Calendar({ setDate, dateE = null, setDateE, idHall = null }) {
+export default function Calendar({date, setDate, dateE = null, setDateE, idHall = null }) {
     const [basicJewishDay, setBasicJewishDay] = useState();
     const [eventsSchedule, seteventsSchedule] = useState();
+    const [datee, setDatee] = useState();
     useEffect(() => {
         async function name() {
             try {
@@ -36,7 +38,7 @@ export default function Calendar({ setDate, dateE = null, setDateE, idHall = nul
     }
 
     return (
-        <div style={{ width: "40%", display: "inline-block",margin:12 }}>
+        <div style={{ width: "40%", display: "inline-block", margin: 12 }}>
             <ReactJewishDatePicker
                 value={dateE ? dateE : basicJewishDay}
                 isHebrew
@@ -46,7 +48,20 @@ export default function Calendar({ setDate, dateE = null, setDateE, idHall = nul
                         setDate(day.jewishDateStrHebrew)
                         setBasicJewishDay(day.date);
                         setDateE(day.date);
+                        console.log(new Date(day.date));
+                        console.log(day.jewishDateStr);
+                        setDatee(new Date(day.date).toLocaleDateString("he-IL"));
                     }}
-            /></div>
+
+            />
+            <TextField
+                variant="standard"
+                value={datee + " "+ basicJewishDay}
+                InputProps={{
+                    readOnly: true,
+                }}
+                name='dateD'>
+            </TextField>
+        </div>
     );
 }

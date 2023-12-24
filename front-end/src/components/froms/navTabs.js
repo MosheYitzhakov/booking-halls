@@ -21,12 +21,12 @@ const steps = [
   ' הזמנה ',
   ' סגירת הזמנה ',
 ];
-export default function FullWidthTabs({ setDate, dateE = null, setDateE, hall }) {
+export default function FullWidthTabs({ setDate, dateE = null, setDateE,date, hall }) {
   const [active, setActive] = useState(1)
   const [dataOrder, setDataOrder] =useState()
   const from = [
     <FromData setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
-    <FromOrder   setDate={setDate} dateE={dateE}  setDateE={setDateE} hall={hall}  setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
+    <FromOrder   setDate={setDate} date={date} dateE={dateE}  setDateE={setDateE} hall={hall}  setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
     // <FromCreditCard setActive={setActive} dataOrder={dataOrder}/>
     <PaymentForm/>
 

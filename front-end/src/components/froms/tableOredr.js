@@ -6,10 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 
-function createData(name, calories, fat, carbs) {
-  return { name, calories, fat, carbs };
+function createData(name, calories, fat, carbs,sum) {
+  return { name, calories, fat, carbs, sum };
 }
 
 
@@ -36,24 +36,40 @@ export default function BasicTable({ hall, typeO }) {
   const rows = [
     createData('מנות מבוגר',
       <TextField type='number' label="" variant="filled" name='adults' value={meal.adults} onChange={handleInputChange} />
-      , hallPreic.adults, 
+      , hallPreic.adults,
       sum.adults),
 
     createData('מנות ילדים',
       <TextField type='number' label="" variant="filled" name='children' value={meal.children} onChange={handleInputChange} />
       , hallPreic.children,
-       sum.children),
+      sum.children),
     createData('מנות בר',
       <TextField type='number' label="" variant="filled" name='bar' value={meal.bar} onChange={handleInputChange} />
       , hallPreic.bar
       , sum.bar),
     createData('מחיר בסיס לאולם',
-      hall.down_payment),
+
+      <TextField
+      variant="standard"
+        value={hall.down_payment}
+        InputProps={{
+          readOnly: true,
+        }}
+        name='paymentI'>
+      </TextField>),
     createData(' סה"כ לתשלום ',
-      sum.adults +
-      sum.children +
-      sum.bar +
-      hall.down_payment),
+      <TextField
+      variant="standard"
+      // sx={{textAlign:"center"}}
+        value={sum.adults +
+          sum.children +
+          sum.bar +
+          hall.down_payment}
+        InputProps={{
+          readOnly: true,
+        }}
+        name='total_paymentO'>
+      </TextField>),
   ];
   return (
     <TableContainer component={Paper}>
@@ -63,8 +79,8 @@ export default function BasicTable({ hall, typeO }) {
           <TableRow>
             <TableCell ></TableCell>
             <TableCell align="center">מספר מנות</TableCell>
-            <TableCell align="right">מחיר מנה</TableCell>
-            <TableCell align="right">סה"כ</TableCell>
+            <TableCell align="center">מחיר מנה</TableCell>
+            <TableCell align="center">סה"כ</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,9 +92,10 @@ export default function BasicTable({ hall, typeO }) {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="center">{row.calories}</TableCell>
+              <TableCell align="center">{row.fat}</TableCell>
+              <TableCell align="center">{row.carbs}</TableCell>
+              <TableCell align="center">{row.sum}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -15,7 +15,7 @@ import Calendar from '../calendar';
 
 const theme = createTheme();
 
-export function FromOrder({ setActive, setDate, dateE = null, setDateE, hall }) {
+export function FromOrder({date, setActive, setDate, dateE = null, setDateE, hall }) {
     const [typeO, setTypeO] = useState('b');
 
     const handleChange = (event) => {
@@ -27,7 +27,15 @@ export function FromOrder({ setActive, setDate, dateE = null, setDateE, hall }) 
         const data = new FormData(event.currentTarget);
         console.log({
             email: data.get('email'),
-            password: data.get('password'),
+            num_guestsO: data.get('num_guests'),
+            num_m_adultsO: data.get('adults'),
+            num_m_childrenO: data.get('children'),
+            num_m_barO: data.get('bar'),
+            typeO: data.get('typeO'),
+            total_paymentO: data.get('total_paymentO'),
+            paymentI: data.get('paymentI'),
+            hebrew_dateD: date,
+            dateD: dateE,
         });
         setActive((prv) => {
             return prv + 1;
@@ -74,7 +82,7 @@ export function FromOrder({ setActive, setDate, dateE = null, setDateE, hall }) 
                             <Grid item xs={7} >
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="num_guests"
                                     required
                                     fullWidth
                                     id="firstName"
@@ -92,6 +100,7 @@ export function FromOrder({ setActive, setDate, dateE = null, setDateE, hall }) 
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         value={typeO}
+                                        name='typeO'
                                         label=" רמת מנות "
                                         onChange={handleChange}
                                     >

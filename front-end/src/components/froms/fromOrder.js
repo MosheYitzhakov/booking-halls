@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -10,14 +10,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicTable from './tableOredr';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Calendar from '../calendar';
+import { Dates } from '../../hooks/useContext';
 
 
 
 const theme = createTheme();
 
-export function FromOrder({date, setActive, setDate, dateE = null, setDateE, hall }) {
+export function FromOrder({ setActive,  hall, setDataOrder, dataOrder }) {
     const [typeO, setTypeO] = useState('b');
-
+    const [dateOE, setDateOE] = useState();
+    const [dates, setDates] = useContext(Dates);
     const handleChange = (event) => {
         setTypeO(event.target.value);
     };
@@ -26,7 +28,6 @@ export function FromOrder({date, setActive, setDate, dateE = null, setDateE, hal
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
-            email: data.get('email'),
             num_guestsO: data.get('num_guests'),
             num_m_adultsO: data.get('adults'),
             num_m_childrenO: data.get('children'),
@@ -34,9 +35,24 @@ export function FromOrder({date, setActive, setDate, dateE = null, setDateE, hal
             typeO: data.get('typeO'),
             total_paymentO: data.get('total_paymentO'),
             paymentI: data.get('paymentI'),
-            hebrew_dateD: date,
-            dateD: dateE,
+            hebrew_dateD: dates.dateH,
+            dateD:dateOE,
+           
         });
+        setDataOrder((prv)=>{
+            return{
+                ...prv,
+                num_guestsO: data.get('num_guests'),
+                num_m_adultsO: data.get('adults'),
+                num_m_childrenO: data.get('children'),
+                num_m_barO: data.get('bar'),
+                typeO: data.get('typeO'),
+                total_paymentO: data.get('total_paymentO'),
+                paymentI: data.get('paymentI'),
+                hebrew_dateD: dates.dateH,
+                dateD:dateOE,
+            }
+        })
         setActive((prv) => {
             return prv + 1;
         })
@@ -75,8 +91,9 @@ export function FromOrder({date, setActive, setDate, dateE = null, setDateE, hal
                                 <Typography component="h1" variant="h5">
                                     תאריך
                                 </Typography>
-                                <Calendar setDate={setDate} dateE={dateE} setDateE={setDateE}
+                                <Calendar 
                                     idHall={hall.id_hall}
+                                    setDateOE={setDateOE}
                                 />
                             </Grid>
                             <Grid item xs={7} >
@@ -89,6 +106,7 @@ export function FromOrder({date, setActive, setDate, dateE = null, setDateE, hal
                                     type="number"
                                     label="מספר מוזמנים"
                                     autoFocus
+                                    defaultValue={dataOrder?.num_guestsO}
 
                                 />
                             </Grid>

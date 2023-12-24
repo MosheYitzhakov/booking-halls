@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ReactJewishDatePicker } from "react-jewish-datepicker";
 import instance from '../API';
 import "react-jewish-datepicker/dist/index.css";
 import { TextField } from "@mui/material";
+import { Dates } from "../hooks/useContext";
 
-export default function Calendar({date, setDate, dateE = null, setDateE, idHall = null }) {
+export default function Calendar({
+ idHall = null,setDateOE }) {
+    // const [dates, setDates] = useContext(Dates)
     const [basicJewishDay, setBasicJewishDay] = useState();
     const [eventsSchedule, seteventsSchedule] = useState();
     const [datee, setDatee] = useState();
+    const [dates, setDates] = useContext(Dates);
+    // console.log(date);
     useEffect(() => {
         async function name() {
             try {
@@ -36,32 +41,29 @@ export default function Calendar({date, setDate, dateE = null, setDateE, idHall 
         }
         return true;
     }
-
+console.log(dates);
     return (
         <div style={{ width: "40%", display: "inline-block", margin: 12 }}>
             <ReactJewishDatePicker
-                value={dateE ? dateE : basicJewishDay}
+                value={dates.dateE ? dates.dateE : basicJewishDay}
                 isHebrew
+
                 canSelect={dontSelectTuesdays}
                 onClick={
                     (day) => {
-                        setDate(day.jewishDateStrHebrew)
-                        setBasicJewishDay(day.date);
-                        setDateE(day.date);
-                        console.log(new Date(day.date));
-                        console.log(day.jewishDateStr);
-                        setDatee(new Date(day.date).toLocaleDateString("he-IL"));
+                        setDates( {dateE :day.date, dateH: day.jewishDateStrHebrew }
+                          
+                        )
+                        // setDate(day.jewishDateStrHebrew)
+                        // setBasicJewishDay(day.date);
+                        // setDateE(day.date);
+                        // console.log(new Date(day.date));
+                        // console.log(day.jewishDateStr);
+                        setDateOE(new Date(day.date).toLocaleDateString("he-IL"));
                     }}
 
             />
-            <TextField
-                variant="standard"
-                value={datee + " "+ basicJewishDay}
-                InputProps={{
-                    readOnly: true,
-                }}
-                name='dateD'>
-            </TextField>
+          
         </div>
     );
 }

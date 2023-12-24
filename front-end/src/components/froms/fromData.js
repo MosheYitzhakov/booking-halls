@@ -43,16 +43,18 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
       submits: checkedC ? "c" : checkedK ? "k" : "",
 
     });
-    setDataOrder({
-
-      emailC: data.get('emailC'),
-      phoneC: data.get('phoneC'),
-      nameC: data.get("nameC"),
-      emailK: data.get('emailK'),
-      phoneK: data.get('phoneK'),
-      nameK: data.get("nameK"),
-      submits: checkedC ? "c" : checkedK ? "k" : "",
-
+    setDataOrder((prv)=>{
+      return{
+...prv,
+        emailC: data.get('emailC'),
+        phoneC: data.get('phoneC'),
+        nameC: data.get("nameC"),
+        emailK: data.get('emailK'),
+        phoneK: data.get('phoneK'),
+        nameK: data.get("nameK"),
+        submits: checkedC ? "c" : checkedK ? "k" : "",
+        
+      }
     })
     setActive((prv) => {
       return prv + 1;

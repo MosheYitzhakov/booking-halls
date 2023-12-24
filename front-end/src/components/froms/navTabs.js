@@ -9,26 +9,27 @@ import { FromCreditCard } from '../froms/fromCreditCard';
 
 
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import PaymentForm from '../card';
+import PaymentForm from './card';
 
 const steps = [
   ' פרטים ',
   ' הזמנה ',
   ' סגירת הזמנה ',
 ];
-export default function FullWidthTabs({ setDate, dateE = null, setDateE,date, hall }) {
+export default function FullWidthTabs({  hall }) {
+
   const [active, setActive] = useState(1)
   const [dataOrder, setDataOrder] =useState()
   const from = [
     <FromData setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
-    <FromOrder   setDate={setDate} date={date} dateE={dateE}  setDateE={setDateE} hall={hall}  setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
-    // <FromCreditCard setActive={setActive} dataOrder={dataOrder}/>
-    <PaymentForm/>
+    <FromOrder   hall={hall}  setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
+    <FromCreditCard setActive={setActive} dataOrder={dataOrder}/>
+    // <PaymentForm dataOrder={dataOrder}/>
 
   ]
   // console.log(dataOrder);

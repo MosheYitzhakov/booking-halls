@@ -1,29 +1,30 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Hall from './oneHall';
 import instance from '../API';
+import { Dates } from '../hooks/useContext';
 
-export default function HallForList({ halls, dateE,date }) {
-  const [hallByDate, setHallByDate] = useState()
-
+export default function HallForList({ halls }) {
+  const [hallByDate, setHallByDate] = useState(halls)
+  const [dates, setDates] = useContext(Dates);
   useEffect(() => {
     async function name() {
+      console.log(dates.dateH);
       try {
-        const { data } = await instance.get(`/hallsForDate/${date.replaceAll('״', '"')}`);
+        const { data } = await instance.get(`/hallsForDate/${dates.dateH.replaceAll('״', '"')}`);
+        if(typeof data !== "string")
         setHallByDate(data);
       } catch (error) {
         return error.message
       }
     }
      name()
-  },[date])
-  const mapData = (!hallByDate || !date) ?halls  : hallByDate;
-
+  },[dates.dateH])
   return (
     <div>
       {
-        mapData.map((hall, i) => {
-          return <Hall key={i} hall={hall} dateE={dateE}/>
+        hallByDate?.map((hall, i) => {
+          return <Hall key={i} hall={hall} />
         })}
 
     </div>);

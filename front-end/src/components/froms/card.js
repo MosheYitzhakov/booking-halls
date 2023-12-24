@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
-const PaymentForm = () => {
+const PaymentForm = ({dataOrder}) => {
     const [state, setState] = useState({
         number: '',
         expiry: '',
@@ -9,7 +9,7 @@ const PaymentForm = () => {
         name: '',
         focus: '',
     });
-
+console.log(dataOrder);
     const handleInputChange = (evt) => {
         const { name, value } = evt.target;
 

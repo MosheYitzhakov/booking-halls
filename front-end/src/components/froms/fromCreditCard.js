@@ -31,7 +31,7 @@ export function FromCreditCard({setActive}) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
@@ -160,6 +160,6 @@ export function FromCreditCard({setActive}) {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }

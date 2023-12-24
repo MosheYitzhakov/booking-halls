@@ -2,11 +2,11 @@ import { Autocomplete, TextField } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const SelectionButton = ({ names, setDate}) => {
+export const SelectionButton = ({ names, setDateE}) => {
     const navigate = useNavigate()
     const handlePageHall = async (name) => {
         if (name === "all halls") {
-            setDate(false)
+            setDateE(false)
         } else {
             navigate(`/halls/${name}`)
         }

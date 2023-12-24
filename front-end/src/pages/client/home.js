@@ -1,13 +1,14 @@
 // import Header from "../../components/header"
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import HallForList from "../../components/listHall";
 import Calendar from '../../components/calendar';
 import { SelectionButton } from '../../components/selectionButton';
 import instance from '../../API';
 import { UseEffect } from '../../hooks/useEffect';
+import { Dates } from '../../hooks/useContext';
 
 export const Home = () => {
-
+const dates= useContext(Dates)
     const [halls, setHalls] = useState()
     const [date, setDate] = useState()
     const [dateE, setDateE] = useState()
@@ -31,10 +32,17 @@ export const Home = () => {
     return (
         <>
 
-            <SelectionButton names={nameHalls ? nameHalls : ""} setDate={setDate}/>
-            <Calendar setDate={setDate} dateE={dateE} setDateE={setDateE}/>
+            <SelectionButton names={nameHalls ? nameHalls : ""} 
+            setDateE={setDateE}
+            />
+            <Calendar 
+            // setDate={setDate} 
+            // dateE={dateE} setDateE={setDateE}
+            />
             <div>
-                {halls && <HallForList halls={halls} dateE={dateE} date={date}/>
+                {halls && <HallForList halls={halls} dateE={dateE}
+                 date={date}
+                 />
 
                 }
             </div>

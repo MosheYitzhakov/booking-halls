@@ -7,10 +7,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
-export default function Hall({ hall, dateE }) {
+export default function Hall({hall}) {
   const navigate = useNavigate();
   const handlePageHall = async (name) => {
-      navigate(`/halls/${name}`, dateE && { state: { dateE: dateE } })
+      navigate(`/halls/${name}` )
 };
   return (
     <Card sx={{ display: 'flex', border: '1px solid', marginLeft: "23%",marginTop:"20px", height: "100%", width: "50%" }}>

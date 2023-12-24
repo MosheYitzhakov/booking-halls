@@ -10,20 +10,28 @@ import { Settings } from './pages/manager/settings';
 import { Invoices } from './pages/manager/Invoices';
 import { Err } from './error';
 import Header from './components/header';
+import { createContext, useState } from 'react';
+import { Dates } from './hooks/useContext';
+
+
+// export const Dates = createContext()
 
 function App() {
+  const [alldates, setallDates] = useState({dateH:"",dateE:""})
   const state = useLocation().state;
+  const dates ={alldates, setallDates}
   return (
     <div className="App">
-      <Header/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/main" element={<Home />} />
-        <Route path="/halls/:name" element={<Hall /> ? <Hall dateState={state ?  state.dateE : "not date"}/> : <Hall />} />
+      <Header />
+      <Dates.Provider value={[alldates, setallDates]}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/main" element={<Home />} />
+          <Route path="/halls/:name" element={<Hall /> ? <Hall dateState={state ? state.dateE : "not date"} /> : <Hall />} />
 
         <Route path="managers/" element={<Login />} />
         <Route path="managers/login" element={<Login />} />
-        <Route path="managers/:name" element={<Main /> ? <Main  /> : <Err />}>
+        <Route path="managers/:name" element={<Main /> ? <Main /> : <Err />}>
           <Route path="settings" element={<Settings /> ? <Settings /> : <Err />} />
           <Route path="futureOrders" element={<FutureOrders /> ? <FutureOrders /> : <Err />} />
           <Route path="allOrders" element={<AllOrders /> ? <AllOrders /> : <Err />} />
@@ -32,6 +40,7 @@ function App() {
 
         <Route path="*" element={<Err />} />
       </Routes>
+    </Dates.Provider>  
     </div>
   );
 }

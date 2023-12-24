@@ -98,11 +98,12 @@ router.get('/', async (req, res) => {
             res.send(error.message)
         }
     })
-    .post('/craetOrder/:id_hall', async (req, res) => {
+    .post('/craetOrder/', async (req, res) => {
         try {
-            const id_hall = req.params.id_hall;
-            const allData = req.body
+            // const id_hall = req.params.id_hall;
+            // const allData = req.body
             // allData =  {
+            //    "id_hall":"1"
             //     "nameC": "name c",
             //     "phoneC": "05033332 c",
             //     "emailC": "avi@com c",
@@ -115,10 +116,10 @@ router.get('/', async (req, res) => {
             //     "num_m_childrenO": 200,
             //     "num_m_barO": 1000,
             //     "typeO": "p",
-            // ..    "total_paymentO": 12000,
-            // ..    "dateD": "2020-12-10",
-            // ..    "hebrew_dateD": " יח חשוון תשעט ",
-            // ..    "paymentI": 1500
+            //     "total_paymentO": 12000,
+            //     "dateD": "2020-12-10",
+            //     "hebrew_dateD": " יח חשוון תשעט ",
+            //     "paymentI": 1500
             // }
 
             // if(!body){

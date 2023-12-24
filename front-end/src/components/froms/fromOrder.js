@@ -27,18 +27,18 @@ export function FromOrder({ setActive,  hall, setDataOrder, dataOrder }) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            num_guestsO: data.get('num_guests'),
-            num_m_adultsO: data.get('adults'),
-            num_m_childrenO: data.get('children'),
-            num_m_barO: data.get('bar'),
-            typeO: data.get('typeO'),
-            total_paymentO: data.get('total_paymentO'),
-            paymentI: data.get('paymentI'),
-            hebrew_dateD: dates.dateH,
-            dateD:dateOE,
+        // console.log({
+        //     num_guestsO: data.get('num_guests'),
+        //     num_m_adultsO: data.get('adults'),
+        //     num_m_childrenO: data.get('children'),
+        //     num_m_barO: data.get('bar'),
+        //     typeO: data.get('typeO'),
+        //     total_paymentO: data.get('total_paymentO'),
+        //     paymentI: data.get('paymentI'),
+        //     hebrew_dateD: dates.dateH,
+        //     dateD:dateOE,
            
-        });
+        // });
         setDataOrder((prv)=>{
             return{
                 ...prv,
@@ -57,6 +57,7 @@ export function FromOrder({ setActive,  hall, setDataOrder, dataOrder }) {
             return prv + 1;
         })
     };
+    console.log(dataOrder);
     const handleButton = (setActive) => {
 
         setActive((prv) => {

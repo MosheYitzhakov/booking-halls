@@ -32,20 +32,20 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    // console.log({
 
-      emailC: data.get('emailC'),
-      phoneC: data.get('phoneC'),
-      nameC: data.get("nameC"),
-      emailK: data.get('emailK'),
-      phoneK: data.get('phoneK'),
-      nameK: data.get("nameK"),
-      submits: checkedC ? "c" : checkedK ? "k" : "",
+    //   emailC: data.get('emailC'),
+    //   phoneC: data.get('phoneC'),
+    //   nameC: data.get("nameC"),
+    //   emailK: data.get('emailK'),
+    //   phoneK: data.get('phoneK'),
+    //   nameK: data.get("nameK"),
+    //   submits: checkedC ? "c" : checkedK ? "k" : "",
 
-    });
-    setDataOrder((prv)=>{
-      return{
-...prv,
+    // });
+    setDataOrder((prv) => {
+      return {
+        ...prv,
         emailC: data.get('emailC'),
         phoneC: data.get('phoneC'),
         nameC: data.get("nameC"),
@@ -53,7 +53,7 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
         phoneK: data.get('phoneK'),
         nameK: data.get("nameK"),
         submits: checkedC ? "c" : checkedK ? "k" : "",
-        
+
       }
     })
     setActive((prv) => {
@@ -61,7 +61,6 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
     })
 
   };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">

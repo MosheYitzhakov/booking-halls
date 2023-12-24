@@ -24,15 +24,13 @@ const steps = [
 export default function FullWidthTabs({  hall }) {
 
   const [active, setActive] = useState(1)
-  const [dataOrder, setDataOrder] =useState()
+  const [dataOrder, setDataOrder] =useState({id_hall:hall?.id_hall})
   const from = [
     <FromData setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
     <FromOrder   hall={hall}  setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
     <FromCreditCard setActive={setActive} dataOrder={dataOrder}/>
-    // <PaymentForm dataOrder={dataOrder}/>
 
   ]
-  // console.log(dataOrder);
   return (
     <Box sx={{ width: '100%'}}>
       <Stepper activeStep={active} alternativeLabel sx={{ background: "#E6E6FA" }}>

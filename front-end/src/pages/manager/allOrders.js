@@ -1,63 +1,122 @@
-
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { Typography } from '@mui/material';
+import React, { useState } from 'react';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130},
-  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { id: 'nameC', label: ' משפחה ', minWidth: 100 },
+  { id: 'phoneC', label: ' טלפון ', minWidth: 100 },
+  { id: 'emailC', label: ' אימייל ', minWidth: 170 },
+  { id: 'nameK', label: ' משפחה ', minWidth: 100 },
+  { id: 'phoneK', label: ' טלפון ', minWidth: 100 },
+  { id: 'emailK', label: ' אימייל ', minWidth: 100, },
+  {id: 'num_guests',label: ' כמות מוזמנים ', minWidth: 100, },
+  {id: 'num_m_adults',    label: ' מנות מבוגר ',minWidth: 100,},
+  { id: 'num_m_children', label: ' מנות ילדים  ', minWidth: 100 },
+  { id: 'num_m_bar', label: ' מנות בר  ', minWidth: 100 },
+  { id: 'type', label: ' רמת מנות ', minWidth: 100 },
+  { id: 'total_payment', label: ' סה"כ לתשלום ', minWidth: 100 },
+  { id: 'hebrew_date', label: ' תאריך אירוע עברי ', minWidth: 100 },
+  { id: 'date', label: ' תאריך לועזי ', minWidth: 100 },
   
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
 ];
 
+function createData(nameC, phoneC, emailC, nameK, phoneK, emailK,num_guests,num_m_adults,num_m_children,num_m_bar,type,total_payment,hebrew_date,date) {
+  return { nameC, phoneC, emailC, nameK, phoneK, emailK,num_guests,num_m_adults,num_m_children,num_m_bar,type,total_payment,hebrew_date,date };
+}
+
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  { id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  { id: 11, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  { id: 12, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  { id: 13, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  { id: 14, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  createData('India', 'IN', 1324171354, 3287263),
+  createData('China', 'CN', 1403500365, 9596961),
+  createData('Italy', 'IT', 60483973, 301340),
+  createData('United States', 'US', 327167434, 9833520),
+  createData('Canada', 'CA', 37602103, 9984670),
+  createData('Australia', 'AU', 25475400, 7692024),
+  createData('Germany', 'DE', 83019200, 357578),
+  createData('Ireland', 'IE', 4857000, 70273),
+  createData('Mexico', 'MX', 126577691, 1972550),
+  createData('Japan', 'JP', 126317000, 377973),
+  createData('France', 'FR', 67022000, 640679),
+  createData('United Kingdom', 'GB', 67545757, 242495),
+  createData('Russia', 'RU', 146793744, 17098246),
+  createData('Nigeria', 'NG', 200962417, 923768),
+  createData('Brazil', 'BR', 210147125, 8515767),
 ];
 
 export function AllOrders() {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
   return (
-    <div style={{ height: 600, width: '70%' }}>
-     <Typography> כל ההזמנות </Typography> 
-     
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10,15]}
-        checkboxSelection
+    <Paper sx={{ width: '100%' }}>
+      <TableContainer sx={{ maxHeight: 440 }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow key={12}>
+              <TableCell align="center" colSpan={3} key={22}>
+                צד חתן
+              </TableCell>
+              <TableCell align="center" colSpan={3} key={23}>
+                צד כלה
+              </TableCell>
+            </TableRow>
+            <TableRow key={13}>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  // align={column.align}
+                  style={{ top: 57, minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number'
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </div>
+    </Paper>
   );
 }

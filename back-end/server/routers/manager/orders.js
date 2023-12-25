@@ -4,10 +4,10 @@ const { getCO } = require('../../../database/dbCustomers_Orders')
 const router = express.Router();
 module.exports = router;
 
-router.get('/:idHall', async (req, res) => {
+router.get('/:nameM', async (req, res) => {
     try {
-        let idHall = req.params.idHall;
-        const user = await getOrders(idHall)
+        let nameM = req.params.nameM;
+        const user = await getOrders(nameM)
         if (!user.length) {
             res.status(401).json('No found orders')
         } else {

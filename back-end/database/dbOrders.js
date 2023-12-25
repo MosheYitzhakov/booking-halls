@@ -1,7 +1,7 @@
 const { pool } = require('./dbConnection')
 
-const getOrders = async (id_hall, date = null) => {
-    let toSql = "WHERE id_hall = ?";
+const getOrders = async (nameM, date = null) => {
+    // let toSql = "WHERE id_hall = ?";
     if (date) {
         toSql = `
         WHERE o.date >= '${date}'
@@ -12,15 +12,20 @@ const getOrders = async (id_hall, date = null) => {
         SELECT o.*, K.name AS nameK,C.name AS nameC,
         K.phone AS phoneK,C.phone AS phoneC,
         K.email AS emailK,C.email AS emailC
-        FROM customers_orders
+        FROM customers_orders co
         JOIN users AS C ON (id_c=C.id_user)
         JOIN users AS K ON (id_k=K.id_user)
         JOIN orders o
         USING(id_order)
-        ${toSql}
-        order by customers_orders.id_order
+        WHERE id_hall IN (
+        select mh.id_hall from managers_halls mh
+        join users u
+        USING(id_user)
+        WHERE u.name = "${nameM}"
+        )
+        order by co.id_order
         `
-        const [res] = await pool.query(sql, [id_hall]);
+        const [res] = await pool.query(sql);
         return res;
     } catch (error) {
         return error.message

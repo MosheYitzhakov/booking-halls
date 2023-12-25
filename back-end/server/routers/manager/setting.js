@@ -1,12 +1,12 @@
 const express = require('express');
-const { getHalls,putSetting } =require('../../../database/dbHalls')
+const { getHalls,putSetting,getSettings } =require('../../../database/dbHalls')
 const router = express.Router();
 module.exports = router;
 
-router.get("/:nameHall", async (req, res) => {
+router.get("/:nameM", async (req, res) => {
     try {
-        let name = req.params.nameHall;
-       setting = await getHalls(name)
+        let name = req.params.nameM;
+       setting = await getSettings(name)
         if (!setting.length) {
             throw new Error(`Hall ${hall_name} not found`)
         } else {

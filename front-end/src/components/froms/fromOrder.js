@@ -129,7 +129,7 @@ export function FromOrder({ setActive,  hall, setDataOrder, dataOrder }) {
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
-                                <BasicTable hall={hall} typeO={typeO}/>
+                                <BasicTable hall={hall} typeO={typeO} dataOrder={dataOrder}/>
                             </Grid>
                             <Grid item xs={6}>
                                 <Button

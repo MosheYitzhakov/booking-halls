@@ -6,14 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TextField, Typography } from '@mui/material';
+import { TextField } from '@mui/material';
 
 function createData(name, calories, fat, carbs,sum) {
   return { name, calories, fat, carbs, sum };
 }
 
 
-export default function BasicTable({ hall, typeO }) {
+export default function BasicTable({ hall, typeO, dataOrder }) {
   const [meal, setMeal] = useState({
     adults: "",
     children: "",
@@ -35,16 +35,16 @@ export default function BasicTable({ hall, typeO }) {
   }
   const rows = [
     createData('מנות מבוגר',
-      <TextField type='number' label="" variant="filled" name='adults' value={meal.adults} onChange={handleInputChange} />
+      <TextField type='number' label="" variant="filled" name='adults' value={dataOrder?.num_m_adultsO?dataOrder?.num_m_adultsO: meal.adults} onChange={handleInputChange} />
       , hallPreic.adults,
       sum.adults),
 
     createData('מנות ילדים',
-      <TextField type='number' label="" variant="filled" name='children' value={meal.children} onChange={handleInputChange} />
+      <TextField type='number' label="" variant="filled" name='children' value={dataOrder?.num_m_childrenO?dataOrder?.num_m_adultsO: meal.children} onChange={handleInputChange} />
       , hallPreic.children,
       sum.children),
     createData('מנות בר',
-      <TextField type='number' label="" variant="filled" name='bar' value={meal.bar} onChange={handleInputChange} />
+      <TextField type='number' label="" variant="filled" name='bar' value={dataOrder?.num_m_barO?dataOrder?.num_m_adultsO: meal.bar} onChange={handleInputChange} />
       , hallPreic.bar
       , sum.bar),
     createData('מחיר בסיס לאולם',

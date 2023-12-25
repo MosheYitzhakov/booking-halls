@@ -13,10 +13,11 @@ app.use(express.json())
 // app.use(express.static(path.join(path.dirname(__dirname),'../',"fount-end",'react','build')));
 
 
-app.use('/api/manager/login/', loginR)
-app.use('/api/manager/orders/', ordersR)
-app.use('/api/manager/setting/', settingR)
-app.use('/api/manager/invoices/', invoicesR)
+app.use('/api/managers/login/', loginR)
+app.use('/api/managers/orders/', ordersR)
+app.use('/api/managers/settings/', settingR)
+app.use('/api/managers/invoices/', invoicesR)
+
 app.use('/api/',clientR)
 
 // app.use(['/users/',"/posts/","/todos/","/comments/","/login/"] ,(req, res) => {

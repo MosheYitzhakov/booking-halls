@@ -15,7 +15,7 @@ export const Hall = () => {
             <h1 style={{ fontSize: 70 }}> {`${name} אולמי`}</h1>
             <Images imgs={hall &&hall[0].images} />
             <div style={{ display: "inline-block" ,backgroundColor:"#FFF8DC"}}>
-                <FullWidthTabs   hall={hall} />
+                <FullWidthTabs   hall={hall &&hall[0]} />
             </div>
          
             <ContactUs />

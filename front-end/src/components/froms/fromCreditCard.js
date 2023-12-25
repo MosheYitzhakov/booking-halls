@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Cards from 'react-credit-cards-2';
 import instance from '../../API';
-
+import 'react-credit-cards-2/dist/es/styles-compiled.css';
 export function FromCreditCard({ setActive, dataOrder }) {
   const [state, setState] = useState({
     number: '',
@@ -19,19 +19,13 @@ export function FromCreditCard({ setActive, dataOrder }) {
   });
   const handleSubmit = async(event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-    console.log(dataOrder);
-    try {
-      const { data } = await instance.post(`/craetOrder`,{dataOrder});
+  //   try {
+  //     const { data } = await instance.post(`/craetOrder`,{dataOrder});
 
       
-  } catch (error) {
-      return error.message
-  }
+  // } catch (error) {
+  //     return error.message
+  // }
   };
 
   const handleButton = (setActive) => {

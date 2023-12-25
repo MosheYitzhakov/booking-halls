@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BasicTable from './tableOredr';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Calendar from '../calendar';
@@ -14,7 +13,6 @@ import { Dates } from '../../hooks/useContext';
 
 
 
-const theme = createTheme();
 
 export function FromOrder({ setActive,  hall, setDataOrder, dataOrder }) {
     const [typeO, setTypeO] = useState('b');
@@ -23,22 +21,14 @@ export function FromOrder({ setActive,  hall, setDataOrder, dataOrder }) {
     const handleChange = (event) => {
         setTypeO(event.target.value);
     };
-
+    useEffect(() => {
+        if(dataOrder && dataOrder?.typeO){
+            setTypeO(dataOrder.typeO)  
+        } 
+    }, [dataOrder])
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // console.log({
-        //     num_guestsO: data.get('num_guests'),
-        //     num_m_adultsO: data.get('adults'),
-        //     num_m_childrenO: data.get('children'),
-        //     num_m_barO: data.get('bar'),
-        //     typeO: data.get('typeO'),
-        //     total_paymentO: data.get('total_paymentO'),
-        //     paymentI: data.get('paymentI'),
-        //     hebrew_dateD: dates.dateH,
-        //     dateD:dateOE,
-           
-        // });
         setDataOrder((prv)=>{
             return{
                 ...prv,
@@ -57,16 +47,14 @@ export function FromOrder({ setActive,  hall, setDataOrder, dataOrder }) {
             return prv + 1;
         })
     };
-    console.log(dataOrder);
     const handleButton = (setActive) => {
-
+        
         setActive((prv) => {
             return prv - 1;
         })
 
     };
     return (
-        <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <Box
@@ -156,6 +144,5 @@ export function FromOrder({ setActive,  hall, setDataOrder, dataOrder }) {
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
     );
 }

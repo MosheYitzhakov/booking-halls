@@ -9,12 +9,11 @@ import { FromCreditCard } from '../froms/fromCreditCard';
 
 
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import PaymentForm from './card';
 
 const steps = [
   ' פרטים ',
@@ -23,7 +22,7 @@ const steps = [
 ];
 export default function FullWidthTabs({  hall }) {
   const [active, setActive] = useState(1)
-  const [dataOrder, setDataOrder] =useState({id_hall:hall?.id_hall})
+  const [dataOrder, setDataOrder] =useState({id_hall : hall?.id_hall})
   const from = [
     <FromData setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
     <FromOrder   hall={hall}  setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,

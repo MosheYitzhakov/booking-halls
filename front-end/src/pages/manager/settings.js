@@ -6,16 +6,12 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import { Input } from '@mui/material';
 import { TableSettingManager } from '../../components/tableManager';
 import { useLocation } from 'react-router-dom';
-import Effect from '../../hooks/useEffect';
 import instance from '../../API';
 
 
 
-// const theme = createTheme();
 
 export function Settings() {
     const { pathname } = useLocation();
@@ -98,35 +94,7 @@ export function Settings() {
         } catch (error) {
             return error.message
         }
-        // console.log({
-        //     name_hall: dataAll.get('name_hall'),
-        //     max_guests: dataAll.get('max_guests'),
-        //     down_payment: dataAll.get('down_payment'),
-        //     min_meals: dataAll.get('min_meals'),
-        //     p_p_adults: dataAll.get('p_p_adults'),
-        //     p_b_adults: dataAll.get('p_b_adults'),
-        //     p_p_children: dataAll.get('p_p_children'),
-        //     p_b_children: dataAll.get('p_b_children'),
-        //     p_p_bar: dataAll.get('p_p_bar'),
-        //     p_b_bar: dataAll.get('p_b_bar'),
-        // });
-        // console.log(settings);
-        // console.log(newSettings);
-
-
-        // setSettings({
-        //     name: data.get('name'),
-        //     name_hall: data.get('name_hall'),
-        //     max_guests: data.get('max_guests'),
-        //     down_payment: data.get('down_payment'),
-        //     min_meals: data.get('min_meals'),
-        //     p_p_adults: data.get('p_p_adults'),
-        //     p_b_adults: data.get('p_b_adults'),
-        //     p_p_children: data.get('p_p_children'),
-        //     p_b_children: data.get('p_b_children'),
-        //     p_p_bar: data.get('p_p_bar'),
-        //     p_b_bar: data.get('p_b_bar'),
-        // })
+      
     };
     return (
         <Container component="main" maxWidth="sm">
@@ -157,7 +125,6 @@ export function Settings() {
                                 fullWidth
                                 helperText=" שם מנהל "
                                 value={newSettings?.name}
-                                // onChange={handleInputChange}
 
                             />
                         </Grid>
@@ -166,7 +133,6 @@ export function Settings() {
                                 name="name_hall"
                                 required
                                 fullWidth
-                                // label=" שם אולם "
                                 helperText=" שם אולם "
                                 value={newSettings?.name_hall}
                                 onChange={handleInputChange}
@@ -237,8 +203,6 @@ export function Settings() {
                             </Button>
                         </Grid>
                     </Grid>
-                    {/* <Input type='file' /> */}
-
                 </Box>
             </Box>
         </Container>

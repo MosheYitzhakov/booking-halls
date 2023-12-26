@@ -48,7 +48,7 @@ const columns = [
 //   createData('Brazil', 'BR', 210147125, 8515767),
 // ];
 
-export function AllOrders({ data }) {
+export function Orders({ data }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -60,13 +60,13 @@ export function AllOrders({ data }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-const rows = data? data : []
+let rows = data 
   return (
     <Paper sx={{ width: '80%' }}>
       <TableContainer
        sx={{ maxHeight: 1040  }}
        >
-        <Table stickyHeader aria-label="sticky table" sx={{height:500}}>
+        <Table stickyHeader aria-label="sticky table" >
           <TableHead>
             <TableRow key={12}>
               <TableCell align="center" colSpan={6} key={22}>
@@ -80,7 +80,7 @@ const rows = data? data : []
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
-                  // align={column.align}
+                 
                   style={{ top: 57, minWidth: column.minWidth }}
                 >
                   {column.label}
@@ -89,11 +89,11 @@ const rows = data? data : []
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+            {typeof rows === 'object' ? rows
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            ?.map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id_order ? row.id_order :row.id_invoices}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id_order ? row.id_order :row.id_invoices} >
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
@@ -106,14 +106,16 @@ const rows = data? data : []
                     })}
                   </TableRow>
                 );
-              })}
+              }): <TableRow> <TableCell key={11111111111} sx={{textAlign:"center"}}>
+אין נתונים זמינים
+            </TableCell></TableRow>}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[5, 20, 100]}
         component="div"
-        count={rows.length}
+        count={rows?.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

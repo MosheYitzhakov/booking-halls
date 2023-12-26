@@ -15,8 +15,8 @@ import { Dates } from '../../hooks/useContext';
 
 
 export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
-    const [typeO, setTypeO] = useState('b');
-    const [dateOE, setDateOE] = useState();
+    const [typeO, setTypeO] = useState(dataOrder.order?.type ? dataOrder.order?.type :'b');
+    const [dateOE, setDateOE] = useState(dataOrder.dateEvent?.date);
     const [dates, setDates] = useContext(Dates);
     const handleChange = (event) => {
         setTypeO(event.target.value);

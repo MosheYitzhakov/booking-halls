@@ -17,10 +17,11 @@ router.get('/:nameM', async (req, res) => {
         res.send(error.message)
     }
 })
-    .get('/futureOrders/:idHall/', async (req, res) => {
+    .get('/futureOrders/:nameM/', async (req, res) => {
         try {
-            let idHall = req.params.idHall;
-            const user = await getOrders(idHall, new Date().toISOString().split('T')[0])
+            let nameM = req.params.nameM;
+            let future = new Date().toISOString().slice(0, 19).replace('T', ' ')
+            const user = await getOrders(nameM, future)
             if (!user.length) {
                 res.status(401).json('No found orders')
             } else {

@@ -21,7 +21,6 @@ export function FromCreditCard({ setActive, dataOrder }) {
     event.preventDefault();
     try {
      
-console.log(dataOrder);
       const { data } = await instance.post(`/craetOrder`,dataOrder);
 console.log(data);
       
@@ -67,9 +66,9 @@ console.log(data);
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} >
-              <Typography variant="h5"> סה"כ לתשלום {dataOrder.total_paymentO
+              <Typography variant="h5"> סה"כ לתשלום {dataOrder.order.total_payment
               } ש"ח</Typography>
-              <Typography variant="h5">דמי מקדמה {dataOrder.paymentI
+              <Typography variant="h5">דמי מקדמה {dataOrder.invoice.payment
               } ש"ח לסגירת ההזמנה</Typography>
             </Grid>
             <Grid item xs={12} sm={12}>

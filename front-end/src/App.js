@@ -5,7 +5,7 @@ import { Home } from './pages/client/home';
 import { Login } from './pages/manager/login';
 import { Main } from './pages/manager/main';
 import { FutureOrders } from './pages/manager/futureOrders';
-import { AllOrders } from './pages/manager/allOrders';
+import { AllOrders } from './pages/manager/orders';
 import { Settings } from './pages/manager/settings';
 import { Invoices } from './pages/manager/Invoices';
 import { Err } from './error';
@@ -18,7 +18,7 @@ import { Dates } from './hooks/useContext';
 function App() {
   const [alldates, setallDates] = useState({dateH:"",dateE:""})
   return (
-    <div className="App">
+    <div className="App" style={{width:"100%"}}>
       <Header />
       <Dates.Provider value={[alldates, setallDates]}>
         <Routes>
@@ -29,8 +29,8 @@ function App() {
         <Route path="managers/" element={<Login />} />
         <Route path="managers/login" element={<Login />} />
         <Route path="managers/:name" element={<Main /> ? <Main /> : <Err />}>
-          <Route path="settings" element={<Settings /> ? <Settings /> : <Err />} />
-          <Route path="futureOrders" element={<FutureOrders /> ? <FutureOrders /> : <Err />} />
+          <Route path="settings" element={<Main /> ? <Main /> : <Err />} />
+          <Route path="futureOrders" element={<Main /> ? <Main /> : <Err />} />
           <Route path="allOrders" element={<Main /> ? <Main /> : <Err />} />
           <Route path="invoices" element={<Invoices /> ? <Invoices /> : <Err />} />
         </Route>

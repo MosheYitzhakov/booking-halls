@@ -5,12 +5,18 @@ const {
 } = require("jewish-date");
 
 const getOrders = async (nameM, date = null) => {
-    // let toSql = "WHERE id_hall = ?";
+    let toSql = "WHERE "
     if (date) {
-        toSql = `
-        WHERE o.date >= '${date}'
-        AND id_hall = ?`
+        toSql += `
+         o.date >= '${date}'
+        AND `
     }
+     toSql += ` id_hall IN (
+        select mh.id_hall from managers_halls mh
+        join users u
+        USING(id_user)
+        WHERE u.name = "${nameM}"
+        )`;
     try {
         const sql = `
         SELECT o.*, K.name AS nameK,C.name AS nameC,
@@ -21,14 +27,12 @@ const getOrders = async (nameM, date = null) => {
         JOIN users AS K ON (id_k=K.id_user)
         JOIN orders o
         USING(id_order)
-        WHERE id_hall IN (
-        select mh.id_hall from managers_halls mh
-        join users u
-        USING(id_user)
-        WHERE u.name = "${nameM}"
-        )
+        ${toSql}
+        
         order by co.id_order
         `
+        // console.log(sql);
+        // return sql
         const [res] = await pool.query(sql);
         return res;
     } catch (error) {

@@ -10,9 +10,8 @@ export default function Calendar({
     // const [dates, setDates] = useContext(Dates)
     const [basicJewishDay, setBasicJewishDay] = useState();
     const [eventsSchedule, seteventsSchedule] = useState();
-    const [datee, setDatee] = useState();
+    // const [datee, setDatee] = useState();
     const [dates, setDates] = useContext(Dates);
-    // console.log(date);
     useEffect(() => {
         async function name() {
             try {
@@ -61,7 +60,6 @@ export default function Calendar({
                         // console.log(day.jewishDateStr);
                         setDateOE &&  setDateOE(new Date(day.date).toLocaleDateString("he-IL"));
                     }}
-
             />
           
         </div>

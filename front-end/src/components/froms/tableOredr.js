@@ -16,11 +16,11 @@ function createData(name, calories, fat, carbs, sum) {
 export default function BasicTable({ hall, typeO, dataOrder }) {
   const [meal, setMeal] = useState();
   useEffect(() => {
-    if (typeof dataOrder.num_m_adultsO !== 'undefined') {
+    if (typeof dataOrder.order.num_m_adults !== 'undefined') {
       setMeal({
-        adults: dataOrder.num_m_adultsO,
-        children: dataOrder.num_m_barO,
-        bar: dataOrder.num_m_childrenO,
+        adults: dataOrder.order.num_m_adults,
+        children: dataOrder.order.num_m_bar,
+        bar: dataOrder.order.num_m_children,
       })
     } else{
       setMeal({

@@ -1,4 +1,8 @@
 const { pool } = require('./dbConnection')
+const {
+    toJewishDate,
+    formatJewishDateInHebrew,
+} = require("jewish-date");
 
 const getOrders = async (nameM, date = null) => {
     // let toSql = "WHERE id_hall = ?";
@@ -62,17 +66,65 @@ const putOrders = async (id_order, ...args) => {
 
 }
 
-const postOrders = async (id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment, hebrew_date) => {
-    try {
-        const sql = `
-    INSERT INTO orders (id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment, hebrew_date, date)
-    VALUES (?,?,?,?,?,?,?,?,?)`
-        const [{ affectedRows, insertId }] = await pool.query(sql, [id_hall, num_guests, num_m_adults, num_m_children, num_m_bar, type, total_payment, hebrew_date, date])
-        if (affectedRows) return insertId
-        return 'The comment cannot be inserted'
-    } catch (error) {
-        return error.message
-    }
+const postOrders = async (...args) => {
+    const [ { clientC ,clientK, order,dateEvent,invoice} ] = args;
+    
+        const str = (obj) =>{
+            let string = ""
+            for (const key in obj) {
+                    string += `${key},`;
+            } 
+            return  string.slice(0,-1)
+        }
+
+
+    let conn = null;
+try {
+  conn = await pool.getConnection();
+  await conn.beginTransaction()
+
+ let  sql = `
+  INSERT INTO users (${Object.keys(clientK)})
+  VALUES (?,?,?,?,?)`
+const [ clientKS ] = await conn.query(sql, Object.values(clientK))
+  sql = `
+       INSERT INTO users (${Object.keys(clientC)})
+       VALUES (?,?,?,?,?)`
+  const [ clientCS] = await conn.query(sql, Object.values(clientC))
+  sql = `
+       INSERT INTO orders (${Object.keys(order)})
+       VALUES (?,?,?,?,?,?,?,?,?)`
+  
+  const [ orderS] = await conn.query(sql, Object.values(order))
+ 
+  sql = `
+    INSERT INTO customers_orders (id_c, id_k, id_order)
+    VALUES (?,?,?)`
+const [ cCO] = await conn.query(sql,[clientCS.insertId,clientKS.insertId,orderS.insertId])
+
+
+    sql = `
+  INSERT INTO events_schedule (${Object.keys(dateEvent)})
+  VALUES (?,?,?)`
+
+const [ dateEventS] = await conn.query(sql, Object.values(dateEvent))
+
+  sql = `
+       INSERT INTO invoices (id_user, payment,date,hebrew_date)
+       VALUES (?,?,?,?)`
+
+  const [invoiceS] = await conn.query(sql, [invoice.submits === 'k' ? clientKS.insertId : clientCS.insertId,invoice.payment , new Date().toLocaleString("he-IL"), formatJewishDateInHebrew(toJewishDate(new Date()))])
+
+
+  await conn.commit();
+  return "updated orders"
+} catch (error) {
+
+  if (conn) await conn.rollback();
+  return error.message;
+} finally {
+  if (conn) conn.release();
+}
 }
 
 const deleteOrders = async (id_order) => {

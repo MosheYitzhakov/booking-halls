@@ -46,13 +46,24 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
     setDataOrder((prv) => {
       return {
         ...prv,
-        emailC: data.get('emailC'),
-        phoneC: data.get('phoneC'),
-        nameC: data.get("nameC"),
-        emailK: data.get('emailK'),
-        phoneK: data.get('phoneK'),
-        nameK: data.get("nameK"),
-        submits: checkedC ? "c" : checkedK ? "k" : "",
+        clientC: {
+          ...prv.clientC,
+          email: data.get('emailC'),
+          phone: data.get('phoneC'),
+          name: data.get("nameC"),
+          side:  "c" ,
+          degree:"client"
+        },
+        clientK: {
+          ...prv.clientK,
+          email: data.get('emailK'),
+          phone: data.get('phoneK'),
+          name: data.get("nameK"),
+          side:  "k",
+          degree:"client"
+        },
+        invoice: { submits: checkedC ? "c" : checkedK ? "k" : "" }
+        ,
 
       }
     })
@@ -97,14 +108,14 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
                   fullWidth
                   label="משפחה"
                   name="nameC"
-                  defaultValue={dataOrder?.nameC}
+                  defaultValue={dataOrder.nameC?.name}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
                   name="phoneC"
-                  defaultValue={dataOrder?.phoneC}
+                  defaultValue={dataOrder.phoneC?.phone}
                   required
                   fullWidth
                   type="tel"
@@ -120,7 +131,7 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
                   label="איימיל"
                   type='email'
                   name="emailC"
-                  defaultValue={dataOrder?.emailC}
+                  defaultValue={dataOrder.emailC?.email}
                 // autoComplete="email"
                 />
               </Grid>
@@ -138,7 +149,7 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
                   id="lastName"
                   label="משפחה"
                   name="nameK"
-                  defaultValue={dataOrder?.nameK}
+                  defaultValue={dataOrder.nameK?.name}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -146,7 +157,7 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
                 <TextField
                   autoComplete="given-name"
                   name="phoneK"
-                  defaultValue={dataOrder?.phoneK}
+                  defaultValue={dataOrder.phoneK?.phone}
                   required
                   fullWidth
                   id="firstName"
@@ -163,7 +174,7 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
                   label="איימיל"
                   type='email'
                   name="emailK"
-                  defaultValue={dataOrder?.emailK}
+                  defaultValue={dataOrder.emailK?.email}
                   autoComplete="email"
                 />
               </Grid>

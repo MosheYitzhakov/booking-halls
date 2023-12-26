@@ -60,7 +60,6 @@ export function AllOrders({ data }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-console.log(data);
 const rows = data? data : []
   return (
     <Paper sx={{ width: '80%' }}>
@@ -90,7 +89,6 @@ const rows = data? data : []
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(rows)}
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {

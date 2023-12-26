@@ -19,13 +19,15 @@ export function FromCreditCard({ setActive, dataOrder }) {
   });
   const handleSubmit = async(event) => {
     event.preventDefault();
-  //   try {
-  //     const { data } = await instance.post(`/craetOrder`,{dataOrder});
-
+    try {
+     
+console.log(dataOrder);
+      const { data } = await instance.post(`/craetOrder`,dataOrder);
+console.log(data);
       
-  // } catch (error) {
-  //     return error.message
-  // }
+  } catch (error) {
+      return error.message
+  }
   };
 
   const handleButton = (setActive) => {

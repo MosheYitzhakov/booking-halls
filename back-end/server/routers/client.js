@@ -14,6 +14,8 @@ const { pool } = require('../../database/dbConnection');
 const router = express.Router();
 module.exports = router;
 
+
+
 router.get('/', async (req, res) => {
     try {
         const halls = await getHalls()
@@ -99,66 +101,24 @@ router.get('/', async (req, res) => {
         }
     })
     .post('/craetOrder/', async (req, res) => {
-        let conn = null;
         try {
-            // const id_hall = req.params.id_hall;
-            const allData = req.body.dataOrder
-            // allData =  {
-            //    "id_hall":"1"
-            //     "nameC": "name c",
-            //     "phoneC": "05033332 c",
-            //     "emailC": "avi@com c",
-            //     "nameK": "name k",
-            //     "phoneK": "05033332 k",
-            //     "emailK": "avi@com k",
-            //     "submits": "k",
-            //     "num_guestsO": 500,
-            //     "num_m_adultsO": 300,
-            //     "num_m_childrenO": 200,
-            //     "num_m_barO": 1000,
-            //     "typeO": "p",
-            //     "total_paymentO": 12000,
-            //     "dateD": "2020-12-10",
-            //     "hebrew_dateD": " יח חשוון תשעט ",
-            //     "paymentI": 1500
-            // }
+            const allData = req.body
+            const orderId = await postOrders(allData)
 
-            // if(!body){
-            //     throw new Error("Body is required")
-            // }
-            conn = await pool.getConnection();
-            await conn.query("START TRANSACTION");
-
-            const clientCId = await postClients(allData.nameC, Number(allData.phoneC), allData.emailC, "c",conn)
-            // if (typeof clientCId !== 'number') return res.send("client c can't updated")
+            res.send(orderId)
+        } catch (error) {
+            return  error.message
+        }
 
 
-            const clientKId = await postClients(allData.nameK, Number(allData.phoneK), allData.emailK, "k",conn)
-            // if (typeof clientKId !== 'number') {
-                // await deleteUsers(clientCId)
-                // return res.send("client k can't updated")
-            // }
-            const orderId = await postOrders(allData.id_hall, allData.num_guestsO, allData.num_m_adultsO, allData.num_m_childrenO, allData.num_m_barO, allData.typeO, allData.total_paymentO, allData.hebrew_dateD, allData.dateD, conn)
 
-            const pCO = await postCO(clientCId, clientKId, orderId)
-            const pE = await postEvents(allData.id_hall, allData.hebrew_dateD, allData.dateD)
-            const pI = await postInvoices(allData.submits === 'k' ? clientKId : clientCId, allData.paymentI, new Date().toLocaleString("he-IL"), formatJewishDateInHebrew(toJewishDate(new Date())))
-        //    console.log("orderId "+ orderId);
-        //    console.log("pCO "+ pCO);
-           
-           await conn.query("COMMIT");
 
-            res.send("orders is updated")
-            // if (typeof user === 'string') {
-            //     res.json('cannot posts')
-            // } else {
-            //     res.send(user)
-            // }
-        }  catch (error) {
-            if (conn) await conn.query("ROLLBACK");
-            throw error;
-          } finally {
-            if (conn) conn.release();
-          }
+
+
+
+
+      
     })  
+
+
    

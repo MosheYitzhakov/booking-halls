@@ -21,7 +21,8 @@ export function Main() {
   }
     fetch()
   }, []);
-console.log(data);
+// console.log(data);
+// console.log(path[3] === 'allOrders');
     const handleLink = ({ target }) => {
         const url = `/${path[1]}/${path[2]}/${target.value}`
         nauigat(url)
@@ -36,8 +37,8 @@ console.log(data);
                 height: "100%"
             }}
         >
-            {!path[3] && <AllOrders />}
-            <Outlet />
+            {path[3] === 'allOrders' && <AllOrders data={data}/>}
+            {/* <Outlet /> */}
 
             <ButtonGroup
                 sx={{ width: "25%" }}

@@ -31,7 +31,7 @@ function App() {
         <Route path="managers/:name" element={<Main /> ? <Main /> : <Err />}>
           <Route path="settings" element={<Settings /> ? <Settings /> : <Err />} />
           <Route path="futureOrders" element={<FutureOrders /> ? <FutureOrders /> : <Err />} />
-          <Route path="allOrders" element={<AllOrders /> ? <AllOrders /> : <Err />} />
+          <Route path="allOrders" element={<Main /> ? <Main /> : <Err />} />
           <Route path="invoices" element={<Invoices /> ? <Invoices /> : <Err />} />
         </Route>
 

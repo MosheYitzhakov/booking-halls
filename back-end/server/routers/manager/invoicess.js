@@ -9,7 +9,7 @@ router.get('/:nameM', async (req, res) => {
         let nameM = req.params.nameM;
         const user = await getInvoices(nameM)
         if (!user.length) {
-            res.status(401).json('No found invoices')
+            res.json('No found invoices')
         } else {
             res.send(user)
         }

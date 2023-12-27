@@ -10,14 +10,16 @@ router.post('/', async (req, res) => {
     try {
         const name = req.body.name
         const password = req.body.password
+        console.log(password,name);
         const dataManager = await getManager(name, password)
+       console.log(dataManager);
+
         if (!dataManager.length) {
             res.json('No found user')
         } else {
-            console.log(password);
             const user = { name: name }
 
-            const token = jwt.sign(user, process.env.TOKEN, { expiresIn: '30m' })
+            const token =  jwt.sign(user, process.env.Secret, { expiresIn: '30m' })
 
             res.send({user, token})
         }

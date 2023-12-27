@@ -20,9 +20,11 @@ export function Main() {
         url+= "futureOrders/"
        } else if (path[3] === 'invoices') {
         url= "/managers/invoices/"
+       }else if (path[3] === 'settings') {
+        url= "/managers/settings/"
        }
        console.log(url);
-        const { data } = await instance.get((url+path[2]));
+        const { data } = await instance.get((url+path[2]),{headers:{auth:JSON.parse(localStorage.uesrToken)}});
         console.log(data);
         setData(data)
     } catch (error) {
@@ -31,6 +33,7 @@ export function Main() {
   }
     fetch()
   }, [pathname]);
+
     const handleLink =async ({ target }) => {
 
         // let url = '/managers/orders/'
@@ -61,7 +64,7 @@ export function Main() {
             }}
         >
             {/* {(path[3] === 'allOrders' || path[3] === 'futureOrders'||path[3] === 'invoices') && <Orders data={data}/>} */}
-            {data && path[3] === 'settings'? <Settings data={data}/>: <Orders data={data}/>}
+            {typeof data === "object" && path[3] === 'settings'? <Settings data={data}/>: <Orders data={data}/>}
             {/* <Outlet /> */}
 
             <ButtonGroup

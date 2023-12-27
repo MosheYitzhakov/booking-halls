@@ -13,7 +13,8 @@ import instance from '../../API';
 
 
 
-export function Settings() {
+export function Settings({ data }) {
+    console.log(data);
     const { pathname } = useLocation();
     const path = pathname.split('/')
     const nameM = "/" + path[1] + "/" + path[3];
@@ -37,7 +38,7 @@ export function Settings() {
         phone:"",
         side:"",
     })
-    const [settings, setSettings] = useState()
+    const [settings, setSettings] = useState(data && data[0])
     const [updateTable, setUpdateTable] = useState(false)
     const handleInputChange = (evt) => {
         const { name, value } = evt.target;
@@ -47,11 +48,11 @@ export function Settings() {
     setNewSettings(settings)
     setUpdateTable(!updateTable)
    }
-
-    useEffect(() => {
+   useEffect(() => {
+        console.log(nameM+ "/" + path[2]);
         async function name() {
             try {
-                const { data } = await instance.get(nameM+ "/" + path[2]);
+                // const { data } = await instance.get(nameM+ "/" + path[2]);
                 setSettings(data[0])
                 setNewSettings(data[0])
             } catch (error) {
@@ -59,7 +60,7 @@ export function Settings() {
             }
         }
         name()
-    }, [])
+    }, [data])
     const handleSubmit =async (event) => {
         event.preventDefault();
         const dataAll = new FormData(event.currentTarget);

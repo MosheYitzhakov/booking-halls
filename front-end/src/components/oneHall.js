@@ -30,12 +30,12 @@ export default function Hall({hall}) {
       </CardContent>
       <CardActions>
       </CardActions>
-      <CardMedia
+  { hall?.images[0]?.name &&   <CardMedia
         sx={{ flex: '1 0 auto', width: 250 ,display:"inline-block"}}
         title="green iguana"
-        image={require(`../images/${hall.images[0].name}`)}
+        image={require(`../images/${hall?.images[0].name}`)}
         alt="Live from space album cover"
-      />
+      />}
     </Card>
   );
 

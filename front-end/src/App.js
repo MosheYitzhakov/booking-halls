@@ -4,10 +4,10 @@ import { Hall } from './pages/client/hall';
 import { Home } from './pages/client/home';
 import { Login } from './pages/manager/login';
 import { Main } from './pages/manager/main';
-import { FutureOrders } from './pages/manager/futureOrders';
-import { AllOrders } from './pages/manager/orders';
-import { Settings } from './pages/manager/settings';
-import { Invoices } from './pages/manager/Invoices';
+// import { FutureOrders } from './pages/manager/futureOrders';
+// import { AllOrders } from './pages/manager/orders';
+// import { Settings } from './pages/manager/settings';
+// import { Invoices } from './pages/manager/Invoices';
 import { Err } from './error';
 import Header from './components/header';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ import { Dates } from './hooks/useContext';
 function App() {
   const [alldates, setallDates] = useState({dateH:"",dateE:""})
   return (
-    <div className="App" style={{width:"100%"}}>
+    <div className="App" style={{width:"100%", height:"100%"}}>
       <Header />
       <Dates.Provider value={[alldates, setallDates]}>
         <Routes>

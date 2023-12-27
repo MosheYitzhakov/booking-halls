@@ -1,15 +1,20 @@
 const express = require('express');
 const { getOrders, putOrders, deleteOrders } = require('../../../database/dbOrders')
-const { getCO } = require('../../../database/dbCustomers_Orders')
+// const { getCO } = require('../../../database/dbCustomers_Orders')
+const { authenticationToken } = require('../../../server/authenticationToken')
 const router = express.Router();
 module.exports = router;
 
-router.get('/:nameM', async (req, res) => {
+router.get('/:nameM',authenticationToken, async (req, res) => {
     try {
         let nameM = req.params.nameM;
+        console.log(nameM);
+
+        console.log(req.user.name);
+        if(nameM !== req.user.name) { res.json('No found Correct authentication ')}
         const user = await getOrders(nameM)
         if (!user.length) {
-            res.status(401).json('No found orders')
+            res.json('No found orders')
         } else {
             res.send(user)
         }
@@ -23,7 +28,7 @@ router.get('/:nameM', async (req, res) => {
             let future = new Date().toISOString().slice(0, 19).replace('T', ' ')
             const user = await getOrders(nameM, future)
             if (!user.length) {
-                res.status(401).json('No found orders')
+                res.json('No found orders')
             } else {
                 res.send(user)
             }

@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
             }
         })
         if (!halls.length || !image.length) {
-            res.status(401).json('No found hall')
+            res.json('No found hall')
         } else {
             res.send(halls)
         }
@@ -81,7 +81,7 @@ router.get('/', async (req, res) => {
         try {
             const date = req.params.date;
             const halls = await getHallsForDate(date)
-            if (!halls.length) res.status(401).json('No found hall')
+            if (!halls.length) res.json('No found hall')
             for (let i = 0; i < halls.length; i++) {
                 halls[i].images = [];
 

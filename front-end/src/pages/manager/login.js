@@ -8,15 +8,13 @@ export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrect, setIncorrect] = useState(false)
-  const handleLogin = async () => {
 
-    // Implement your login logic here
-    // console.log(`Login attempt with username: ${username} and password: ${password}`);
+  const handleLogin = async () => {
     const { data } = await instance.post(`/managers/login/`,{name:username,password});
 console.log(data);
     if (typeof data === 'object') {
       localStorage.setItem("uesrToken", JSON.stringify(data.token))
-      navigate(`/managers/${username}/allOrders`)
+      navigate(`/managers/${username}/settings`)
       console.log(data.user);
       return console.log('ok');
     } else {
@@ -24,6 +22,7 @@ console.log(data);
     }
   };
 
+  
   return (
     <div className="login-container">
       <h2 className='login'>Login</h2>

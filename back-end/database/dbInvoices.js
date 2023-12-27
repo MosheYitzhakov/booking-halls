@@ -1,6 +1,6 @@
 const { pool } = require('./dbConnection')
 
-const getInvoices = async (id_hall) => {
+const getInvoices = async (nameM) => {
     try {
         const sql = `
         SELECT i.*, cs.id_order, o.id_hall, u.name,u.phone ,u.email
@@ -10,9 +10,16 @@ const getInvoices = async (id_hall) => {
         using(id_order)
         JOIN users u
         using(id_user)
-          WHERE (i.id_user = cs.id_c OR i.id_user = cs.id_k) AND o.id_hall = ?
+          WHERE (i.id_user = cs.id_c OR i.id_user = cs.id_k) 
+          AND 
+          o.id_hall IN (
+            select mh.id_hall from managers_halls mh
+            join users u
+            USING(id_user)
+            WHERE u.name = ?
+            )
         `
-        const [res] = await pool.query(sql,[id_hall]);
+        const [res] = await pool.query(sql,[nameM]);
         return res;
     } catch (error) {
         return error.message

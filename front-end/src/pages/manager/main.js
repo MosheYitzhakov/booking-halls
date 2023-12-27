@@ -18,6 +18,8 @@ export function Main() {
         let url = '/managers/orders/'
        if( path[3] === 'futureOrders' ){
         url+= "futureOrders/"
+       } else if (path[3] === 'invoices') {
+        url= "/managers/invoices/"
        }
        console.log(url);
         const { data } = await instance.get((url+path[2]));
@@ -29,7 +31,19 @@ export function Main() {
   }
     fetch()
   }, [pathname]);
-    const handleLink = ({ target }) => {
+    const handleLink =async ({ target }) => {
+
+        // let url = '/managers/orders/'
+        // if( target.value === 'futureOrders' ){
+        //  url= "/managers/orders/futureOrders/"
+        // } else if (target.value === 'invoices') {
+        //  url= "/managers/invoices/"
+        // }
+        // console.log(url);
+        //  const { data } = await instance.get((url+path[2]));
+        //  console.log(data);
+        //  setData(data)
+        // if(target.value === )
         const url = `/${path[1]}/${path[2]}/${target.value}`
         nauigat(url)
     }
@@ -46,8 +60,8 @@ export function Main() {
                 height: "100%"
             }}
         >
-            {(path[3] === 'allOrders' || path[3] === 'futureOrders') && <Orders data={data}/>}
-            {path[3] === 'settings' && <Settings data={data}/>}
+            {/* {(path[3] === 'allOrders' || path[3] === 'futureOrders'||path[3] === 'invoices') && <Orders data={data}/>} */}
+            {data && path[3] === 'settings'? <Settings data={data}/>: <Orders data={data}/>}
             {/* <Outlet /> */}
 
             <ButtonGroup
@@ -56,11 +70,11 @@ export function Main() {
                 aria-label="vertical contained button group"
                 variant="contained"
             >
-                <Button sx={{ height: "20%", fontSize: '1.5rem' }} key="one" value="settings" onClick={(e) => { handleLink(e) }}>הגדרות אולם</Button>,
-                <Button sx={{ height: "20%", fontSize: '1.5rem' }} key="two" value="futureOrders" onClick={(e) => { handleLink(e) }}>הזמנות עתידיות</Button>,
-                <Button sx={{ height: "20%", fontSize: '1.5rem' }} key="three" value="allOrders" onClick={(e) => { handleLink(e) }}>כל ההזמנות</Button>,
-                <Button sx={{ height: "20%", fontSize: '1.5rem' }} key="three" value="invoices" onClick={(e) => { handleLink(e) }}>חשבוניות</Button>,
-                <Button sx={{ height: "20%", fontSize: '1.5rem' }} key="three" value="invoices" onClick={(e) => { handleLink(e) }}>לוח שנה הזמנות</Button>,
+                <Button sx={{ height: "25%", fontSize: '1.5rem' }} key="one" value="settings" onClick={(e) => { handleLink(e) }}>הגדרות אולם</Button>,
+                <Button sx={{ height: "25%", fontSize: '1.5rem' }} key="two" value="futureOrders" onClick={(e) => { handleLink(e) }}>הזמנות עתידיות</Button>,
+                <Button sx={{ height: "25%", fontSize: '1.5rem' }} key="three" value="allOrders" onClick={(e) => { handleLink(e) }}>כל ההזמנות</Button>,
+                <Button sx={{ height: "25%", fontSize: '1.5rem' }} key="three" value="invoices" onClick={(e) => { handleLink(e) }}>חשבוניות</Button>,
+                {/* <Button sx={{ height: "20%", fontSize: '1.5rem' }} key="three" value="invoices" onClick={(e) => { handleLink(e) }}>לוח שנה הזמנות</Button>, */}
             </ButtonGroup>
         </Box>
     );

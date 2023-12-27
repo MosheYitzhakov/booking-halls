@@ -4,10 +4,10 @@ const { formatJewishDateInHebrew, toJewishDate } = require('jewish-date');
 const router = express.Router();
 module.exports = router;
 
-router.get('/:id_hall', async (req, res) => {
+router.get('/:nameM', async (req, res) => {
     try {
-        let id_hall = req.params.id_hall;
-        const user = await getInvoices(id_hall)
+        let nameM = req.params.nameM;
+        const user = await getInvoices(nameM)
         if (!user.length) {
             res.status(401).json('No found invoices')
         } else {

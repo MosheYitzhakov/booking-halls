@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 // import instance from '../API';
 import { useNavigate } from 'react-router-dom';
+import instance from '../../API';
 export const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -10,15 +11,17 @@ export const Login = () => {
   const handleLogin = async () => {
 
     // Implement your login logic here
-    console.log(`Login attempt with username: ${username} and password: ${password}`);
-    // const { data } = await instance.get(`/users/${username}/${password}`);
-    // if (typeof data === 'object') {
-    //   localStorage.setItem("uesr", JSON.stringify(data))
-      navigate(`/users/${username}`)
-    //   return console.log('ok');
-    // } else {
-    //   return setIncorrect(true)
-    // }
+    // console.log(`Login attempt with username: ${username} and password: ${password}`);
+    const { data } = await instance.post(`/managers/login/`,{name:username,password});
+console.log(data);
+    if (typeof data === 'object') {
+      localStorage.setItem("uesrToken", JSON.stringify(data.token))
+      navigate(`/managers/${username}/allOrders`)
+      console.log(data.user);
+      return console.log('ok');
+    } else {
+      return setIncorrect(true)
+    }
   };
 
   return (

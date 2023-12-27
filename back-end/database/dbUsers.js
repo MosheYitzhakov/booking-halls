@@ -4,7 +4,7 @@ const getManager = async (name, password) => {
     try {
         const sql = `
         SELECT *
-        FROM uesrs
+        FROM users
         WHERE name = ?
         AND password = ?
         `
@@ -20,7 +20,7 @@ const getClients = async (id_user) => {
     try {
         const sql = `
         SELECT *
-        FROM uesrs
+        FROM users
         WHERE id_user = ? 
   `
         const [res] = await pool.query(sql, [id_user])

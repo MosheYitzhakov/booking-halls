@@ -28,15 +28,15 @@ function App() {
 
         <Route path="managers/" element={<Login />} />
         <Route path="managers/login" element={<Login />} />
-        <Route path="managers/:name/allOrders" element={<Main /> ? <Main /> : <Err />}/>
-        <Route path="managers/:name/futureOrders" element={<Main /> ? <Main /> : <Err />}/>
-        <Route path="managers/:name/invoices" element={<Main /> ? <Main /> : <Err />}/>
         <Route path="managers/:name" element={<Main /> ? <Main /> : <Err />}>
           <Route path="settings" element={<Main /> ? <Main /> : <Err />} />
           {/* <Route path="futureOrders" element={<Main /> ? <Main /> : <Err />} />
           <Route path="allOrders" element={<Main /> ? <Main /> : <Err />} />
           <Route path="invoices" element={<Main /> ? <Main /> : <Err />} /> */}
         </Route>
+        <Route path="managers/:name/allOrders" element={<Main /> ? <Main /> : <Login />}/>
+        <Route path="managers/:name/futureOrders" element={<Main /> ? <Main /> : <Login />}/>
+        <Route path="managers/:name/invoices" element={<Main /> ? <Main /> : <Login />}/>
 
         <Route path="*" element={<Err />} />
       </Routes>

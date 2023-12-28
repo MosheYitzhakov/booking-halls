@@ -2,17 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { ReactJewishDatePicker } from "react-jewish-datepicker";
 import instance from '../API';
 import "react-jewish-datepicker/dist/index.css";
-import { TextField } from "@mui/material";
+// import { TextField } from "@mui/material";
 import { Dates } from "../hooks/useContext";
 
 export default function Calendar({
  idHall = null,setDateOE =null }) {
     // const [dates, setDates] = useContext(Dates)
     const [basicJewishDay, setBasicJewishDay] = useState();
-    const [eventsSchedule, seteventsSchedule] = useState();
+    const [eventsSchedule, setEventsSchedule] = useState();
+    const [jewishHolidays, setJewishHolidays] = useState();
     // const [datee, setDatee] = useState();
     const [dates, setDates] = useContext(Dates);
-    // console.log(date);
+    
+    //  https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=off&mod=off&nx=off&start=2021-12-29&ss=off&mf=on&end=2022-12-29    //  API חגים
     useEffect(() => {
         async function name() {
             try {
@@ -21,7 +23,7 @@ export default function Calendar({
                     url += `/${idHall}`
                 }
                 const { data } = await instance.get(url);
-                seteventsSchedule(data);
+                setEventsSchedule(data);
             } catch (error) {
                 return error.message
             }
@@ -41,24 +43,16 @@ export default function Calendar({
         }
         return true;
     }
-// console.log(dates);
     return (
         <div style={{ width: "40%", display: "inline-block", margin: 12 }}>
             <ReactJewishDatePicker
                 value={dates.dateE ? dates.dateE : basicJewishDay}
                 isHebrew
-
                 canSelect={dontSelectTuesdays}
                 onClick={
                     (day) => {
-                        setDates( {dateE :day.date, dateH: day.jewishDateStrHebrew }
-                          
-                        )
-                        // setDate(day.jewishDateStrHebrew)
-                        // setBasicJewishDay(day.date);
-                        // setDateE(day.date);
-                        // console.log(new Date(day.date));
-                        // console.log(day.jewishDateStr);
+                        setDates( {dateE :day.date, dateH: day.jewishDateStrHebrew })
+                        console.log(Number((new Date(day.date).toISOString().split('T')[0]).split("-")[0])+12);
                         setDateOE &&  setDateOE(new Date(day.date).toISOString().slice(0, 19).replace('T', ' '));
                     }}
             />

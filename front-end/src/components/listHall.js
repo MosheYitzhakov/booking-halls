@@ -10,9 +10,8 @@ export default function HallForList({ halls }) {
  
   useEffect(() => {
     async function name() {
-      console.log(dates.dateH);
       try {
-        const { data } = await instance.get(`/hallsForDate/${dates.dateH.replaceAll('״', '"')}`);
+        const { data } = await instance.get(`/hallsForDate/${dates.dateH}`);
         if(typeof data !== "string")
         setHallByDate(data);
       } catch (error) {
@@ -23,7 +22,6 @@ export default function HallForList({ halls }) {
      name()
 
   },[dates])
-  console.log(hallByDate);
   return (
     <div>
       {

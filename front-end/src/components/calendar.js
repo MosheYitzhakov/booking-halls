@@ -33,7 +33,7 @@ export default function Calendar({
     const dontSelectTuesdays = (day) => {
         if (typeof idHall === 'number') {
             for (let i = 0; i < eventsSchedule?.length; i++) {
-                if (day.jewishDateStrHebrew.replaceAll('״', '') === eventsSchedule[i].hebrew_date?.replaceAll('"', '')) {
+                if (day.jewishDateStrHebrew === eventsSchedule[i].hebrew_date) {
                     return false;
                 }
             }
@@ -52,11 +52,11 @@ export default function Calendar({
                 onClick={
                     (day) => {
                         setDates( {dateE :day.date, dateH: day.jewishDateStrHebrew })
-                        console.log(Number((new Date(day.date).toISOString().split('T')[0]).split("-")[0])+12);
+                        // console.log(Number((new Date(day.date).toISOString().split('T')[0]).split("-")[0])+12);
                         setDateOE &&  setDateOE(new Date(day.date).toISOString().slice(0, 19).replace('T', ' '));
                     }}
             />
-          
+          {idHall && <p> תאריכים תפוסים לא נתנים לבחירה </p>}
         </div>
     );
 }

@@ -52,7 +52,6 @@ export function Settings({ data }) {
         console.log(nameM+ "/" + path[2]);
         async function name() {
             try {
-                // const { data } = await instance.get(nameM+ "/" + path[2]);
                 setSettings(data[0])
                 setNewSettings(data[0])
             } catch (error) {
@@ -60,7 +59,7 @@ export function Settings({ data }) {
             }
         }
         name()
-    }, [data])
+    }, [])
     const handleSubmit =async (event) => {
         event.preventDefault();
         const dataAll = new FormData(event.currentTarget);

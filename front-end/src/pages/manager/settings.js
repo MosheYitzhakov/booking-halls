@@ -38,7 +38,7 @@ export function Settings({ data }) {
         phone:"",
         side:"",
     })
-    const [settings, setSettings] = useState(data && data[0])
+    const [settings, setSettings] = useState()
     const [updateTable, setUpdateTable] = useState(false)
     const handleInputChange = (evt) => {
         const { name, value } = evt.target;
@@ -59,7 +59,7 @@ export function Settings({ data }) {
             }
         }
         name()
-    }, [])
+    }, [data])
     const handleSubmit =async (event) => {
         event.preventDefault();
         const dataAll = new FormData(event.currentTarget);

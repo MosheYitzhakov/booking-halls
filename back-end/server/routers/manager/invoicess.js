@@ -1,18 +1,23 @@
 const express = require('express');
 const { postInvoices, getInvoices } = require('../../../database/dbInvoices');
+const { authenticationToken } = require('../../authenticationToken');
 const { formatJewishDateInHebrew, toJewishDate } = require('jewish-date');
 const router = express.Router();
 module.exports = router;
-
+router.use(authenticationToken)
 router.get('/:nameM', async (req, res) => {
     try {
         let nameM = req.params.nameM;
+        if (nameM !== req.user.name) {
+            res.send('No found Correct authentication ')
+        } else {
         const user = await getInvoices(nameM)
         if (!user.length) {
             res.json('No found invoices')
         } else {
             res.send(user)
         }
+    }
     } catch (error) {
         res.send(error.message)
     }

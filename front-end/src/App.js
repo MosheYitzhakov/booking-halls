@@ -7,7 +7,7 @@ import { Main } from './pages/manager/main';
 import { Err } from './error';
 import Header from './components/header';
 import { useState } from 'react';
-import { Dates } from './hooks/useContext';
+import { Dates, Order } from './hooks/useContext';
 
 
 
@@ -17,6 +17,7 @@ function App() {
     <div className="App" style={{width:"100%", height:"100%"}}>
       <Header />
       <Dates.Provider value={[alldates, setallDates]}>
+        {/* <Order> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/main" element={<Home />} />
@@ -31,6 +32,7 @@ function App() {
 
         <Route path="*" element={<Err />} />
       </Routes>
+      {/* </Order> */}
     </Dates.Provider>  
     </div>
   );

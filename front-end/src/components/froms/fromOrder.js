@@ -26,6 +26,7 @@ export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
             setTypeO(dataOrder.order.type)
         }
     }, [dataOrder])
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -44,7 +45,7 @@ export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
                     date: dateOE,
                 },
                 invoice: {
-                    ...prv.invoices,
+                    ...prv.invoice,
                     payment: data.get('paymentI'),
                 },
                 dateEvent:{
@@ -55,6 +56,15 @@ export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
 
             }
         })
+        console.log(dataOrder);
+    for (const i in dataOrder) {
+        // console.log(dataOrder[i]);
+        for (const key in dataOrder[i]) {
+           if(!dataOrder[i][key]){
+            console.log("אין ערך ל "+ key);
+           }
+        }
+    }
         setActive((prv) => {
             return prv + 1;
         })

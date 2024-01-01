@@ -68,7 +68,7 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
 
       <TextField
         variant="standard"
-        value={hall.down_payment}
+        value={hall.base_price}
         InputProps={{
           readOnly: true,
         }}
@@ -82,7 +82,7 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
           sum?.adults +
           sum?.children +
           sum?.bar +
-          hall?.down_payment}
+          hall?.base_price}
         InputProps={{
           readOnly: true,
         }}

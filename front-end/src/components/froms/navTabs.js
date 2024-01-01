@@ -24,11 +24,21 @@ export default function FullWidthTabs({  hall }) {
   const [active, setActive] = useState(1)
   const [dataOrder, setDataOrder] =useState({clientC:{},clientK:{},order:{},dateEvent:{},invoice:{}})
   useEffect(() => {
-    if (hall ) {
+    if (hall) {
+      console.log(hall);
       setDataOrder((prv)=>{
         return {
           ...prv,
-          order:{...prv.order,id_hall:hall.id_hall},
+          order:{...prv.order,id_hall:hall.id_hall,
+            date:"",
+            hebrew_date:"",
+            num_guests:"",
+            num_m_adults:"",
+            num_m_bar:"",
+            num_m_children:"",
+            total_payment:"",
+            type:"b",
+          },
           dateEvent:{...prv.dateEvent,id_hall:hall.id_hall}
         }
       })

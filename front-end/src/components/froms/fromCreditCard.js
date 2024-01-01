@@ -17,6 +17,7 @@ export function FromCreditCard({ setActive, dataOrder }) {
     name: '',
     focus: '',
   });
+  console.log(dataOrder);
   const handleSubmit = async(event) => {
     event.preventDefault();
     try {

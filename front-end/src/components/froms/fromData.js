@@ -15,10 +15,10 @@ const theme = createTheme();
 
 
 export function FromData({ setActive, setDataOrder, dataOrder }) {
-  const [checkedC, setCheckedC] = useState(false);
-  const [checkedK, setCheckedK] = useState(false);
+  const [checkedC, setCheckedC] = useState(dataOrder.invoice?.submits === 'c' ? true: false);
+  const [checkedK, setCheckedK] = useState(dataOrder.invoice?.submits === 'k' ? true: false);
 
-
+console.log(dataOrder);
   const handleChange = (s) => {
     if (s === 'c') {
       setCheckedC(!checkedC)
@@ -28,6 +28,7 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
       setCheckedK(!checkedK)
     }
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -120,7 +121,6 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
                   type='email'
                   name="emailC"
                   defaultValue={dataOrder.clientC?.email}
-                // autoComplete="email"
                 />
               </Grid>
 
@@ -182,7 +182,6 @@ export function FromData({ setActive, setDataOrder, dataOrder }) {
 
                 </fieldset>
               </Grid>
-
             </Grid>
             <Button
               type="submit"

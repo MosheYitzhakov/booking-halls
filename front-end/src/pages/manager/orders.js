@@ -95,8 +95,9 @@ export function Orders({ data }) {
   let columns = dataColumns(data)
   let head = dataHead(data)
   return (<>
-    {columns &&
-      <Paper sx={{ width: '80%' }}>
+  {console.log(columns)}
+    {columns ?
+      <Paper sx={{ width: '80%',borderRadius:2,boxShadow:3,display:"flex",flexDirection:"column",px:4,py:6 }}>
         <TableContainer
           sx={{ maxHeight: 1040 }}
         >
@@ -104,7 +105,7 @@ export function Orders({ data }) {
             <TableHead>
               {head ? head : null}
               <TableRow key={13}>
-                {columns.map((column) => (
+                {columns?.map((column) => (
                   <TableCell
                     key={column.id}
                     style={{ top: 57, minWidth: column.minWidth }}
@@ -148,6 +149,8 @@ export function Orders({ data }) {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Paper>}</>
+      </Paper>:<Paper sx={{ width: '80%',alignItems:"center",background:"white",borderRadius:2,boxShadow:3,display:"flex",flexDirection:"column",px:4,py:6 }}><h1> אין נתונים זמינים</h1></Paper>}</>
+      
+      
   );
 }

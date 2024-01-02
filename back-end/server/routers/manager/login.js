@@ -13,14 +13,11 @@ router.post('/', async (req, res) => {
         console.log(password,name);
         const dataManager = await getManager(name, password)
        console.log(dataManager);
-
         if (!dataManager.length) {
-            res.json('No found user')
+            res.send('No found user')
         } else {
             const user = { name: name }
-
             const token =  jwt.sign(user, process.env.Secret, { expiresIn: '12h' })
-
             res.send({user, token})
         }
     } catch (error) {

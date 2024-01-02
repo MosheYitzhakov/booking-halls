@@ -1,4 +1,4 @@
-import  React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
@@ -12,37 +12,38 @@ export function Main() {
     const path = pathname.split('/')
     const nauigat = useNavigate()
     const [data, setData] = useState(null);
-  useEffect(() => {
-  const  fetch =async()=>{
-    try {
-        let url = '/managers/orders/'
-       if( path[3] === 'futureOrders' ){
-        url+= "futureOrders/"
-       } else if (path[3] === 'invoices') {
-        url= "/managers/invoices/"
-       }else if (path[3] === 'settings') {
-        url= "/managers/settings/"
-       }
-       console.log(url);
-        const { data } = await instance.get((url+path[2]),{headers:{auth:JSON.parse(localStorage.uesrToken)}});
-if(typeof data === "string")
-        nauigat('/managers/login')
-        console.log(data);
-        setData(data)
-    } catch (error) {
-        return error.message
-    }
-  }
-    fetch()
-  }, [pathname]);
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                let url = '/managers/orders/'
+                if (path[3] === 'futureOrders') {
+                    url += "futureOrders/"
+                } else if (path[3] === 'invoices') {
+                    url = "/managers/invoices/"
+                } else if (path[3] === 'settings') {
+                    url = "/managers/settings/"
+                }
+                console.log(url);
+                const { data } = await instance.get((url + path[2]), { headers: { auth: JSON.parse(localStorage.uesrToken) } });
+                if (data === "on token"){
+                    nauigat('/managers/login')
+                }
+                console.log(data);
+                setData(data)
+            } catch (error) {
+                return error.message
+            }
+        }
+        fetch()
+    }, [pathname]);
 
-    const handleLink =async ({ target }) => {
+    const handleLink = async ({ target }) => {
         const url = `/${path[1]}/${path[2]}/${target.value}`
         nauigat(url)
     }
-  
 
-    
+
+
     return (
         <Box
             sx={{
@@ -54,11 +55,11 @@ if(typeof data === "string")
             }}
         >
             {/* {(path[3] === 'allOrders' || path[3] === 'futureOrders'||path[3] === 'invoices') && <Orders data={data}/>} */}
-            {typeof data === "object" && path[3] === 'settings'? <Settings data={data}/>: <Orders data={data}/>}
+            {typeof data === "object" && path[3] === 'settings' ? <Settings data={data} /> : <Orders data={data} />}
             {/* <Outlet /> */}
 
             <ButtonGroup
-                sx={{ width: "25%", marginRight:0 }}
+                sx={{ width: "25%", marginRight: 0 }}
                 orientation="vertical"
                 aria-label="vertical contained button group"
                 variant="contained"

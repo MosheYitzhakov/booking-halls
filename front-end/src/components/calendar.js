@@ -8,18 +8,13 @@ export default function Calendar({ idHall = null, setDateOE = null }) {
 
     const [eventsSchedule, setEventsSchedule] = useState();
     const [dates, setDates] = useContext(Dates);
-    const [year, setYear] = useState(dates.dateE ? String(dates.dateE).split(' ')[3] : new Date().getFullYear())
     const [holidays, setHolidays] = useState();
 
-    const getHolidays = async (newYear) => {
-        const { data } = await instance.get("https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=off&mod=off&nx=off&ss=off&mf=on&start=" + newYear + "-01-01&end=" + (Number(newYear) + 1) + "-01-01");
-        setHolidays(data)
-    }
+ 
     useEffect(() => {
         async function name() {
             try {
-                console.log(year);
-                const urlH = ("https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=off&mod=off&nx=off&ss=off&mf=on&start=" + year + "-01-01&end=" + (Number(year) + 1) + "-01-01");
+                const urlH = ("https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&mf=on&start=2020-12-29&end=2022-12-29");
                 const hoilds = await instance.get(urlH);
                 setHolidays(hoilds.data)
                 let url = `/dates`;
@@ -33,19 +28,17 @@ export default function Calendar({ idHall = null, setDateOE = null }) {
             }
         }
         name()
-    }, [idHall, year])
-console.log(holidays);
+    }, [idHall])
     const dontSelectTuesdays = (day) => {
-        console.log(holidays);
         if (holidays?.items) {
             for (let i = 0; i < holidays?.items.length; i++) {
-                if (day.jewishDateStr.replace("Tishri", "Tishrei") === holidays.items[i].hdate) {
+                if (day.jewishDateStr.replace("Tishri", "Tishrei").slice(0,-5) === holidays.items[i].hdate.slice(0,-5)) {
                     return false;
                 }
-                if (day.jewishDateStr.replace("AdarII", "Adar II") === holidays.items[i].hdate) {
+                if (day.jewishDateStr.replace("AdarII", "Adar II").slice(0,-5) === holidays.items[i].hdate.slice(0,-5)) {
                     return false;
                 }
-                if (day.jewishDateStr === holidays.items[i].hdate) {
+                if (day.jewishDateStr.slice(0,-5) === holidays.items[i].hdate.slice(0,-5)) {
                     return false;
                 }
             }
@@ -72,13 +65,8 @@ console.log(holidays);
                 canSelect={dontSelectTuesdays}
                 onClick={
                     (day) => {
-                        // console.log(day.jewishDateStr);
+                        console.log(day.jewishDateStr.slice(0,-5));
                         setDates({ dateE: day.date, dateH: day.jewishDateStrHebrew })
-                        const yearDate = (String(day.date).split(' ')[3]);
-                        if (Number(year) !== Number(yearDate)) {
-                            getHolidays(Number(yearDate))
-                            setYear(Number(yearDate))
-                        }
                         setDateOE && setDateOE(new Date(day.date).toISOString().slice(0, 19).replace('T', ' '));
                     }}
             />

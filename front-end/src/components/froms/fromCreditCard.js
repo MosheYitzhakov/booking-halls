@@ -14,6 +14,7 @@ export function FromCreditCard({ setActive }) {
   const [dataOrder, setDataOrder] = useContext(Order);
   console.log("FromCreditCard");
   console.log(dataOrder);
+  const [fullData, setFullData] = useState(false)
   const [state, setState] = useState({
     number: '',
     expiry: '',
@@ -23,28 +24,32 @@ export function FromCreditCard({ setActive }) {
   });
   useEffect(() => {
     orderFormCheck()
-}, [])
+  }, [])
   console.log(dataOrder);
-  const orderFormCheck = ()=>{
+  const orderFormCheck = () => {
+
     for (const i in dataOrder) {
       for (const key in dataOrder[i]) {
-         if(!dataOrder[i][key]){
-          console.log("אין ערך ל "+ key);
-         }
+        if (!dataOrder[i][key]) {
+          // console.log("אין ערך ל "+ key);
+          console.log(false);
+          setFullData(false)
+          return false
+        }
       }
+    }
+    setFullData(true);
+    return true
   }
-  return true
-  }
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-     
-      const { data } = await instance.post(`/craetOrder`,dataOrder);
-console.log(data);
-      
-  } catch (error) {
+      const { data } = await instance.post(`/craetOrder`, dataOrder);
+      console.log(data);
+
+    } catch (error) {
       return error.message
-  }
+    }
   };
 
   const handleButton = (setActive) => {
@@ -98,7 +103,7 @@ console.log(data);
                 focused={state.focus}
               />
             </Grid>
-            <Grid item xs={6} sm={6}>
+            {fullData ? <> <Grid item xs={6} sm={6}>
               <TextField
                 label=" מספר כרטיס "
                 type="number"
@@ -110,65 +115,80 @@ console.log(data);
               />
             </Grid>
 
-            <Grid item xs={6} sm={6}>
-              <TextField
-                label=" שם בעל הכרטיס "
-                type="text"
-                name="name"
-                onChange={handleInputChange}
-                onFocus={handleInputFocus}
-                required
-              />
-            </Grid>
+              <Grid item xs={6} sm={6}>
+                <TextField
+                  label=" שם בעל הכרטיס "
+                  type="text"
+                  name="name"
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </Grid>
 
-            <Grid item xs={6} sm={6}>
-              <TextField
-                label="תוקף"
-                type="number"
-                name="expiry"
-                pattern="\d\d/\d\d"
-                value={state.expiry}
-                onChange={handleInputChange}
-                onFocus={handleInputFocus}
-                required
-              />
-            </Grid>
+              <Grid item xs={6} sm={6}>
+                <TextField
+                  label="תוקף"
+                  type="number"
+                  name="expiry"
+                  pattern="\d\d/\d\d"
+                  value={state.expiry}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </Grid>
 
-            <Grid item xs={6}>
-              <TextField
-                type="number"
-                name="cvc"
-                className="form-control"
-                placeholder="CVC"
-                pattern="\d{3,4}"
-                value={state.cvc}
-                onChange={handleInputChange}
-                onFocus={handleInputFocus}
-                required
-              />
-            </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  type="number"
+                  name="cvc"
+                  className="form-control"
+                  placeholder="CVC"
+                  pattern="\d{3,4}"
+                  value={state.cvc}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </Grid>
 
-            <Grid item xs={6}>
-              <Button
-                type="button"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={() => handleButton(setActive)}
-              >
-                חזור
-              </Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                סיים הזמנה
-              </Button>
-            </Grid>
+              <Grid item xs={6}>
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  onClick={() => handleButton(setActive)}
+                >
+                  חזור
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  סיים הזמנה
+                </Button>
+              </Grid></> : <>
+              <Grid item xs={12}>
+                <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
+                  לא מלאת את כל הפרטים
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  onClick={() => handleButton(setActive)}
+                >
+                  חזור להשלמת פרטים
+                </Button></Grid></>}
           </Grid>
 
         </Box>

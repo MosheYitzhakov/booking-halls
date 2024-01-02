@@ -12,28 +12,54 @@ import { Dates, Order } from './hooks/useContext';
 
 
 function App() {
-  const [alldates, setallDates] = useState({dateH:"",dateE:""})
+  const [alldates, setallDates] = useState({ dateH: "", dateE: "" })
+  const [alldataOrder, setAlldataOrder] = useState({
+    clientC: {
+      name: '', phone: '', email: '', side: "c", degree: "client"
+    }, clientK: {
+      name: '', phone: '', email: '', side: "k", degree: "client"
+    }, order: {
+      id_hall: "",
+      date: "",
+      hebrew_date: "",
+      num_guests: "",
+      num_m_adults: "",
+      num_m_bar: "",
+      num_m_children: "",
+      total_payment: "",
+      type: "b",
+    }, dateEvent: {
+      date: "",
+      hebrew_date: "",
+      id_hall: "",
+    }, invoice: {
+      payment: "",
+      date: "",
+      hebrew_date: "",
+      submits:""
+    }
+  })
   return (
-    <div className="App" style={{width:"100%", height:"100%"}}>
+    <div className="App" style={{ width: "100%", height: "100%" }}>
       <Header />
       <Dates.Provider value={[alldates, setallDates]}>
-        {/* <Order> */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/main" element={<Home />} />
-          <Route path="/halls/:name" element={<Hall /> ? <Hall  /> : <Hall />} />
+        <Order.Provider value={[alldataOrder, setAlldataOrder]}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/main" element={<Home />} />
+            <Route path="/halls/:name" element={<Hall /> ? <Hall /> : <Hall />} />
 
-        <Route path="managers/login" element={<Login />} />
-        <Route path="managers/:name/settings" element={<Main /> ? <Main /> : <Login />}/>
-        <Route path="managers/:name/allOrders" element={<Main /> ? <Main /> : <Login />}/>
-        <Route path="managers/:name/futureOrders" element={<Main /> ? <Main /> : <Login />}/>
-        <Route path="managers/:name/invoices" element={<Main /> ? <Main /> : <Login />}/>
-        <Route path="managers/*" element={<Login />} />
+            <Route path="managers/login" element={<Login />} />
+            <Route path="managers/:name/settings" element={<Main /> ? <Main /> : <Login />} />
+            <Route path="managers/:name/allOrders" element={<Main /> ? <Main /> : <Login />} />
+            <Route path="managers/:name/futureOrders" element={<Main /> ? <Main /> : <Login />} />
+            <Route path="managers/:name/invoices" element={<Main /> ? <Main /> : <Login />} />
+            <Route path="managers/*" element={<Login />} />
 
-        <Route path="*" element={<Err />} />
-      </Routes>
-      {/* </Order> */}
-    </Dates.Provider>  
+            <Route path="*" element={<Err />} />
+          </Routes>
+        </Order.Provider>
+      </Dates.Provider>
     </div>
   );
 }

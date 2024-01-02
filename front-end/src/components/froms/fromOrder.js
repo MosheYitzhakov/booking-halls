@@ -9,14 +9,16 @@ import Container from '@mui/material/Container';
 import BasicTable from './tableOredr';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Calendar from '../calendar';
-import { Dates } from '../../hooks/useContext';
+import { Dates, Order } from '../../hooks/useContext';
 
 
 
 
-export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
-    const [typeO, setTypeO] = useState(dataOrder.order?.type ? dataOrder.order?.type :'b');
+export function FromOrder({ setActive, hall }) {
+    const [dataOrder, setDataOrder] = useContext(Order);
+    const [typeO, setTypeO] = useState(dataOrder.order?.type ? dataOrder.order?.type : 'b');
     const [dateOE, setDateOE] = useState(dataOrder.dateEvent?.date);
+    const [butten, setButten] = useState();
     const [dates, setDates] = useContext(Dates);
     const handleChange = (event) => {
         setTypeO(event.target.value);
@@ -26,10 +28,12 @@ export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
             setTypeO(dataOrder.order.type)
         }
     }, [dataOrder])
-    
+
     const handleSubmit = (event) => {
+        console.log(event.target.name);
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+
         setDataOrder((prv) => {
             return {
                 ...prv,
@@ -48,33 +52,24 @@ export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
                     ...prv.invoice,
                     payment: data.get('paymentI'),
                 },
-                dateEvent:{
-                    ...prv.dateEvent, 
+                dateEvent: {
+                    ...prv.dateEvent,
                     hebrew_date: dates.dateH,
                     date: dateOE,
                 }
 
             }
         })
-        console.log(dataOrder);
-    for (const i in dataOrder) {
-        // console.log(dataOrder[i]);
-        for (const key in dataOrder[i]) {
-           if(!dataOrder[i][key]){
-            console.log("אין ערך ל "+ key);
-           }
+
+        if (butten === "b1") {
+            setActive((prv) => {
+                return prv - 1;
+            })
+        } else if (butten === "b2") {
+            setActive((prv) => {
+                return prv + 1;
+            })
         }
-    }
-        setActive((prv) => {
-            return prv + 1;
-        })
-    };
-    const handleButton = (setActive) => {
-
-        setActive((prv) => {
-            return prv - 1;
-        })
-
     };
     return (
         <Container component="main" maxWidth="sm">
@@ -104,7 +99,7 @@ export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
                             </Typography>
                             <Calendar
                                 idHall={hall.id_hall}
-                                setDateOE={setDateOE &&setDateOE}
+                                setDateOE={setDateOE && setDateOE}
                             />
                         </Grid>
                         <Grid item xs={7} >
@@ -143,11 +138,12 @@ export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
                         </Grid>
                         <Grid item xs={6}>
                             <Button
-                                type="button"
+                                type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
-                                onClick={() => handleButton(setActive)}
+
+                                onClick={() => setButten("b1")}
                             >
                                 חזור
                             </Button>
@@ -158,6 +154,7 @@ export function FromOrder({ setActive, hall, setDataOrder, dataOrder }) {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
+                                onClick={() => setButten("b2")}
                             >
                                 המשך
                             </Button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Order } from '../../hooks/useContext';
 
 
 
@@ -14,10 +15,10 @@ const theme = createTheme();
 
 
 
-export function FromData({ setActive, setDataOrder, dataOrder }) {
+export function FromData({ setActive}) {
+  const [dataOrder, setDataOrder] = useContext(Order);
   const [checkedC, setCheckedC] = useState(dataOrder.invoice?.submits === 'c' ? true: false);
   const [checkedK, setCheckedK] = useState(dataOrder.invoice?.submits === 'k' ? true: false);
-
 console.log(dataOrder);
   const handleChange = (s) => {
     if (s === 'c') {
@@ -28,7 +29,6 @@ console.log(dataOrder);
       setCheckedK(!checkedK)
     }
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

@@ -9,11 +9,12 @@ import { FromCreditCard } from '../froms/fromCreditCard';
 
 
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import { Order } from '../../hooks/useContext';
 
 const steps = [
   ' פרטים ',
@@ -22,22 +23,14 @@ const steps = [
 ];
 export default function FullWidthTabs({  hall }) {
   const [active, setActive] = useState(1)
-  const [dataOrder, setDataOrder] =useState({clientC:{},clientK:{},order:{},dateEvent:{},invoice:{}})
+  const [dataOrder, setDataOrder] = useContext(Order);
   useEffect(() => {
     if (hall) {
-      console.log(hall);
       setDataOrder((prv)=>{
         return {
           ...prv,
-          order:{...prv.order,id_hall:hall.id_hall,
-            date:"",
-            hebrew_date:"",
-            num_guests:"",
-            num_m_adults:"",
-            num_m_bar:"",
-            num_m_children:"",
-            total_payment:"",
-            type:"b",
+          order:{...prv.order,
+            id_hall:hall.id_hall,
           },
           dateEvent:{...prv.dateEvent,id_hall:hall.id_hall}
         }
@@ -45,10 +38,9 @@ export default function FullWidthTabs({  hall }) {
     }
 }, [hall])
   const from = [
-    <FromData setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
-    <FromOrder   hall={hall}  setActive={setActive} setDataOrder={setDataOrder} dataOrder={dataOrder}/>,
-    <FromCreditCard setActive={setActive} dataOrder={dataOrder}/>
-
+    <FromData setActive={setActive} />,
+    <FromOrder   hall={hall}  setActive={setActive} />,
+    <FromCreditCard setActive={setActive} />
   ]
   return (
     <Box sx={{ width: '100%'}}>

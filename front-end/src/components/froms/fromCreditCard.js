@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,7 +9,11 @@ import Container from '@mui/material/Container';
 import Cards from 'react-credit-cards-2';
 import instance from '../../API';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
-export function FromCreditCard({ setActive, dataOrder }) {
+import { Order } from '../../hooks/useContext';
+export function FromCreditCard({ setActive }) {
+  const [dataOrder, setDataOrder] = useContext(Order);
+  console.log("FromCreditCard");
+  console.log(dataOrder);
   const [state, setState] = useState({
     number: '',
     expiry: '',
@@ -17,7 +21,20 @@ export function FromCreditCard({ setActive, dataOrder }) {
     name: '',
     focus: '',
   });
+  useEffect(() => {
+    orderFormCheck()
+}, [])
   console.log(dataOrder);
+  const orderFormCheck = ()=>{
+    for (const i in dataOrder) {
+      for (const key in dataOrder[i]) {
+         if(!dataOrder[i][key]){
+          console.log("אין ערך ל "+ key);
+         }
+      }
+  }
+  return true
+  }
   const handleSubmit = async(event) => {
     event.preventDefault();
     try {

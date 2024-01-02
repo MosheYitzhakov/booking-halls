@@ -34,9 +34,9 @@ export default function Calendar({ idHall = null, setDateOE = null }) {
         }
         name()
     }, [idHall, year])
-
+console.log(holidays);
     const dontSelectTuesdays = (day) => {
-
+        console.log(holidays);
         if (holidays?.items) {
             for (let i = 0; i < holidays?.items.length; i++) {
                 if (day.jewishDateStr.replace("Tishri", "Tishrei") === holidays.items[i].hdate) {

@@ -40,7 +40,7 @@ function App() {
     }
   })
   return (
-    <div className="App" style={{ width: "100%", height: "100%" }}>
+    <div className="App" style={{ width: "100%", height: "100vh"}}>
       <Header />
       <Dates.Provider value={[alldates, setallDates]}>
         <Order.Provider value={[alldataOrder, setAlldataOrder]}>

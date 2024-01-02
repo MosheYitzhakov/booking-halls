@@ -11,7 +11,7 @@ const getOrders = async (nameM, date = null) => {
          o.date >= '${date}'
         AND `
     }
-     toSql += ` id_hall IN (
+    toSql += ` id_hall IN (
         select mh.id_hall from managers_halls mh
         join users u
         USING(id_user)
@@ -45,8 +45,8 @@ const putOrders = async (id_order, ...args) => {
     let toSql = "";
 
     for (const key in all) {
-        if(all[key] !== null)
-        toSql += `${key}= "${all[key]}",`
+        if (all[key] !== null)
+            toSql += `${key}= "${all[key]}",`
     }
 
     if (!toSql) return "You cannot enter empty values"
@@ -71,64 +71,63 @@ const putOrders = async (id_order, ...args) => {
 }
 
 const postOrders = async (...args) => {
-    const [ { clientC ,clientK, order,dateEvent,invoice} ] = args;
-    
-        const str = (obj) =>{
-            let string = ""
-            for (const key in obj) {
-                    string += `${key},`;
-            } 
-            return  string.slice(0,-1)
+    const [{ clientC, clientK, order, dateEvent, invoice }] = args;
+
+    const str = (obj) => {
+        let string = ""
+        for (const key in obj) {
+            string += `${key},`;
         }
+        return string.slice(0, -1)
+    }
 
 
     let conn = null;
-try {
-  conn = await pool.getConnection();
-  await conn.beginTransaction()
+    try {
+        conn = await pool.getConnection();
+        await conn.beginTransaction()
 
- let  sql = `
-  INSERT INTO users (${Object.keys(clientK)})
-  VALUES (?,?,?,?,?)`
-const [ clientKS ] = await conn.query(sql, Object.values(clientK))
-  sql = `
-       INSERT INTO users (${Object.keys(clientC)})
-       VALUES (?,?,?,?,?)`
-  const [ clientCS] = await conn.query(sql, Object.values(clientC))
-  sql = `
-       INSERT INTO orders (${Object.keys(order)})
-       VALUES (?,?,?,?,?,?,?,?,?)`
-  
-  const [ orderS] = await conn.query(sql, Object.values(order))
- 
-  sql = `
-    INSERT INTO customers_orders (id_c, id_k, id_order)
-    VALUES (?,?,?)`
-const [ cCO] = await conn.query(sql,[clientCS.insertId,clientKS.insertId,orderS.insertId])
+        let sql = `
+          INSERT INTO users (${Object.keys(clientK)})
+         VALUES (?,?,?,?,?)`
+        const [clientKS] = await conn.query(sql, Object.values(clientK))
+        sql = `
+            INSERT INTO users (${Object.keys(clientC)})
+             VALUES (?,?,?,?,?)`
+        const [clientCS] = await conn.query(sql, Object.values(clientC))
+        sql = `
+              INSERT INTO orders (${Object.keys(order)})
+             VALUES (?,?,?,?,?,?,?,?,?)`
 
+        const [orderS] = await conn.query(sql, Object.values(order))
 
-    sql = `
-  INSERT INTO events_schedule (${Object.keys(dateEvent)})
-  VALUES (?,?,?)`
+        sql = `
+            INSERT INTO customers_orders (id_c, id_k, id_order)
+            VALUES (?,?,?)`
+        const [cCO] = await conn.query(sql, [clientCS.insertId, clientKS.insertId, orderS.insertId])
 
-const [ dateEventS] = await conn.query(sql, Object.values(dateEvent))
+        sql = `
+         INSERT INTO events_schedule (${Object.keys(dateEvent)})
+         VALUES (?,?,?)`
 
-  sql = `
+        const [dateEventS] = await conn.query(sql, Object.values(dateEvent))
+
+        sql = `
        INSERT INTO invoices (id_user, payment,date,hebrew_date)
        VALUES (?,?,?,?)`
 
-  const [invoiceS] = await conn.query(sql, [invoice.submits === 'k' ? clientKS.insertId : clientCS.insertId,invoice.payment , new Date().toLocaleString("he-IL"), formatJewishDateInHebrew(toJewishDate(new Date()))])
+        const [invoiceS] = await conn.query(sql, [invoice.submits === 'k' ? clientKS.insertId : clientCS.insertId, invoice.payment, new Date().toLocaleString("he-IL"), formatJewishDateInHebrew(toJewishDate(new Date()))])
 
 
-  await conn.commit();
-  return "updated orders"
-} catch (error) {
+        await conn.commit();
+        return "updated orders"
+    } catch (error) {
 
-  if (conn) await conn.rollback();
-  return error.message;
-} finally {
-  if (conn) conn.release();
-}
+        if (conn) await conn.rollback();
+        return error.message;
+    } finally {
+        if (conn) conn.release();
+    }
 }
 
 const deleteOrders = async (id_order) => {

@@ -25,6 +25,8 @@ export function Main() {
        }
        console.log(url);
         const { data } = await instance.get((url+path[2]),{headers:{auth:JSON.parse(localStorage.uesrToken)}});
+if(typeof data === "string")
+        nauigat('/managers/login')
         console.log(data);
         setData(data)
     } catch (error) {
@@ -35,18 +37,6 @@ export function Main() {
   }, [pathname]);
 
     const handleLink =async ({ target }) => {
-
-        // let url = '/managers/orders/'
-        // if( target.value === 'futureOrders' ){
-        //  url= "/managers/orders/futureOrders/"
-        // } else if (target.value === 'invoices') {
-        //  url= "/managers/invoices/"
-        // }
-        // console.log(url);
-        //  const { data } = await instance.get((url+path[2]));
-        //  console.log(data);
-        //  setData(data)
-        // if(target.value === )
         const url = `/${path[1]}/${path[2]}/${target.value}`
         nauigat(url)
     }

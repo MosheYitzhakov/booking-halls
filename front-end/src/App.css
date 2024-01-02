@@ -38,6 +38,7 @@
 }
 
 body{
+  background-image: radial-gradient(rgb(146, 212, 221), rgb(161, 210, 221), rgb(227, 179, 143));
   min-height: 100vh;
 }
 

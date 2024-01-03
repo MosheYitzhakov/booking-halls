@@ -8,8 +8,8 @@ router.use(authenticationToken)
 router.get('/:nameM', async (req, res) => {
     try {
         let nameM = req.params.nameM;
-        console.log(nameM);
-        console.log(req.user.name);
+        // console.log(nameM);
+        // console.log(req.user.name);
         if(nameM !== req.user.name) {
             return res.send('No found Correct authentication ')
         }else{

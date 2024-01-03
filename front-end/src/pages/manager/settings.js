@@ -63,8 +63,10 @@ export function Settings({ data }) {
     const handleSubmit =async (event) => {
         event.preventDefault();
         const dataAll = new FormData(event.currentTarget);
+
         try {
             const { data } = await instance.put(nameM+ "/" + settings.id_hall,{
+                
                 name_hall: dataAll.get('name_hall'),
                 max_guests: dataAll.get('max_guests'),
                 down_payment: dataAll.get('down_payment'),
@@ -75,7 +77,8 @@ export function Settings({ data }) {
                 p_b_children: dataAll.get('p_b_children'),
                 p_p_bar: dataAll.get('p_p_bar'),
                 p_b_bar: dataAll.get('p_b_bar'),
-            });
+            },{headers: { auth: JSON.parse(localStorage.uesrToken) }});
+            console.log(data);
             if(data === "updated setting"){
                 setSettings({
                     name_hall: dataAll.get('name_hall'),
@@ -92,6 +95,7 @@ export function Settings({ data }) {
             }
 
         } catch (error) {
+            console.log(error.message);
             return error.message
         }
       
@@ -187,7 +191,7 @@ export function Settings({ data }) {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
-                                onClick={handleUndoingChange}
+                                onClick={()=>handleUndoingChange()}
                             >
                                 <Typography variant='h5'>בטל שינוים </Typography>
                             </Button>

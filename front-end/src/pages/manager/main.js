@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate } from 'react-router-dom';
 import { Orders } from './orders';
 import instance from '../../API';
 import { Settings } from './settings';
@@ -12,14 +12,17 @@ export function Main() {
     const path = pathname.split('/')
     const nauigat = useNavigate()
     const [data, setData] = useState(null);
+    const component = null;
     useEffect(() => {
         const fetch = async () => {
             try {
                 let url = '/managers/orders/'
                 if (path[3] === 'futureOrders') {
                     url += "futureOrders/"
-                } else if (path[3] === 'invoices') {
+                } else if (path[3] === 'invoices'&&!path[4]) {
                     url = "/managers/invoices/"
+                } else if (path[3] === 'invoices'&&path[4]==="sum") {
+                    url = "/managers/invoices/sum/"
                 } else if (path[3] === 'settings') {
                     url = "/managers/settings/"
                 }
@@ -38,8 +41,16 @@ export function Main() {
     }, [pathname]);
 
     const handleLink = async ({ target }) => {
-        const url = `/${path[1]}/${path[2]}/${target.value}`
-        nauigat(url)
+        if (target.value ==="sum") {
+    //         const { data } = await instance.get("/managers/invoices/sum/"+ path[2],{ headers: { auth: JSON.parse(localStorage.uesrToken) } }) 
+
+    //    console.log(data);
+       nauigat(`/managers/${path[2]}/invoices/sum/`)  
+        }else{
+            const url = `/${path[1]}/${path[2]}/${target.value}`
+        nauigat(url)  
+        }
+      
     }
 
 
@@ -56,7 +67,7 @@ export function Main() {
         >
             {/* {(path[3] === 'allOrders' || path[3] === 'futureOrders'||path[3] === 'invoices') && <Orders data={data}/>} */}
             {typeof data === "object" && path[3] === 'settings' ? <Settings data={data} /> : <Orders data={data} />}
-            {/* <Outlet /> */}
+     
 
             <ButtonGroup
                 sx={{ width: "25%", marginRight: 0 }}
@@ -68,7 +79,7 @@ export function Main() {
                 <Button sx={{ height: "25%", fontSize: '1.5rem' }} key="two" value="futureOrders" onClick={(e) => { handleLink(e) }}>הזמנות עתידיות</Button>,
                 <Button sx={{ height: "25%", fontSize: '1.5rem' }} key="three" value="allOrders" onClick={(e) => { handleLink(e) }}>כל ההזמנות</Button>,
                 <Button sx={{ height: "25%", fontSize: '1.5rem' }} key="three" value="invoices" onClick={(e) => { handleLink(e) }}>חשבוניות</Button>,
-                {/* <Button sx={{ height: "20%", fontSize: '1.5rem' }} key="three" value="invoices" onClick={(e) => { handleLink(e) }}>לוח שנה הזמנות</Button>, */}
+                <Button sx={{ height: "25%", fontSize: '1.5rem' }} key="three" value="sum" onClick={(e) => { handleLink(e) }}> סיכום חודשי </Button>,
             </ButtonGroup>
         </Box>
     );

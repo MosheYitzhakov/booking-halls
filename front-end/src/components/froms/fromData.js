@@ -51,7 +51,7 @@ console.log(dataOrder);
           side:  "k",
           degree:"client"
         },
-        invoice: { submits: checkedC ? "c" : checkedK ? "k" : "" }
+        invoice: { submits: checkedC ? "k" : checkedK ? "c" : "" }
         ,
 
       }

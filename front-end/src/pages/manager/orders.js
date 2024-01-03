@@ -33,13 +33,18 @@ const columnsInvoices = [
   { id: 'date', label: ' תאריך תשלום ', minWidth: 170 },
   { id: 'hebrew_date', label: ' תאריך עברי ', minWidth: 100 },
 ]
+const columnsSum = [
+  { id: 'date', label: ' תאריך חודשי ', minWidth: 100 },
+  { id: 'sum_orders', label: ' סה"כ הזמנות ', minWidth: 100 },
+  { id: 'sum_total_payments', label: ' סה"כ הכנסות  ', minWidth: 100 },
+]
 const dataHead = (data) => {
   if (data === null) {
     return null
   } else if (data[0].type) {
     return (<>
       <TableRow key={122}>
-        <TableCell align="center" colSpan={20} key={22}>
+        <TableCell align="center" colSpan={10} key={22}>
           הזמנות
         </TableCell></TableRow>
       <TableRow key={12}>
@@ -62,8 +67,20 @@ const dataHead = (data) => {
           פרטי משלם
         </TableCell>
       </TableRow> </>)
+      } else if (data[0].sum_orders) {
+        return (
+          <TableRow key={122}>
+            <TableCell align="center" colSpan={6} key={22}>
+              סיכום חודשי
+            </TableCell>
+          </TableRow>
+)
   } else {
-    return null
+    return <TableRow key={12}>
+      <TableCell align="center" colSpan={3} key={23}>
+        אין כותרת
+      </TableCell>
+    </TableRow>
   }
 }
 const dataColumns = (data) => {
@@ -74,6 +91,8 @@ const dataColumns = (data) => {
       return columnsOrsers
     } else if (data[0].id_invoice) {
       return columnsInvoices
+    } else if (data[0].sum_orders) {
+      return columnsSum
     } else {
       return null
     }
@@ -95,9 +114,9 @@ export function Orders({ data }) {
   let columns = dataColumns(data)
   let head = dataHead(data)
   return (<>
-  {console.log(columns)}
+    {console.log(columns)}
     {columns ?
-      <Paper sx={{ width: '80%',borderRadius:2,boxShadow:3,display:"flex",flexDirection:"column",px:4,py:6 }}>
+      <Paper sx={{ width: '70%', borderRadius: 2, boxShadow: 3, display: "flex", flexDirection: "column", px: 4, py: 6 }}>
         <TableContainer
           sx={{ maxHeight: 1040 }}
         >
@@ -125,7 +144,7 @@ export function Orders({ data }) {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} >
-                          {value}
+                            {value}
                           </TableCell>
                         );
                       })}
@@ -149,8 +168,6 @@ export function Orders({ data }) {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Paper>:<Paper sx={{ width: '80%',alignItems:"center",background:"white",borderRadius:2,boxShadow:3,display:"flex",flexDirection:"column",px:4,py:6 }}><h1> אין נתונים זמינים</h1></Paper>}</>
-      
-      
+      </Paper> : <Paper sx={{ width: '70%', alignItems: "center", background: "white", borderRadius: 2, boxShadow: 3, display: "flex", flexDirection: "column", px: 4, py: 6 }}><h1> אין נתונים זמינים</h1></Paper>}</>
   );
 }

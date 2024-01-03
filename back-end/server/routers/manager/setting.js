@@ -23,7 +23,9 @@ router.get("/:nameM", async (req, res) => {
     }
 })
 
+
     .put("/:idHall", async (req, res) => {
+
         try {
             let idHall = req.params.idHall;
             const data = req.body

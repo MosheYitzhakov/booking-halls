@@ -116,7 +116,7 @@ const postOrders = async (...args) => {
        INSERT INTO invoices (id_user, payment,date,hebrew_date)
        VALUES (?,?,?,?)`
 
-        const [invoiceS] = await conn.query(sql, [invoice.submits === 'k' ? clientKS.insertId : clientCS.insertId, invoice.payment, new Date().toLocaleString("he-IL"), formatJewishDateInHebrew(toJewishDate(new Date()))])
+        const [invoiceS] = await conn.query(sql, [invoice.submits === 'k' ? clientKS.insertId : clientCS.insertId, invoice.payment, new Date().toISOString().slice(0, 19).replace('T', ' '), formatJewishDateInHebrew(toJewishDate(new Date()))])
 
 
         await conn.commit();

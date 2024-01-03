@@ -54,6 +54,7 @@ function App() {
             <Route path="managers/:name/allOrders" element={<Main /> ? <Main /> : <Login />} />
             <Route path="managers/:name/futureOrders" element={<Main /> ? <Main /> : <Login />} />
             <Route path="managers/:name/invoices" element={<Main /> ? <Main /> : <Login />} />
+            <Route path="managers/:name/invoices/sum" element={<Main /> ? <Main /> : <Login />} />
             <Route path="managers/*" element={<Login />} />
 
             <Route path="*" element={<Err />} />

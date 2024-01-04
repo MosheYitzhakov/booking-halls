@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 const columnsOrsers = [
+  { id: 'id_order', label: ' ID  ', minWidth: 100 },
   { id: 'hebrew_date', label: ' תאריך אירוע עברי ', minWidth: 100 },
   { id: 'date', label: ' תאריך לועזי ', minWidth: 100 },
   { id: 'nameC', label: ' משפחה ', minWidth: 100 },
@@ -26,7 +27,8 @@ const columnsOrsers = [
 
 ];
 const columnsInvoices = [
-  { id: 'name', label: ' שם  ', minWidth: 100 },
+  { id: 'id_order', label: ' ID  ', minWidth: 100 },
+  { id: 'name', label: ' שם  ', minWidth: 100 }, 
   { id: 'phone', label: ' טלפון ', minWidth: 100 },
   { id: 'email', label: ' איימיל ', minWidth: 100 },
   { id: 'payment', label: ' תשלום ', minWidth: 100 },
@@ -114,7 +116,7 @@ export function Orders({ data }) {
   let columns = dataColumns(data)
   let head = dataHead(data)
   return (<>
-    {console.log(columns)}
+    {console.log(data)}
     {columns ?
       <Paper sx={{ width: '70%', borderRadius: 2, boxShadow: 3, display: "flex", flexDirection: "column", px: 4, py: 6 }}>
         <TableContainer

@@ -143,7 +143,7 @@ export function Orders({ data }) {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id_order ? row.id_order : row.id_invoices ? row.id_invoices : row.id} >
                       {columns.map((column) => {
-                        const value = row[column.id];
+                        const value = column.id === "id_order" ? <button onClick={()=>{console.log(row[column.id]);}}>{row[column.id]}</button>  :row[column.id];
                         return (
                           <TableCell key={column.id} >
                             {value}

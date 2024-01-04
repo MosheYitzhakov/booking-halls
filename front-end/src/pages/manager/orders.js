@@ -36,7 +36,7 @@ const columnsInvoices = [
 const columnsSum = [
   { id: 'date', label: ' תאריך חודשי ', minWidth: 100 },
   { id: 'sum_orders', label: ' סה"כ הזמנות ', minWidth: 100 },
-  { id: 'sum_total_payments', label: ' סה"כ הכנסות  ', minWidth: 100 },
+  { id: 'sum_total_payments', label: ' סה"כ הכנסות מההזמנות ', minWidth: 100 },
 ]
 const dataHead = (data) => {
   if (data === null) {
@@ -139,7 +139,7 @@ export function Orders({ data }) {
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 ?.map((row) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id_order ? row.id_order : row.id_invoices} >
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id_order ? row.id_order : row.id_invoices ? row.id_invoices : row.id} >
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (

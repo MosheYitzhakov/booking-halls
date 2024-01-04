@@ -89,10 +89,8 @@ export function FromCreditCard({ setActive }) {
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} >
-              <Typography variant="h5"> סה"כ לתשלום {dataOrder.order.total_payment
-              } ש"ח</Typography>
-              <Typography variant="h5">דמי מקדמה {dataOrder.invoice.payment
-              } ש"ח לסגירת ההזמנה</Typography>
+              <Typography variant="h5"> סה"כ לתשלום {dataOrder.order.total_payment} ש"ח</Typography>
+              <Typography variant="h5">דמי מקדמה {dataOrder.invoice.payment } ש"ח לסגירת ההזמנה</Typography>
             </Grid>
             <Grid item xs={12} sm={12}>
               <Cards

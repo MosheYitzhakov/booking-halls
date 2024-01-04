@@ -12,11 +12,27 @@ export function Main() {
     const path = pathname.split('/')
     const nauigat = useNavigate()
     const [data, setData] = useState(null);
-    const component = null;
     useEffect(() => {
         const fetch = async () => {
             try {
                 let url = '/managers/orders/'
+                // switch (path[3]) {
+                //     case 'futureOrders':
+                //         url += "futureOrders/"
+                //         break;
+                //         case ('invoices'&&!path[4]):
+                //             url = "/managers/invoices/"
+                //             break;
+                //             case ('invoices'&&path[4]==="sum"):
+                //         url = "/managers/invoices/sum/"
+                //         break;
+                //         case 'settings':
+                //             url = "/managers/settings/"
+                //             break;
+                //     default:
+
+                //         break;
+                // }
                 if (path[3] === 'futureOrders') {
                     url += "futureOrders/"
                 } else if (path[3] === 'invoices'&&!path[4]) {
@@ -28,7 +44,7 @@ export function Main() {
                 }
                 console.log(url);
                 const { data } = await instance.get((url + path[2]), { headers: { auth: JSON.parse(localStorage.uesrToken) } });
-                if (data === "on token"){
+                if (data === "on token" || data === "No found Correct authentication "){
                     nauigat('/managers/login')
                 }
                 console.log(data);

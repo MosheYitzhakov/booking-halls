@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -39,7 +39,7 @@ export function FromOrder({ setActive, hall }) {
                 ...prv,
                 order: {
                     ...prv.order,
-                    num_guests: data.get('num_guests'),
+                    num_guests: 1000,
                     num_m_adults: data.get('adults'),
                     num_m_children: data.get('children'),
                     num_m_bar: data.get('bar'),
@@ -102,7 +102,7 @@ export function FromOrder({ setActive, hall }) {
                                 setDateOE={setDateOE && setDateOE}
                             />
                         </Grid>
-                        <Grid item xs={7} >
+                        {/* <Grid item xs={7} >
                             <TextField
                                 autoComplete="given-name"
                                 name="num_guests"
@@ -115,7 +115,7 @@ export function FromOrder({ setActive, hall }) {
                                 defaultValue={dataOrder.order?.num_guests}
 
                             />
-                        </Grid>
+                        </Grid> */}
 
                         <Grid item xs={5}>
                             <FormControl fullWidth>

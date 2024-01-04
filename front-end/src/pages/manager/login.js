@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Login.css';
-// import instance from '../API';
 import { useNavigate } from 'react-router-dom';
 import instance from '../../API';
 export const Login = () => {
@@ -10,8 +9,8 @@ export const Login = () => {
   const [incorrect, setIncorrect] = useState(false)
 
   const handleLogin = async () => {
-    const { data } = await instance.post(`/managers/login/`,{name:username,password});
-console.log(data);
+    const { data } = await instance.post(`/managers/login/`, { name: username, password });
+    console.log(data);
     if (typeof data === 'object') {
       localStorage.setItem("uesrToken", JSON.stringify(data.token))
       navigate(`/managers/${username}/settings`)
@@ -22,11 +21,11 @@ console.log(data);
     }
   };
 
-  
+
   return (
-    <div className="login-container">
+    <div className="login-container" style={{backgroundColor: "antiquewhite"}}>
       <h2 className='login'>Login</h2>
-      <form>
+      <form >
         <label>
           Username:
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />

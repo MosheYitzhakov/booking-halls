@@ -1,8 +1,5 @@
 const { pool } = require('./dbConnection')
-const {
-    toJewishDate,
-    formatJewishDateInHebrew,
-} = require("jewish-date");
+const { toJewishDate, formatJewishDateInHebrew} = require("jewish-date");
 
 const getOrders = async (nameM, date = null) => {
     let toSql = "WHERE "
@@ -52,7 +49,6 @@ const putOrders = async (id_order, ...args) => {
     if (!toSql) return "You cannot enter empty values"
 
     toSql = toSql.slice(0, -1)
-    //   return toSql;
     try {
         const sql = `
         UPDATE orders

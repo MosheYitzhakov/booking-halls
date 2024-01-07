@@ -15,20 +15,20 @@ const theme = createTheme();
 
 
 
-export function SumOrder() {
+export function SumOrder({ setActive}) {
   const [dataOrder, setDataOrder] = useContext(Order);
-//   const [checkedC, setCheckedC] = useState(dataOrder.invoice?.submits === 'c' ? true: false);
-//   const [checkedK, setCheckedK] = useState(dataOrder.invoice?.submits === 'k' ? true: false);
-// console.log(dataOrder);
-//   const handleChange = (s) => {
-//     if (s === 'c') {
-//       setCheckedC(!checkedC)
-//       setCheckedK(false)
-//     } else {
-//       setCheckedC(false)
-//       setCheckedK(!checkedK)
-//     }
-//   };
+  const [checkedC, setCheckedC] = useState(dataOrder.invoice?.submits === 'c' ? true: false);
+  const [checkedK, setCheckedK] = useState(dataOrder.invoice?.submits === 'k' ? true: false);
+console.log(dataOrder);
+  const handleChange = (s) => {
+    if (s === 'c') {
+      setCheckedC(!checkedC)
+      setCheckedK(false)
+    } else {
+      setCheckedC(false)
+      setCheckedK(!checkedK)
+    }
+  };
 //   const handleSubmit = (event) => {
 //     event.preventDefault();
 //     const data = new FormData(event.currentTarget);
@@ -62,7 +62,7 @@ export function SumOrder() {
 
 //   };
   return (
-    // <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
@@ -82,22 +82,16 @@ export function SumOrder() {
           <Typography component="h1" variant="h5">
             פרטים
           </Typography>
-          <Typography component="h1" variant="h5">
-            שם : {dataOrder.clientC.name}
-          </Typography>
-          <Typography component="h1" variant="h5">
-            טלפון: {dataOrder.clientC.phone}
-          </Typography>
-          {/* <Box component="data" noValidate  sx={{ mt: 3 }}>
+          <Box component="form" noValidate  sx={{ mt: 3 }}>
             <Grid container spacing={2}>
 
-              <Grid item container spacing={0}>
-                <Typography component="h3" variant="p">
+              <Grid item container spacing={0} sx={12} >
+                <Typography component="h3" variant="p" textAlign={'center'}>
                   צד חתן
                 </Typography>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item sx={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -171,9 +165,9 @@ export function SumOrder() {
                   defaultValue={dataOrder.clientK?.email}
                   autoComplete="email"
                 />
-              </Grid> */}
+              </Grid>
 
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <fieldset>
                   <p> מגיש  הבקשה</p>
                   <label> צד חתן <input type='checkbox'
@@ -187,20 +181,20 @@ export function SumOrder() {
                   /></label>
 
                 </fieldset>
-              </Grid> */}
-            {/* </Grid> */}
-            {/* <Button
-              type="submit"
+              </Grid>
+            </Grid>
+            <Button
+            //   type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               המשך
-            </Button> */}
+            </Button>
 
-          {/* </Box> */}
+          </Box>
         </Box>
       </Container>
-    // </ThemeProvider>
+    </ThemeProvider>
   );
 }

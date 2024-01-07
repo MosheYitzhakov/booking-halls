@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import BasicTable from './tableOredr';
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Calendar from '../calendar';
 import { Dates, Order } from '../../hooks/useContext';
 
@@ -101,20 +101,6 @@ export function FromOrder({ setActive, hall }) {
                                 setDateOE={setDateOE && setDateOE}
                             />
                         </Grid>
-                        {/* <Grid item xs={7} >
-                            <TextField
-                                autoComplete="given-name"
-                                name="num_guests"
-                                required
-                                fullWidth
-                                id="firstName"
-                                type="number"
-                                label="מספר מוזמנים"
-                                autoFocus
-                                defaultValue={dataOrder.order?.num_guests}
-
-                            />
-                        </Grid> */}
 
                         <Grid item xs={5}>
                             <FormControl fullWidth>
@@ -136,16 +122,6 @@ export function FromOrder({ setActive, hall }) {
                             <BasicTable hall={hall} typeO={typeO} dataOrder={dataOrder} />
                         </Grid>
                         <Grid item xs={19} >
-                            {/* <TextField
-                        //  color="red"
-          id="standard-read-only-input"
-        //   defaultValue="Hello World"
-          InputProps={{
-            readOnly: true,
-          }}
-          value={"Hello World"}
-          variant="standard"
-        /> */}
 
                         </Grid>
                         <Grid item xs={6}>

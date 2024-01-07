@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import BasicTable from './tableOredr';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Calendar from '../calendar';
 import { Dates, Order } from '../../hooks/useContext';
 
@@ -30,7 +30,6 @@ export function FromOrder({ setActive, hall }) {
     }, [dataOrder])
 
     const handleSubmit = (event) => {
-        console.log(event.target.name);
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
@@ -135,6 +134,19 @@ export function FromOrder({ setActive, hall }) {
                         </Grid>
                         <Grid item xs={12}>
                             <BasicTable hall={hall} typeO={typeO} dataOrder={dataOrder} />
+                        </Grid>
+                        <Grid item xs={19} >
+                            {/* <TextField
+                        //  color="red"
+          id="standard-read-only-input"
+        //   defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+          value={"Hello World"}
+          variant="standard"
+        /> */}
+
                         </Grid>
                         <Grid item xs={6}>
                             <Button

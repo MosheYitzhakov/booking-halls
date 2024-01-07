@@ -15,15 +15,38 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { Order } from '../../hooks/useContext';
+import { SumOrder } from './summaryOrder';
 
 const steps = [
   ' פרטים ',
   ' הזמנה ',
   ' סגירת הזמנה ',
 ];
+
+const orderFormCheck = (dataOrder) => {
+
+  for (const i in dataOrder) {
+    for (const key in dataOrder[i]) {
+      if (!dataOrder[i][key]) {
+        return false
+      }
+    }
+  }
+  return true
+}
 export default function FullWidthTabs({  hall }) {
   const [active, setActive] = useState(1)
+  const [fullData, setFullData] = useState(false)
+
   const [dataOrder, setDataOrder] = useContext(Order);
+  const sumMeals = (Number(dataOrder.order.num_m_adults) + Number(dataOrder.order.num_m_children) > hall?.min_meals
+ && orderFormCheck(dataOrder) ) || active < 3 
+
+  if(!sumMeals){
+    setFullData(true)
+    setActive((prv)=> prv-1);
+
+  } 
   useEffect(() => {
     if (hall) {
       setDataOrder((prv)=>{
@@ -39,6 +62,7 @@ export default function FullWidthTabs({  hall }) {
 }, [hall])
   const from = [
     <FromData setActive={setActive} />,
+    <SumOrder />,
     <FromOrder   hall={hall}  setActive={setActive} />,
     <FromCreditCard setActive={setActive} />
   ]
@@ -51,7 +75,8 @@ export default function FullWidthTabs({  hall }) {
           </Step>
         ))}
       </Stepper>
-      <Box>{from[active - 1]}</Box>
+      <Box sx={{marginBottom:"5%"}}>{from[active - 1]}</Box>
+      <Box>{(fullData && active !==3) && <p>   לא מלאת את כל הפרטים </p>}</Box>
     </Box>
   );
 }

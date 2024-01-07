@@ -19,8 +19,8 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
     if (typeof dataOrder.order.num_m_adults !== 'undefined') {
       setMeal({
         adults: dataOrder.order.num_m_adults,
-        children: dataOrder.order.num_m_bar,
-        bar: dataOrder.order.num_m_children,
+        children: dataOrder.order.num_m_children,
+        bar:dataOrder.order.num_m_bar ,
       })
     } else{
       setMeal({
@@ -91,7 +91,6 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
   ];
   return (
     <TableContainer component={Paper}>
-      {/* <h1>סיכום תשלום</h1> */}
       <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -118,6 +117,7 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
           ))}
         </TableBody>
       </Table>
+      <h2 style={{color: (Number(meal?.children) + Number(meal?.adults)) >= hall?.min_meals? "green" :"red"}}> מינימום מנות מבוגר + וילדים: {hall.min_meals} </h2>
     </TableContainer>
   );
 }

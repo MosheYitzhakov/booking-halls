@@ -12,9 +12,6 @@ import 'react-credit-cards-2/dist/es/styles-compiled.css';
 import { Order } from '../../hooks/useContext';
 export function FromCreditCard({ setActive }) {
   const [dataOrder, setDataOrder] = useContext(Order);
-  console.log("FromCreditCard");
-  console.log(dataOrder);
-  const [fullData, setFullData] = useState(false)
   const [state, setState] = useState({
     number: '',
     expiry: '',
@@ -23,24 +20,9 @@ export function FromCreditCard({ setActive }) {
     focus: '',
   });
   useEffect(() => {
-    orderFormCheck()
   }, [])
   console.log(dataOrder);
-  const orderFormCheck = () => {
-
-    for (const i in dataOrder) {
-      for (const key in dataOrder[i]) {
-        if (!dataOrder[i][key]) {
-          // console.log("אין ערך ל "+ key);
-          console.log(false);
-          setFullData(false)
-          return false
-        }
-      }
-    }
-    setFullData(true);
-    return true
-  }
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -101,7 +83,8 @@ export function FromCreditCard({ setActive }) {
                 focused={state.focus}
               />
             </Grid>
-            {fullData ? <> <Grid item xs={6} sm={6}>
+
+                <Grid item xs={6} sm={6}>
               <TextField
                 label=" מספר כרטיס "
                 type="number"
@@ -171,22 +154,7 @@ export function FromCreditCard({ setActive }) {
                 >
                   סיים הזמנה
                 </Button>
-              </Grid></> : <>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
-                  לא מלאת את כל הפרטים
-                </Typography>
               </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  onClick={() => handleButton(setActive)}
-                >
-                  חזור להשלמת פרטים
-                </Button></Grid></>}
           </Grid>
 
         </Box>

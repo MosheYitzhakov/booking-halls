@@ -10,6 +10,7 @@ import Cards from 'react-credit-cards-2';
 import instance from '../../API';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
 import { Order } from '../../hooks/useContext';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 export function FromCreditCard({ setActive }) {
   const [dataOrder] = useContext(Order);
   const [alert, setAlert] = useState(false);
@@ -59,6 +60,7 @@ export function FromCreditCard({ setActive }) {
     setState((prev) => ({ ...prev, focus: evt.target.name }));
   }
   return (
+
     <Container component="main" maxWidth="sm">
       <CssBaseline />
       <Box
@@ -165,8 +167,10 @@ export function FromCreditCard({ setActive }) {
               </Button>
             </Grid>
           </Grid>
-
-          <p style={{fontSize:35 }}>{alert && alert}</p>
+          <PayPalScriptProvider options={{ clientId: "test" }}>
+            <PayPalButtons style={{ layout: "horizontal" }} />
+          </PayPalScriptProvider>
+          <p style={{ fontSize: 35 }}>{alert && alert}</p>
         </Box>
       </Box>
     </Container>

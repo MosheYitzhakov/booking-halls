@@ -49,7 +49,9 @@ export function FromData({ setActive}) {
           side:  "k",
           degree:"client"
         },
-        invoice: { submits: checkedC ? "k" : checkedK ? "c" : "" }
+        invoice: {
+          ...prv.invoice,
+          submits: checkedC ? "k" : checkedK ? "c" : "" }
         ,
 
       }

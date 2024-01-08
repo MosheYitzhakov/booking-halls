@@ -42,11 +42,11 @@ export default function FullWidthTabs({  hall }) {
   const sumMeals = (Number(dataOrder.order.num_m_adults) + Number(dataOrder.order.num_m_children) > hall?.min_meals
  && orderFormCheck(dataOrder) ) || active < 3 
 
-  if(!sumMeals){
-    setFullData(true)
-    setActive((prv)=> prv-1);
+  // if(!sumMeals){
+  //   setFullData(true)
+  //   setActive((prv)=> prv-1);
 
-  } 
+  // } 
   useEffect(() => {
     if (hall) {
       setDataOrder((prv)=>{
@@ -59,11 +59,11 @@ export default function FullWidthTabs({  hall }) {
         }
       })
     }
-}, [hall])
+}, [hall,setDataOrder])
   const from = [
     <FromData setActive={setActive} />,
-    <SumOrder />,
     <FromOrder   hall={hall}  setActive={setActive} />,
+    <SumOrder hall={hall}/>,
     <FromCreditCard setActive={setActive} />
   ]
   return (

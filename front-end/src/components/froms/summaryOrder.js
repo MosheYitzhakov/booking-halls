@@ -15,186 +15,195 @@ const theme = createTheme();
 
 
 
-export function SumOrder({ setActive}) {
-  const [dataOrder, setDataOrder] = useContext(Order);
-  const [checkedC, setCheckedC] = useState(dataOrder.invoice?.submits === 'c' ? true: false);
-  const [checkedK, setCheckedK] = useState(dataOrder.invoice?.submits === 'k' ? true: false);
-console.log(dataOrder);
-  const handleChange = (s) => {
-    if (s === 'c') {
-      setCheckedC(!checkedC)
-      setCheckedK(false)
-    } else {
-      setCheckedC(false)
-      setCheckedK(!checkedK)
-    }
-  };
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const data = new FormData(event.currentTarget);
-//     setDataOrder((prv) => {
-//       return {
-//         ...prv,
-//         clientC: {
-//           ...prv.clientC,
-//           email: data.get('emailC'),
-//           phone: data.get('phoneC'),
-//           name: data.get("nameC"),
-//           side:  "c" ,
-//           degree:"client"
-//         },
-//         clientK: {
-//           ...prv.clientK,
-//           email: data.get('emailK'),
-//           phone: data.get('phoneK'),
-//           name: data.get("nameK"),
-//           side:  "k",
-//           degree:"client"
-//         },
-//         invoice: { submits: checkedC ? "k" : checkedK ? "c" : "" }
-//         ,
+export function SumOrder({ hall }) {
+    const [dataOrder] = useContext(Order);
+    console.log(dataOrder);
+    console.log(hall);
+    const price = dataOrder?.order?.type === 'b' ?
+        {
+            children: (Number(dataOrder?.order?.num_m_children) * Number(hall.p_b_children)),
+            bar: (Number(dataOrder?.order?.num_m_bar) * Number(hall.p_b_bar)),
+            adults: (Number(dataOrder?.order?.num_m_adults) * Number(hall.p_b_adults)),
+        } :
+        {
+            children: (Number(dataOrder?.order?.num_m_children) * Number(hall.p_p_children)),
+            bar: (Number(dataOrder?.order?.num_m_bar) * Number(hall.p_p_bar)),
+            adults: (Number(dataOrder?.order?.num_m_adults) * Number(hall.p_p_adults)), 
+        };
 
-//       }
-//     })
-//     setActive((prv) => {
-//       return prv + 1;
-//     })
 
-//   };
-  return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="sm">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            boxShadow: 3,
-            borderRadius: 2,
-            background: "white",
-            px: 4,
-            py: 6,
-          }}
-        >
+    const handleMain = () => {
+        // navgite
 
-          <Typography component="h1" variant="h5">
-            פרטים
-          </Typography>
-          <Box component="form" noValidate  sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-
-              <Grid item container spacing={0} sx={12} >
-                <Typography component="h3" variant="p" textAlign={'center'}>
-                  צד חתן
-                </Typography>
-              </Grid>
-
-              <Grid item sx={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  label="משפחה"
-                  name="nameC"
-                  defaultValue={dataOrder.clientC?.name}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="phoneC"
-                  defaultValue={dataOrder.clientC?.phone}
-                  required
-                  fullWidth
-                  type="tel"
-                  label="טלפון"
-
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="איימיל"
-                  type='email'
-                  name="emailC"
-                  defaultValue={dataOrder.clientC?.email}
-                />
-              </Grid>
-
-              <Grid item container spacing={0}>
-                <Typography component="h3" variant="p">
-                  צד כלה
-                </Typography>
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="משפחה"
-                  name="nameK"
-                  defaultValue={dataOrder.clientK?.name}
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="phoneK"
-                  defaultValue={dataOrder.clientK?.phone}
-                  required
-                  fullWidth
-                  id="firstName"
-                  type="tel"
-                  label="טלפון"
-                //
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="איימיל"
-                  type='email'
-                  name="emailK"
-                  defaultValue={dataOrder.clientK?.email}
-                  autoComplete="email"
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <fieldset>
-                  <p> מגיש  הבקשה</p>
-                  <label> צד חתן <input type='checkbox'
-                    checked={checkedK}
-                    onChange={() => handleChange("k")}
-                  /></label>
-
-                  <label> צד כלה <input type='checkbox'
-                    checked={checkedC}
-                    onChange={() => handleChange('c')}
-                  /></label>
-
-                </fieldset>
-              </Grid>
-            </Grid>
-            <Button
-            //   type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+    };
+    return (
+        <Container component="main" maxWidth="sm">
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    boxShadow: 3,
+                    borderRadius: 2,
+                    background: "white",
+                    px: 4,
+                    py: 6,
+                }}
             >
-              המשך
-            </Button>
 
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
-  );
+                <Typography component="h1" variant="h5">
+                    סיכום
+                </Typography>
+                <Box noValidate sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+
+                        <Grid item xs={12} sm={6} >
+                            <Typography sx={{ textDecoration: 'underline' }} component="h3" variant="p" textAlign={'center'}>
+                                צד חתן
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6} >
+                            <Typography sx={{ textDecoration: 'underline' }} component="h3" variant="p" textAlign={'center'}>
+                                צד כלה
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                {dataOrder?.clientC?.name}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                {dataOrder?.clientK?.name}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                {dataOrder?.clientC?.phone}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                {dataOrder?.clientK?.phone}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                {dataOrder?.clientC?.email}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                {dataOrder?.clientK?.email}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                            <Typography component="h1" variant="h5" textAlign={'center'}>
+                                הזמנה
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                סוג מנות: {dataOrder?.order?.type === 'b' ? " רגיל " : " פרימיום "}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                תאריך: {dataOrder?.order?.hebrew_date}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                אסמכתא: {12}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={7}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                            {price.adults}
+                                {/* {dataOrder?.order?.type === 'b' ? (Number(dataOrder?.order?.num_m_adults) * Number(hall.p_b_adults)) : (Number(dataOrder?.order?.num_m_adults) * Number(hall.p_p_adults))} */}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                :מנות מבוגר
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={12} sm={7}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                               {price.children}
+                                {/* {dataOrder?.order?.type === 'b' ? (Number(dataOrder?.order?.num_m_children) * Number(hall.p_b_children)) : (Number(dataOrder?.order?.num_m_children) * Number(hall.p_p_children))} */}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                :מנות ילדים
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={12} sm={7}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                            {price.bar}
+                                {/* {dataOrder?.order?.type === 'b' ? (Number(dataOrder?.order?.num_m_bar) * Number(hall.p_b_bar)) : (Number(dataOrder?.order?.num_m_bar) * Number(hall.p_p_bar))} */}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                :מנות בר
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={12} sm={7}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                {hall.base_price}
+
+                            </Typography>
+                            <TextField
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                                fullWidth
+                                name="nameC"
+                                variant="standard"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                :אולם
+                            </Typography>
+
+                        </Grid>
+
+                        <Grid item xs={12} marginLeft={20} marginRight={20}>
+
+                        </Grid>
+
+
+                        <Grid item xs={12} sm={7}>
+                            <Typography component="h3" variant="p" textAlign={'center'}>
+                                {price.adults + price.bar + price.children + hall.base_price}
+                            </Typography>
+                        </Grid>
+
+                    </Grid>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        onClick={handleMain}
+                    >
+                        חזרה לעמוד ראשי
+                    </Button>
+
+                </Box>
+            </Box>
+        </Container>
+    );
 }

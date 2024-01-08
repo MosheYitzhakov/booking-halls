@@ -11,7 +11,7 @@ import instance from '../../API';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
 import { Order } from '../../hooks/useContext';
 export function FromCreditCard({ setActive }) {
-  const [dataOrder, setDataOrder] = useContext(Order);
+  const [dataOrder] = useContext(Order);
   const [state, setState] = useState({
     number: '',
     expiry: '',

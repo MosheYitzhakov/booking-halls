@@ -19,7 +19,6 @@ export function FromData({ setActive}) {
   const [dataOrder, setDataOrder] = useContext(Order);
   const [checkedC, setCheckedC] = useState(dataOrder.invoice?.submits === 'c' ? true: false);
   const [checkedK, setCheckedK] = useState(dataOrder.invoice?.submits === 'k' ? true: false);
-console.log(dataOrder);
   const handleChange = (s) => {
     if (s === 'c') {
       setCheckedC(!checkedC)

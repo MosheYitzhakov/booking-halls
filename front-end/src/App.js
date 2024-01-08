@@ -7,38 +7,39 @@ import { Main } from './pages/manager/main';
 import { Err } from './error';
 import Header from './components/header';
 import { useState } from 'react';
-import { Dates, Order } from './hooks/useContext';
+import { Dates, Order, orderDataDefault } from './hooks/useContext';
 
-
+// const orderDataDefault = {
+//   clientC: {
+//     name: '', phone: '', email: '', side: "c", degree: "client"
+//   }, clientK: {
+//     name: '', phone: '', email: '', side: "k", degree: "client"
+//   }, order: {
+//     id_hall: "",
+//     date: "",
+//     hebrew_date: "",
+//     num_guests: "",
+//     num_m_adults: "",
+//     num_m_bar: "",
+//     num_m_children: "",
+//     total_payment: "",
+//     type: "b",
+//   }, dateEvent: {
+//     date: "",
+//     hebrew_date: "",
+//     id_hall: "",
+//   }, invoice: {
+//     payment: "",
+//     date: "",
+//     hebrew_date: "",
+//     submits:""
+//   }
+// }
 
 function App() {
   const [alldates, setallDates] = useState({ dateH: "", dateE: "" })
-  const [alldataOrder, setAlldataOrder] = useState({
-    clientC: {
-      name: '', phone: '', email: '', side: "c", degree: "client"
-    }, clientK: {
-      name: '', phone: '', email: '', side: "k", degree: "client"
-    }, order: {
-      id_hall: "",
-      date: "",
-      hebrew_date: "",
-      num_guests: "",
-      num_m_adults: "",
-      num_m_bar: "",
-      num_m_children: "",
-      total_payment: "",
-      type: "b",
-    }, dateEvent: {
-      date: "",
-      hebrew_date: "",
-      id_hall: "",
-    }, invoice: {
-      payment: "",
-      date: "",
-      hebrew_date: "",
-      submits:""
-    }
-  })
+
+  const [alldataOrder, setAlldataOrder] = useState(orderDataDefault)
   return (
     <div className="App" style={{ width: "100%", height: "100vh"}}>
       <Header />

@@ -39,14 +39,14 @@ export default function FullWidthTabs({  hall }) {
   const [fullData, setFullData] = useState(false)
 
   const [dataOrder, setDataOrder] = useContext(Order);
-  const sumMeals = (Number(dataOrder.order.num_m_adults) + Number(dataOrder.order.num_m_children) > hall?.min_meals
+  const sumMeals = (Number(dataOrder.order.num_m_adults) + Number(dataOrder.order.num_m_children) >= hall?.min_meals
  && orderFormCheck(dataOrder) ) || active < 3 
 
-  // if(!sumMeals){
-  //   setFullData(true)
-  //   setActive((prv)=> prv-1);
+  if(!sumMeals){
+    setFullData(true)
+    setActive((prv)=> prv-1);
 
-  // } 
+  } 
   useEffect(() => {
     if (hall) {
       setDataOrder((prv)=>{
@@ -63,8 +63,8 @@ export default function FullWidthTabs({  hall }) {
   const from = [
     <FromData setActive={setActive} />,
     <FromOrder   hall={hall}  setActive={setActive} />,
+    <FromCreditCard setActive={setActive} />,
     <SumOrder hall={hall}/>,
-    <FromCreditCard setActive={setActive} />
   ]
   return (
     <Box sx={{ width: '100%'}}>
@@ -76,7 +76,7 @@ export default function FullWidthTabs({  hall }) {
         ))}
       </Stepper>
       <Box sx={{marginBottom:"5%"}}>{from[active - 1]}</Box>
-      <Box>{(fullData && active !==3) && <p>   לא מלאת את כל הפרטים </p>}</Box>
+      <Box>{(fullData && active <3) && <p style={{fontSize:25}}>   לא מלאת את כל הפרטים </p>}</Box>
     </Box>
   );
 }

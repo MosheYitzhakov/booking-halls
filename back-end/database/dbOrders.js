@@ -116,7 +116,7 @@ const postOrders = async (...args) => {
 
 
         await conn.commit();
-        return "updated orders"
+        return orderS.insertId
     } catch (error) {
 
         if (conn) await conn.rollback();

@@ -12,6 +12,7 @@ import 'react-credit-cards-2/dist/es/styles-compiled.css';
 import { Order } from '../../hooks/useContext';
 export function FromCreditCard({ setActive }) {
   const [dataOrder] = useContext(Order);
+  const [alert, setAlert] = useState(false);
   const [state, setState] = useState({
     number: '',
     expiry: '',
@@ -22,13 +23,21 @@ export function FromCreditCard({ setActive }) {
   useEffect(() => {
   }, [])
   console.log(dataOrder);
- 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const { data } = await instance.post(`/craetOrder`, dataOrder);
       console.log(data);
-
+      if (Number(data?.orderId)) {
+        console.log(data?.orderId);
+        localStorage.setItem("orderId", JSON.stringify(data.orderId))
+        setActive((prv) => {
+          return prv + 1;
+        })
+      } else {
+        setAlert(" התאריך שלך כבר נתפס בחר תאריך אחר")
+      }
     } catch (error) {
       return error.message
     }
@@ -72,7 +81,7 @@ export function FromCreditCard({ setActive }) {
           <Grid container spacing={2}>
             <Grid item xs={12} >
               <Typography variant="h5"> סה"כ לתשלום {dataOrder.order.total_payment} ש"ח</Typography>
-              <Typography variant="h5">דמי מקדמה {dataOrder.invoice.payment } ש"ח לסגירת ההזמנה</Typography>
+              <Typography variant="h5">דמי מקדמה {dataOrder.invoice.payment} ש"ח לסגירת ההזמנה</Typography>
             </Grid>
             <Grid item xs={12} sm={12}>
               <Cards
@@ -84,7 +93,7 @@ export function FromCreditCard({ setActive }) {
               />
             </Grid>
 
-                <Grid item xs={6} sm={6}>
+            <Grid item xs={6} sm={6}>
               <TextField
                 label=" מספר כרטיס "
                 type="number"
@@ -96,67 +105,68 @@ export function FromCreditCard({ setActive }) {
               />
             </Grid>
 
-              <Grid item xs={6} sm={6}>
-                <TextField
-                  label=" שם בעל הכרטיס "
-                  type="text"
-                  name="name"
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                  required
-                />
-              </Grid>
+            <Grid item xs={6} sm={6}>
+              <TextField
+                label=" שם בעל הכרטיס "
+                type="text"
+                name="name"
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                required
+              />
+            </Grid>
 
-              <Grid item xs={6} sm={6}>
-                <TextField
-                  label="תוקף"
-                  type="number"
-                  name="expiry"
-                  pattern="\d\d/\d\d"
-                  value={state.expiry}
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                  required
-                />
-              </Grid>
+            <Grid item xs={6} sm={6}>
+              <TextField
+                label="תוקף"
+                type="number"
+                name="expiry"
+                pattern="\d\d/\d\d"
+                value={state.expiry}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                required
+              />
+            </Grid>
 
-              <Grid item xs={6}>
-                <TextField
-                  type="number"
-                  name="cvc"
-                  className="form-control"
-                  placeholder="CVC"
-                  pattern="\d{3,4}"
-                  value={state.cvc}
-                  onChange={handleInputChange}
-                  onFocus={handleInputFocus}
-                  required
-                />
-              </Grid>
+            <Grid item xs={6}>
+              <TextField
+                type="number"
+                name="cvc"
+                className="form-control"
+                placeholder="CVC"
+                pattern="\d{3,4}"
+                value={state.cvc}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                required
+              />
+            </Grid>
 
-              <Grid item xs={6}>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  onClick={() => handleButton(setActive)}
-                >
-                  חזור
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  סיים הזמנה
-                </Button>
-              </Grid>
+            <Grid item xs={6}>
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={() => handleButton(setActive)}
+              >
+                חזור
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                סיים הזמנה
+              </Button>
+            </Grid>
           </Grid>
 
+          <p style={{fontSize:35 }}>{alert && alert}</p>
         </Box>
       </Box>
     </Container>

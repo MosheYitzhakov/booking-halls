@@ -20,6 +20,7 @@ export function FromOrder({ setActive, hall }) {
     const [dateOE, setDateOE] = useState(dataOrder.dateEvent?.date);
     const [butten, setButten] = useState();
     const [dates] = useContext(Dates);
+    console.log(dataOrder);
     const handleChange = (event) => {
         setTypeO(event.target.value);
     };

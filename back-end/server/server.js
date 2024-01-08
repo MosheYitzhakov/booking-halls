@@ -24,6 +24,7 @@ app.use('/api/',clientR)
 //     const htmlPath = path.join(path.dirname(__dirname),'../',"fount-end",'react', "build", "index.html")
 //     res.sendFile(htmlPath);
 // })
+
 app.use('/*', (req, res) => res.send('not found'))
 
 

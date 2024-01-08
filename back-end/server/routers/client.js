@@ -89,7 +89,7 @@ router.get('/', async (req, res) => {
         try {
             const allData = req.body
             const orderId = await postOrders(allData)
-            res.send(orderId)
+            res.send({orderId:orderId})
         } catch (error) {
             res.send(error.message)
         }

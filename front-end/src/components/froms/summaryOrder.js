@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext} from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -6,12 +6,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Order } from '../../hooks/useContext';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const theme = createTheme();
 
 
 
@@ -19,6 +18,7 @@ export function SumOrder({ hall }) {
     const [dataOrder] = useContext(Order);
     console.log(dataOrder);
     console.log(hall);
+    const navigate = useNavigate();
     const price = dataOrder?.order?.type === 'b' ?
         {
             children: (Number(dataOrder?.order?.num_m_children) * Number(hall.p_b_children)),
@@ -33,7 +33,7 @@ export function SumOrder({ hall }) {
 
 
     const handleMain = () => {
-        // navgite
+        navigate('..')
 
     };
     return (
@@ -116,7 +116,7 @@ export function SumOrder({ hall }) {
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <Typography component="h3" variant="p" textAlign={'center'}>
-                                אסמכתא: {12}
+                                אסמכתא: { JSON.parse(localStorage.orderId)}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={12}>
@@ -127,7 +127,6 @@ export function SumOrder({ hall }) {
                         <Grid item xs={12} sm={7}>
                             <Typography component="h3" variant="p" textAlign={'center'}>
                             {price.adults}
-                                {/* {dataOrder?.order?.type === 'b' ? (Number(dataOrder?.order?.num_m_adults) * Number(hall.p_b_adults)) : (Number(dataOrder?.order?.num_m_adults) * Number(hall.p_p_adults))} */}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={4}>
@@ -139,7 +138,6 @@ export function SumOrder({ hall }) {
                         <Grid item xs={12} sm={7}>
                             <Typography component="h3" variant="p" textAlign={'center'}>
                                {price.children}
-                                {/* {dataOrder?.order?.type === 'b' ? (Number(dataOrder?.order?.num_m_children) * Number(hall.p_b_children)) : (Number(dataOrder?.order?.num_m_children) * Number(hall.p_p_children))} */}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={4}>
@@ -151,7 +149,6 @@ export function SumOrder({ hall }) {
                         <Grid item xs={12} sm={7}>
                             <Typography component="h3" variant="p" textAlign={'center'}>
                             {price.bar}
-                                {/* {dataOrder?.order?.type === 'b' ? (Number(dataOrder?.order?.num_m_bar) * Number(hall.p_b_bar)) : (Number(dataOrder?.order?.num_m_bar) * Number(hall.p_p_bar))} */}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={4}>

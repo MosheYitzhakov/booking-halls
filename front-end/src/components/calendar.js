@@ -23,6 +23,7 @@ export default function Calendar({ idHall = null, setDateOE = null }) {
                 }
                 const { data } = await instance.get(url);
                 setEventsSchedule(data);
+                setDateOE(new Date(dates.dateE).toISOString().slice(0, 19).replace('T', ' '))
             } catch (error) {
                 return error.message
             }

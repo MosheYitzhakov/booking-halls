@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 import instance from '../../API';
-export const Login = () => {
+export const Login = ({state}) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +24,7 @@ export const Login = () => {
 
   return (
     <div className="login-container" style={{backgroundColor: "antiquewhite"}}>
+       
       <h2 className='login'>Login</h2>
       <form >
         <label>
@@ -38,6 +39,7 @@ export const Login = () => {
           Login
         </button>
       </form>
+     <p style={{fontSize:20}}>{state && state}</p>
       {incorrect ? <p>The data is incorrect</p> : ""}
     </div>
   );

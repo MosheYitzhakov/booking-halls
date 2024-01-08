@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Hall } from './pages/client/hall';
 import { Home } from './pages/client/home';
 import { Login } from './pages/manager/login';
@@ -38,7 +38,7 @@ import { Dates, Order, orderDataDefault } from './hooks/useContext';
 
 function App() {
   const [alldates, setallDates] = useState({ dateH: "", dateE: "" })
-
+  const { state } = useLocation();
   const [alldataOrder, setAlldataOrder] = useState(orderDataDefault)
   return (
     <div className="App" style={{ width: "100%", height: "100vh"}}>
@@ -50,13 +50,13 @@ function App() {
             <Route path="/main" element={<Home />} />
             <Route path="/halls/:name" element={<Hall /> ? <Hall /> : <Hall />} />
 
-            <Route path="managers/login" element={<Login />} />
-            <Route path="managers/:name/settings" element={<Main /> ? <Main /> : <Login />} />
-            <Route path="managers/:name/allOrders" element={<Main /> ? <Main /> : <Login />} />
-            <Route path="managers/:name/futureOrders" element={<Main /> ? <Main /> : <Login />} />
-            <Route path="managers/:name/invoices" element={<Main /> ? <Main /> : <Login />} />
-            <Route path="managers/:name/invoices/sum" element={<Main /> ? <Main /> : <Login />} />
-            <Route path="managers/*" element={<Login />} />
+            <Route path="managers/login" element={<Login state={state}/>} />
+            <Route path="managers/:name/settings" element={<Main /> ? <Main /> : <Login state={state}/>} />
+            <Route path="managers/:name/allOrders" element={<Main /> ? <Main /> : <Login state={state}/>} />
+            <Route path="managers/:name/futureOrders" element={<Main /> ? <Main /> : <Login state={state}/>} />
+            <Route path="managers/:name/invoices" element={<Main /> ? <Main /> : <Login state={state}/>} />
+            <Route path="managers/:name/invoices/sum" element={<Main /> ? <Main /> : <Login state={state}/>} />
+            <Route path="managers/*" element={<Login state={state}/>} />
 
             <Route path="*" element={<Err />} />
           </Routes>

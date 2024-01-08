@@ -18,6 +18,7 @@ const getInvoices = async (nameM) => {
             USING(id_user)
             WHERE u.name = ?
             )
+            order by i.date
         `
         const [res] = await pool.query(sql,[nameM]);
         return res;

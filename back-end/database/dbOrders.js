@@ -26,7 +26,7 @@ const getOrders = async (nameM, date = null) => {
         USING(id_order)
         ${toSql}
         
-        order by co.id_order
+        order by o.date
         `
         // console.log(sql);
         // return sql

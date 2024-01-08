@@ -34,40 +34,41 @@ const orderFormCheck = (dataOrder) => {
   }
   return true
 }
-export default function FullWidthTabs({  hall }) {
+export default function FullWidthTabs({ hall }) {
   const [active, setActive] = useState(1)
   const [fullData, setFullData] = useState(false)
 
   const [dataOrder, setDataOrder] = useContext(Order);
   const sumMeals = (Number(dataOrder.order.num_m_adults) + Number(dataOrder.order.num_m_children) >= hall?.min_meals
- && orderFormCheck(dataOrder) ) || active < 3 
-
-  if(!sumMeals){
+    && orderFormCheck(dataOrder)) || active < 3;
+  console.log(dataOrder);
+  if (!sumMeals) {
     setFullData(true)
-    setActive((prv)=> prv-1);
+    setActive((prv) => prv - 1);
 
-  } 
+  }
   useEffect(() => {
     if (hall) {
-      setDataOrder((prv)=>{
+      setDataOrder((prv) => {
         return {
           ...prv,
-          order:{...prv.order,
-            id_hall:hall.id_hall,
+          order: {
+            ...prv.order,
+            id_hall: hall.id_hall,
           },
-          dateEvent:{...prv.dateEvent,id_hall:hall.id_hall}
+          dateEvent: { ...prv.dateEvent, id_hall: hall.id_hall }
         }
       })
     }
-}, [hall,setDataOrder])
+  }, [hall, setDataOrder])
   const from = [
+    <FromOrder hall={hall} setActive={setActive} />,
     <FromData setActive={setActive} />,
-    <FromOrder   hall={hall}  setActive={setActive} />,
     <FromCreditCard setActive={setActive} />,
-    <SumOrder hall={hall}/>,
+    <SumOrder hall={hall} />,
   ]
   return (
-    <Box sx={{ width: '100%'}}>
+    <Box sx={{ width: '100%' }}>
       <Stepper activeStep={active} alternativeLabel sx={{ background: "#E6E6FA" }}>
         {steps.map((label) => (
           <Step key={label}>
@@ -75,8 +76,8 @@ export default function FullWidthTabs({  hall }) {
           </Step>
         ))}
       </Stepper>
-      <Box sx={{marginBottom:"5%"}}>{from[active - 1]}</Box>
-      <Box>{(fullData && active <3) && <p style={{fontSize:25}}>   לא מלאת את כל הפרטים </p>}</Box>
+      <Box sx={{ marginBottom: "5%" }}>{from[active - 1]}</Box>
+      <Box>{(fullData && active < 3) && <p style={{ fontSize: 25 }}>   לא מלאת את כל הפרטים </p>}</Box>
     </Box>
   );
 }

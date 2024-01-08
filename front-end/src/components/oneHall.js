@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+// import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
@@ -21,16 +21,17 @@ export default function Hall({hall}) {
         <Typography gutterBottom variant="h5" component="div">
         {hall.name_hall}  שם אולם
         <Typography variant="h6" color="text.secondary">
-         {hall.max_guests} מקסימום מוזמנים
+         {hall.max_guests} כמות מוזמנים מקסימלי 
         </Typography>
         <Typography variant="h6" color="text.secondary">
         {hall.min_meals} מינימום מנות
         </Typography>
         </Typography>
       </CardContent>
-      <CardActions>
-      </CardActions>
-  { hall?.images[0]?.name &&   <CardMedia
+      {/* <CardActions>
+      </CardActions> */}
+      
+  { hall?.images?.[0]?.name &&   <CardMedia
         sx={{ flex: '1 0 auto', width: 250 ,display:"inline-block"}}
         title="green iguana"
         image={require(`../images/${hall?.images[0].name}`)}

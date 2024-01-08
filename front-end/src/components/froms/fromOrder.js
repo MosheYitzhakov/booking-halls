@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-// import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -18,7 +17,6 @@ export function FromOrder({ setActive, hall }) {
     const [dataOrder, setDataOrder] = useContext(Order);
     const [typeO, setTypeO] = useState(dataOrder.order?.type ? dataOrder.order?.type : 'b');
     const [dateOE, setDateOE] = useState(dataOrder.dateEvent?.date);
-    const [butten, setButten] = useState();
     const [dates] = useContext(Dates);
     console.log(dataOrder);
     const handleChange = (event) => {
@@ -60,16 +58,9 @@ export function FromOrder({ setActive, hall }) {
 
             }
         })
-
-        if (butten === "b1") {
-            setActive((prv) => {
-                return prv - 1;
-            })
-        } else if (butten === "b2") {
-            setActive((prv) => {
-                return prv + 1;
-            })
-        }
+        setActive((prv) => {
+            return prv + 1;
+        })
     };
     return (
         <Container component="main" maxWidth="sm">
@@ -98,7 +89,7 @@ export function FromOrder({ setActive, hall }) {
                                 תאריך
                             </Typography>
                             <Calendar
-                                idHall={hall.id_hall}
+                                idHall={hall?.id_hall}
                                 setDateOE={setDateOE && setDateOE}
                             />
                         </Grid>
@@ -123,32 +114,17 @@ export function FromOrder({ setActive, hall }) {
                             <BasicTable hall={hall} typeO={typeO} dataOrder={dataOrder} />
                         </Grid>
                         <Grid item xs={19} >
+                        </Grid>
 
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-
-                                onClick={() => setButten("b1")}
-                            >
-                                חזור
-                            </Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                onClick={() => setButten("b2")}
-                            >
-                                המשך
-                            </Button>
-                        </Grid>
                     </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        המשך
+                    </Button>
                 </Box>
             </Box>
         </Container>

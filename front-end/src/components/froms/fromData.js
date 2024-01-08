@@ -6,12 +6,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Order } from '../../hooks/useContext';
 
 
 
-const theme = createTheme();
 
 
 
@@ -19,6 +17,7 @@ export function FromData({ setActive}) {
   const [dataOrder, setDataOrder] = useContext(Order);
   const [checkedC, setCheckedC] = useState(dataOrder.invoice?.submits === 'c' ? true: false);
   const [checkedK, setCheckedK] = useState(dataOrder.invoice?.submits === 'k' ? true: false);
+  const [butten, setButten] = useState();
   const handleChange = (s) => {
     if (s === 'c') {
       setCheckedC(!checkedC)
@@ -55,13 +54,19 @@ export function FromData({ setActive}) {
 
       }
     })
-    setActive((prv) => {
-      return prv + 1;
-    })
 
+    console.log(butten);
+    if (butten === "b1") {
+      setActive((prv) => {
+          return prv - 1;
+      })
+  } else if (butten === "b2") {
+      setActive((prv) => {
+          return prv + 1;
+      })
+  }
   };
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
@@ -181,19 +186,35 @@ export function FromData({ setActive}) {
 
                 </fieldset>
               </Grid>
+
+              <Grid item xs={6}>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+
+                                onClick={() => setButten("b1")}
+                            >
+                                חזור
+                            </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                                onClick={() => setButten("b2")}
+                            >
+                                המשך
+                            </Button>
+                        </Grid>
+
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              המשך
-            </Button>
 
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }

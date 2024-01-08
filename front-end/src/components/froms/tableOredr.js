@@ -16,7 +16,7 @@ function createData(name, calories, fat, carbs, sum) {
 export default function BasicTable({ hall, typeO, dataOrder }) {
   const [meal, setMeal] = useState();
   useEffect(() => {
-    if (typeof dataOrder.order.num_m_adults !== 'undefined') {
+    if (typeof dataOrder?.order?.num_m_adults !== 'undefined') {
       setMeal({
         adults: dataOrder.order.num_m_adults,
         children: dataOrder.order.num_m_children,
@@ -32,8 +32,8 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
 
   }, [dataOrder])
   const typeB = typeO === 'b';
-  const hallPreic = typeB  ? { adults: hall.p_b_adults, children: hall.p_b_children, bar: hall.p_b_bar } :
-    { adults: hall.p_p_adults, children: hall.p_p_children, bar: hall.p_p_bar }
+  const hallPreic = typeB  ? { adults: hall?.p_b_adults, children: hall?.p_b_children, bar: hall?.p_b_bar } :
+    { adults: hall?.p_p_adults, children: hall?.p_p_children, bar: hall?.p_p_bar }
   const sum = 
  meal ? {
     adults: hallPreic.adults * meal.adults,
@@ -68,7 +68,7 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
 
       <TextField
         variant="standard"
-        value={hall.base_price}
+        value={hall?.base_price}
         InputProps={{
           readOnly: true,
         }}
@@ -117,7 +117,7 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
           ))}
         </TableBody>
       </Table>
-      <h2 style={{color: (Number(meal?.children) + Number(meal?.adults)) >= hall?.min_meals? "green" :"red"}}> מינימום מנות מבוגר + וילדים: {hall.min_meals} </h2>
+      <h2 style={{color: (Number(meal?.children) + Number(meal?.adults)) >= hall?.min_meals? "green" :"red"}}> מינימום מנות מבוגר + וילדים: {hall?.min_meals} </h2>
     </TableContainer>
   );
 }

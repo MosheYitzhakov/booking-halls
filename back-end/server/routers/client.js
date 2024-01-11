@@ -80,6 +80,7 @@ router.get('/', async (req, res) => {
                     }
                 }
             })
+            console.log(halls);
             res.send(halls)
         } catch (error) {
             res.send(error.message)

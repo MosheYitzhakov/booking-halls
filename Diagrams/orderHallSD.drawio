@@ -1,20 +1,67 @@
 <mxfile host="65bd71144e">
-    <diagram id="g2ly50zhoH2Rde3QsHv9" name="Page-1">
-        <mxGraphModel dx="884" dy="370" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <diagram id="4A650wX5dJwT5BjYypUD" name="Flow Data manager">
+        <mxGraphModel dx="536" dy="607" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffff99;verticalLabelPosition=bottom;verticalAlign=top;align=center;shape=mxgraph.archimate3.actor;" parent="1" vertex="1">
-                    <mxGeometry x="90" y="60" width="50" height="95" as="geometry"/>
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-1" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="P52y-gWMk4l5zXdL9Fsq-2" target="P52y-gWMk4l5zXdL9Fsq-4">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="" style="endArrow=none;html=1;" parent="1" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="120" y="470" as="sourcePoint"/>
-                        <mxPoint x="120" y="180" as="targetPoint"/>
-                    </mxGeometry>
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-9" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="P52y-gWMk4l5zXdL9Fsq-2" target="P52y-gWMk4l5zXdL9Fsq-6">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/png,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAQMAAADaX5RTAAAABlBMVEV7mr3///+wksspAAAAAnRSTlP/AOW3MEoAAAAdSURBVAgdY9jXwCDDwNDRwHCwgeExmASygSL7GgB12QiqNHZZIwAAAABJRU5ErkJggg==;" vertex="1" parent="1">
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-10" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="P52y-gWMk4l5zXdL9Fsq-2" target="P52y-gWMk4l5zXdL9Fsq-7">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-11" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="P52y-gWMk4l5zXdL9Fsq-2" target="P52y-gWMk4l5zXdL9Fsq-8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-2" value="משתמש" style="rounded=1;whiteSpace=wrap;html=1;arcSize=28;" vertex="1" parent="1">
+                    <mxGeometry x="350" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-4" value="הגדרות" style="rounded=1;whiteSpace=wrap;html=1;arcSize=31;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="130" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-6" value="הזמנות" style="rounded=1;whiteSpace=wrap;html=1;arcSize=26;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-7" value="חשבוניות" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="P52y-gWMk4l5zXdL9Fsq-8" value="סיכום חודשי" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="410" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="g2ly50zhoH2Rde3QsHv9" name="Flow Data client">
+        <mxGraphModel dx="536" dy="607" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="13" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/png,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAQMAAADaX5RTAAAABlBMVEV7mr3///+wksspAAAAAnRSTlP/AOW3MEoAAAAdSURBVAgdY9jXwCDDwNDRwHCwgeExmASygSL7GgB12QiqNHZZIwAAAABJRU5ErkJggg==;" parent="1" vertex="1">
                     <mxGeometry width="9" height="9" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="14" target="15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="בחירת תאריך" style="rounded=1;whiteSpace=wrap;html=1;arcSize=28;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="130" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="15" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="בחירת&amp;nbsp; אולם" style="rounded=1;whiteSpace=wrap;html=1;arcSize=31;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="130" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="16" target="18">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="מילוי טופס הזמנה" style="rounded=1;whiteSpace=wrap;html=1;arcSize=26;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="130" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="אישור הזמנה" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="240" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

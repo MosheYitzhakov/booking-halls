@@ -11,9 +11,11 @@ export default function HallForList({ halls }) {
   useEffect(() => {
     async function name() {
       try {
+        if(dates?.dateH){
         const { data } = await instance.get(`/hallsForDate/${dates.dateH}`);
         if(typeof data !== "string")
         setHallByDate(data);
+      }
       } catch (error) {
         return error.message
       }

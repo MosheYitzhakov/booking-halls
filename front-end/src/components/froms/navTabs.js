@@ -18,8 +18,8 @@ import { Order } from '../../hooks/useContext';
 import { SumOrder } from './summaryOrder';
 
 const steps = [
-  ' פרטים ',
   ' הזמנה ',
+  ' פרטים ',
   ' סגירת הזמנה ',
 ];
 

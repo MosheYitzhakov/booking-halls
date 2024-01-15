@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const { checkDBConnection } = require('../database/dbConnection')
 const cors =require('cors')
-const path = require('path')
+// const path = require('path')
 const clientR = require('./routers/client')
 const loginR = require('./routers/manager/login')
 const ordersR = require('./routers/manager/orders')
@@ -24,6 +24,7 @@ app.use('/api/',clientR)
 //     const htmlPath = path.join(path.dirname(__dirname),'../',"fount-end",'react', "build", "index.html")
 //     res.sendFile(htmlPath);
 // })
+
 
 app.use('/*', (req, res) => res.send('not found'))
 

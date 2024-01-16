@@ -39,14 +39,6 @@ export default function FullWidthTabs({ hall }) {
   const [fullData, setFullData] = useState(false)
 
   const [dataOrder, setDataOrder] = useContext(Order);
-  const sumMeals = (Number(dataOrder.order.num_m_adults) + Number(dataOrder.order.num_m_children) >= hall?.min_meals
-    && orderFormCheck(dataOrder)) || active < 3;
-  console.log(dataOrder);
-  if (!sumMeals) {
-    setFullData(true)
-    setActive((prv) => prv - 1);
-
-  }
   useEffect(() => {
     if (hall) {
       setDataOrder((prv) => {
@@ -61,6 +53,14 @@ export default function FullWidthTabs({ hall }) {
       })
     }
   }, [hall, setDataOrder])
+  const sumMeals = (Number(dataOrder.order.num_m_adults) + Number(dataOrder.order.num_m_children) >= hall?.min_meals
+    && orderFormCheck(dataOrder)) || active < 3;
+  console.log(dataOrder);
+  if (!sumMeals) {
+    setFullData(true)
+    setActive((prv) => prv - 1);
+
+  }
   const from = [
     <FromOrder hall={hall} setActive={setActive} />,
     <FromData setActive={setActive} />,

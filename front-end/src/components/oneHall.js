@@ -13,7 +13,7 @@ export default function Hall({hall}) {
       navigate(`/halls/${name}` )
 };
   return (
-    <Card sx={{ display: 'flex', border: '1px solid', marginLeft: "23%",marginTop:"20px", height: "100%", width: "50%" }}>
+    <Card onClick={()=>{handlePageHall(hall.name_hall)}} sx={{ display: 'flex', border: '1px solid', marginLeft: "23%",marginTop:"20px", height: "100%", width: "50%" }}>
 
       <Button onClick={()=>{handlePageHall(hall.name_hall)}} size="small">לפרטים והזמנה</Button>
       

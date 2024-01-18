@@ -1,7 +1,8 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 export const Dates = createContext()
-
 export const Order = createContext()
+
+
 export const orderDataDefault = {
   clientC: {
     name: '', phone: '', email: '', side: "c", degree: "client"
@@ -30,5 +31,17 @@ export const orderDataDefault = {
     submits: ""
   }
 }
+export   const DatesAndOrderContext = ({ children }) => {
+  const [alldates, setallDates] = useState({ dateH: "", dateE: "" })
+  const [alldataOrder, setAlldataOrder] = useState(orderDataDefault)
+  return (
+    <Dates.Provider value={[ alldates, setallDates ]}>
+      <Order.Provider value={[alldataOrder, setAlldataOrder]}>
+        {children}
+      </Order.Provider>
+    </Dates.Provider>
+  )
+}
 
+export default DatesAndOrderContext
 

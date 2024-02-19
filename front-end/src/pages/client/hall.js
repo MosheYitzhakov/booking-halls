@@ -14,9 +14,9 @@ export const Hall = () => {
         <div >
             <Nuvbar />
             <h1 style={{ fontSize: 70 }}> {`${name} אולמי`}</h1>
-         { hall?.[0]?.images?.[0]?.name &&  <Images imgs={hall[0].images} />}
+         { hall?.[0]?.images?.[0]?.name &&  <Images imgs={hall?.[0]?.images} />}
             <div style={{ display: "inline-block" ,backgroundColor:"#FFF8DC"}}>
-                <FullWidthTabs   hall={hall &&hall[0]} />
+                <FullWidthTabs   hall={hall?.[0]} />
             </div>
          
             <ContactUs />

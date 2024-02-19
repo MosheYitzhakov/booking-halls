@@ -34,7 +34,7 @@ const orderFormCheck = (dataOrder) => {
   }
   return true
 }
-export default function FullWidthTabs({ hall }) {
+export default function FullWidthTabs({ hall = null }) {
   const [active, setActive] = useState(1)
   const [fullData, setFullData] = useState(false)
 

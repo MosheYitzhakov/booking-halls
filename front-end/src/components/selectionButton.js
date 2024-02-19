@@ -7,13 +7,12 @@ export const SelectionButton = ({ names}) => {
     const [dates, setDates] = useContext(Dates);
     const navigate = useNavigate()
     const handlePageHall = async (name) => {
-        if (name === "all halls") {
+ 
             setDates({dateH:false,dateE:false})
-        } else {
             navigate(`/halls/${name}`)
-        }
+       
     };
-    const top100Films = [{ label: "all halls" }, ...names]
+    const top100Films = [ ...names]
     return (
         <div style={{ display: "inline-block" }}>
             <Autocomplete

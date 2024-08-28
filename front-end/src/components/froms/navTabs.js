@@ -55,7 +55,7 @@ export default function FullWidthTabs({ hall = null }) {
   }, [hall, setDataOrder])
   const sumMeals = (Number(dataOrder.order.num_m_adults) + Number(dataOrder.order.num_m_children) >= hall?.min_meals
     && orderFormCheck(dataOrder)) || active < 3;
-  console.log(dataOrder);
+  // console.log(dataOrder);
   if (!sumMeals) {
     setFullData(true)
     setActive((prv) => prv - 1);

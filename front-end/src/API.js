@@ -1,7 +1,10 @@
 import axios from "axios";
-const url = process.env.NODE_ENV === "development" ? "http://localhost:3335/api/" : "/api/"
+const url =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3335/api/"
+    : "/api/";
 console.log(url);
 const instance = axios.create({
-    baseURL: url
+  baseURL: url,
 });
-export default instance
+export default instance;

@@ -4,15 +4,15 @@ import instance from "../API";
 export const Effect = (url) => {
   const [data, setData] = useState(null);
   useEffect(() => {
-  const  fetch =async()=>{
-    try {
+    const fetch = async () => {
+      try {
         const { data } = await instance.get(url);
-        setData(data)
-    } catch (error) {
-        return error.message
-    }
-  }
-    fetch()
+        setData(data);
+      } catch (error) {
+        return error.message;
+      }
+    };
+    fetch();
   }, [url]);
 
   return data;

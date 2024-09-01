@@ -69,13 +69,13 @@ const putOrders = async (id_order, ...args) => {
 const postOrders = async (...args) => {
     const [{ clientC, clientK, order, dateEvent, invoice }] = args;
 
-    const str = (obj) => {
-        let string = ""
-        for (const key in obj) {
-            string += `${key},`;
-        }
-        return string.slice(0, -1)
-    }
+    // const str = (obj) => {
+    //     let string = ""
+    //     for (const key in obj) {
+    //         string += `${key},`;
+    //     }
+    //     return string.slice(0, -1)
+    // }
 
 
     let conn = null;

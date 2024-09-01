@@ -50,8 +50,8 @@ export function TableSettingManager({settings, updateTable}) {
         <TableHead>
           <TableRow>
             <TableCell>meal</TableCell>
-            <TableCell> פרמיום</TableCell>
-            <TableCell> רגיל </TableCell>
+            <TableCell>פרמיום</TableCell>
+            <TableCell>רגיל</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

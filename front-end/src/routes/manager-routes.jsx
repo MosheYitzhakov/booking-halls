@@ -1,5 +1,4 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Err } from "../error";
 import { Login } from "../pages/manager/login";
 import { Main } from "../pages/manager/main";
 
@@ -29,8 +28,6 @@ export const ManagerRoute = () => {
         element={<Main /> ? <Main /> : <Login state={state} />}
       />
       <Route path="*" element={<Login state={state} />} />
-
-      {/* <Route path="*" element={<Err />} /> */}
     </Routes>
   );
 };

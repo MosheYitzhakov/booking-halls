@@ -71,7 +71,7 @@ export default function Calendar({ idHall = null, setDateOE = null }) {
                         setDateOE && setDateOE(new Date(day.date).toISOString().slice(0, 19).replace('T', ' '));
                     }}
             />
-            {idHall && <p> תאריכים תפוסים לא נתנים לבחירה </p>}
+            {/* {idHall && <p> תאריכים תפוסים לא נתנים לבחירה </p>} */}
         </div>
     );
 }

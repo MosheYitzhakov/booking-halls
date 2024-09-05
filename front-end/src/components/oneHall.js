@@ -19,7 +19,7 @@ export default function Hall({hall}) {
       
       <CardContent sx={{ flex: '1 0 auto' }}>
         <Typography gutterBottom variant="h5" component="div">
-        {hall.name_hall}  שם אולם
+        {hall.name_hall} 
         <Typography variant="h6" color="text.secondary">
          {hall.max_guests} כמות מוזמנים מקסימלי 
         </Typography>

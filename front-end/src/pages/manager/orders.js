@@ -9,35 +9,35 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
 const columnsOrsers = [
-  { id: "id_order", label: " ID  ", minWidth: 100 },
-  { id: "hebrew_date", label: " תאריך אירוע עברי ", minWidth: 100 },
-  { id: "date", label: " תאריך לועזי ", minWidth: 100 },
-  { id: "nameC", label: " משפחה ", minWidth: 100 },
-  { id: "phoneC", label: " טלפון ", minWidth: 100 },
-  { id: "emailC", label: " אימייל ", minWidth: 170 },
-  { id: "nameK", label: " משפחה ", minWidth: 100 },
-  { id: "phoneK", label: " טלפון ", minWidth: 100 },
-  { id: "emailK", label: " אימייל ", minWidth: 100 },
-  { id: "num_guests", label: " כמות מוזמנים ", minWidth: 100 },
-  { id: "num_m_adults", label: " מנות מבוגר ", minWidth: 100 },
-  { id: "num_m_children", label: " מנות ילדים  ", minWidth: 100 },
-  { id: "num_m_bar", label: " מנות בר  ", minWidth: 100 },
-  { id: "type", label: " רמת מנות ", minWidth: 100 },
-  { id: "total_payment", label: ' סה"כ לתשלום ', minWidth: 100 },
+  { id: "id_order", label: " ID  " },
+  { id: "hebrew_date", label: " תאריך אירוע עברי " },
+  { id: "date", label: " תאריך לועזי " },
+  { id: "nameC", label: " משפחה " },
+  { id: "phoneC", label: " טלפון " },
+  { id: "emailC", label: " אימייל " },
+  { id: "nameK", label: " משפחה " },
+  { id: "phoneK", label: " טלפון " },
+  { id: "emailK", label: " אימייל " },
+  { id: "num_guests", label: " כמות מוזמנים " },
+  { id: "num_m_adults", label: " מנות מבוגר " },
+  { id: "num_m_children", label: " מנות ילדים  " },
+  { id: "num_m_bar", label: " מנות בר  " },
+  { id: "type", label: " רמת מנות " },
+  { id: "total_payment", label: ' סה"כ לתשלום ' },
 ];
 const columnsInvoices = [
-  { id: "id_order", label: " ID  ", minWidth: 100 },
-  { id: "name", label: " שם  ", minWidth: 100 },
-  { id: "phone", label: " טלפון ", minWidth: 100 },
-  { id: "email", label: " איימיל ", minWidth: 100 },
-  { id: "payment", label: " תשלום ", minWidth: 100 },
-  { id: "date", label: " תאריך תשלום ", minWidth: 170 },
-  { id: "hebrew_date", label: " תאריך עברי ", minWidth: 100 },
+  { id: "id_order", label: " ID  " },
+  { id: "name", label: " שם  " },
+  { id: "phone", label: " טלפון " },
+  { id: "email", label: " איימיל " },
+  { id: "payment", label: " תשלום " },
+  { id: "date", label: " תאריך תשלום " },
+  { id: "hebrew_date", label: " תאריך עברי " },
 ];
 const columnsSum = [
-  { id: "date", label: " תאריך חודשי ", minWidth: 100 },
-  { id: "sum_orders", label: ' סה"כ הזמנות ', minWidth: 100 },
-  { id: "sum_total_payments", label: ' סה"כ הכנסות מההזמנות ', minWidth: 100 },
+  { id: "date", label: " תאריך חודשי " },
+  { id: "sum_orders", label: ' סה"כ הזמנות ' },
+  { id: "sum_total_payments", label: ' סה"כ הכנסות מההזמנות ' },
 ];
 const dataHead = (data) => {
   if (data === null) {
@@ -45,19 +45,19 @@ const dataHead = (data) => {
   } else if (data[0].type) {
     return (
       <>
-        <TableRow key={122}>
-          <TableCell align="center" colSpan={10} key={22}>
+        <TableRow key={"Rהזמנות"}>
+          <TableCell align="center" colSpan={10} key={"הזמנותC"}>
             הזמנות
           </TableCell>
         </TableRow>
-        <TableRow key={12}>
-          <TableCell align="center" colSpan={6} key={22}>
+        <TableRow key={"צדדים"}>
+          <TableCell align="center" colSpan={6} key={"צד-חתן"}>
             צד חתן
           </TableCell>
-          <TableCell align="left" colSpan={0} key={23}>
+          <TableCell align="left" colSpan={0} key={"צד-כלה"}>
             צד כלה
           </TableCell>
-        </TableRow>{" "}
+        </TableRow>
       </>
     );
   } else if (data[0].id_invoice) {
@@ -72,21 +72,21 @@ const dataHead = (data) => {
           <TableCell align="center" colSpan={3} key={23}>
             פרטי משלם
           </TableCell>
-        </TableRow>{" "}
+        </TableRow>
       </>
     );
   } else if (data[0].sum_orders) {
     return (
-      <TableRow key={122}>
-        <TableCell align="center" colSpan={6} key={22}>
+      <TableRow key={"122122"}>
+        <TableCell align="center" colSpan={6} key={"22122"}>
           סיכום חודשי
         </TableCell>
       </TableRow>
     );
   } else {
     return (
-      <TableRow key={12}>
-        <TableCell align="center" colSpan={3} key={23}>
+      <TableRow key={"12122122"}>
+        <TableCell align="center" colSpan={3} key={"23122"}>
           אין כותרת
         </TableCell>
       </TableRow>
@@ -141,12 +141,9 @@ export function Orders({ data }) {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 {head ? head : null}
-                <TableRow key={13}>
+                <TableRow key={"131313"}>
                   {columns?.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      style={{ top: 57, minWidth: column.minWidth }}
-                    >
+                    <TableCell key={column.id} style={{ top: 57 }}>
                       {column.label}
                     </TableCell>
                   ))}
@@ -195,7 +192,7 @@ export function Orders({ data }) {
                     })
                 ) : (
                   <TableRow>
-                    <TableCell key={11111111111} sx={{ textAlign: "center" }}>
+                    <TableCell key={"11111111111"} sx={{ textAlign: "center" }}>
                       אין נתונים זמינים
                     </TableCell>
                   </TableRow>

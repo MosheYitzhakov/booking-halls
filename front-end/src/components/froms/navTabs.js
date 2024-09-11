@@ -48,10 +48,10 @@ export default function FullWidthTabs({ hall = null }) {
       orderFormCheck(dataOrder)) ||
     active < 3;
   // console.log(dataOrder);
-  // if (!sumMeals) {
-  //   setFullData(true);
-  //   setActive((prv) => prv - 1);
-  // }
+  if (!sumMeals) {
+    setFullData(true);
+    setActive((prv) => prv - 1);
+  }
   const from = [
     <FromOrder hall={hall} setActive={setActive} />,
     <FromData setActive={setActive} />,

@@ -24,8 +24,8 @@ export function FromCreditCard({ setActive }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // const { data } = await instance.post(`/craetOrder`, dataOrder);
-      const data = "OK";
+      const { data } = await instance.post(`/craetOrder`, dataOrder);
+      // const data = "OK";
       console.log(data);
       if (Number(data?.orderId)) {
         console.log(data?.orderId);

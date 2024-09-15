@@ -4,12 +4,12 @@ import { ContactUs } from "../../components/contactUs";
 import FullWidthTabs from "../../components/froms/navTabs";
 import "react-image-gallery/styles/css/image-gallery.css";
 import Images from "../../components/imageGallery";
-import Effect from "../../hooks/useEffect";
+import UseEffect from "../../hooks/useEffect";
 import { Err } from "../../error";
 
 export const Hall = () => {
   const { name } = useParams();
-  const hall = Effect(`/halls/${name}`);
+  const hall = UseEffect(`/halls/${name}`);
   if (typeof hall === "string") {
     return <Err />;
   } else {

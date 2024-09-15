@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import instance from "../API";
 
-export const Effect = (url) => {
+export const UseEffect = (url) => {
   const [data, setData] = useState(null);
   useEffect(() => {
     const fetch = async () => {
@@ -18,4 +18,4 @@ export const Effect = (url) => {
   return data;
 };
 
-export default Effect;
+export default UseEffect;

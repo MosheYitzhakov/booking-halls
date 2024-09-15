@@ -9,24 +9,34 @@ import Container from "@mui/material/Container";
 import Cards from "react-credit-cards-2";
 import instance from "../../API";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import { Order } from "../../hooks/useContext";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { ClientSideContext } from "../../hooks/useContext";
 export function FromCreditCard({ setActive }) {
-  const [dataOrder] = useContext(Order);
+  const {
+    order: [order],
+    dateEvent: [dateEvent],
+    clients: [clients],
+    invoice: [invoice],
+  } = useContext(ClientSideContext);
+
   const [alert, setAlert] = useState(false);
   const [numberCard, setNumberCard] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
   const [name, setName] = useState("");
   const [focused, setFocused] = useState("");
-  console.log(dataOrder);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await instance.post(`/craetOrder`, dataOrder);
-      // const data = "OK";
-      console.log(data);
+      // const { data } = await instance.post(`/craetOrder`, {
+      //  order: order,
+      //  dateEvent: dateEvent,
+      //  clientK:  clients.clientK,
+      //  clientC: clients.clientK,
+      //   invoice: invoice,
+      // });
+      const data = { orderId: 123 };
       if (Number(data?.orderId)) {
         console.log(data?.orderId);
         localStorage.setItem("orderId", JSON.stringify(data.orderId));
@@ -40,7 +50,7 @@ export function FromCreditCard({ setActive }) {
       return error.message;
     }
   };
-
+  console.log({ order, dateEvent, clients, invoice });
   const handleButton = (setActive) => {
     setActive((prv) => {
       return prv - 1;
@@ -78,10 +88,10 @@ export function FromCreditCard({ setActive }) {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h5">
-                סה"כ לתשלום {dataOrder.order.total_payment} ש"ח
+                סה"כ לתשלום {order.total_payment} ש"ח
               </Typography>
               <Typography variant="h5">
-                דמי מקדמה {dataOrder.invoice.payment} ש"ח לסגירת ההזמנה
+                דמי מקדמה {invoice.payment} ש"ח לסגירת ההזמנה
               </Typography>
             </Grid>
 

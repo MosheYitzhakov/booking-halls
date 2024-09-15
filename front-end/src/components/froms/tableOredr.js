@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,15 +8,17 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TextField } from "@mui/material";
 import { Loading } from "../loading";
+import { ClientSideContext } from "../../hooks/useContext";
 
-export default function BasicTable({ hall, typeO, dataOrder: { order } }) {
+export default function BasicTable({ hall }) {
+  const {order:[order]} = useContext(ClientSideContext);
   const [meal, setMeal] = useState({
     adults: null,
     children: null,
     bar: null,
   });
   useEffect(() => {
-    if (typeof order?.num_m_adults !== "undefined") {
+    if (order.num_m_adults) {
       setMeal({
         adults: order.num_m_adults,
         children: order.num_m_children,
@@ -42,7 +44,7 @@ export default function BasicTable({ hall, typeO, dataOrder: { order } }) {
   const { adults, children, bar } = meal;
 
   const hallPrice =
-    typeO === "b"
+  order.type === "b"
       ? { adults: p_b_adults, children: p_b_children, bar: p_b_bar }
       : { adults: p_p_adults, children: p_p_children, bar: p_p_bar };
   const sum = {
@@ -103,6 +105,7 @@ export default function BasicTable({ hall, typeO, dataOrder: { order } }) {
       ' סה"כ לתשלום ',
       <TextField
         variant="standard"
+        name="total_paymentO"
         value={sum?.adults + sum?.children + sum?.bar + base_price}
         InputProps={{
           readOnly: true,
@@ -141,9 +144,7 @@ export default function BasicTable({ hall, typeO, dataOrder: { order } }) {
       <div
         style={{
           color:
-            Number(hallPrice.children) + Number(adults) >= min_meals
-              ? "green"
-              : "red",
+            Number(children) + Number(adults) >= min_meals ? "green" : "red",
         }}
       >
         <h2>

@@ -6,31 +6,30 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Order } from "../../hooks/useContext";
+// import { Order } from "../../hooks/useContext";
 import { useNavigate } from "react-router-dom";
+import { ClientSideContext } from "../../hooks/useContext";
 
 export function SumOrder({ hall }) {
-  const [dataOrder] = useContext(Order);
-  console.log(dataOrder);
-  console.log(hall);
+  // const [order] = useContext(Order);
+  const {
+    clients: [clients],
+    order: [order],
+    dateEvent: [dateEvent],
+    invoice: [invoice],
+  } = useContext(ClientSideContext);
   const navigate = useNavigate();
   const price =
-    dataOrder?.order?.type === "b"
+    order.type === "b"
       ? {
-          children:
-            Number(dataOrder?.order?.num_m_children) *
-            Number(hall.p_b_children),
-          bar: Number(dataOrder?.order?.num_m_bar) * Number(hall.p_b_bar),
-          adults:
-            Number(dataOrder?.order?.num_m_adults) * Number(hall.p_b_adults),
+          children: Number(order.num_m_children) * Number(hall.p_b_children),
+          bar: Number(order.num_m_bar) * Number(hall.p_b_bar),
+          adults: Number(order.num_m_adults) * Number(hall.p_b_adults),
         }
       : {
-          children:
-            Number(dataOrder?.order?.num_m_children) *
-            Number(hall.p_p_children),
-          bar: Number(dataOrder?.order?.num_m_bar) * Number(hall.p_p_bar),
-          adults:
-            Number(dataOrder?.order?.num_m_adults) * Number(hall.p_p_adults),
+          children: Number(order.num_m_children) * Number(hall.p_p_children),
+          bar: Number(order.num_m_bar) * Number(hall.p_p_bar),
+          adults: Number(order.num_m_adults) * Number(hall.p_p_adults),
         };
 
   const handleMain = () => {
@@ -79,32 +78,32 @@ export function SumOrder({ hall }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {dataOrder?.clientC?.name}
+                {clients.clientC.name}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {dataOrder?.clientK?.name}
+                {clients.clientK?.name}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {dataOrder?.clientC?.phone}
+                {clients.clientC?.phone}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {dataOrder?.clientK?.phone}
+                {clients.clientK?.phone}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {dataOrder?.clientC?.email}
+                {clients.clientC?.email}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {dataOrder?.clientK?.email}
+                {clients.clientK?.email}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -115,12 +114,12 @@ export function SumOrder({ hall }) {
             <Grid item xs={12} sm={4}>
               <Typography component="h3" variant="p" textAlign={"center"}>
                 סוג מנות:
-                {dataOrder?.order?.type === "b" ? " רגיל " : " פרימיום "}
+                {order.type === "b" ? " רגיל " : " פרימיום "}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                תאריך: {dataOrder?.order?.hebrew_date}
+                תאריך: {order.hebrew_date}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>

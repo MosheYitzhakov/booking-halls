@@ -8,51 +8,48 @@ import Container from "@mui/material/Container";
 import BasicTable from "./tableOredr";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Calendar from "../calendar";
-import { Dates, Order } from "../../hooks/useContext";
+import { ClientSideContext } from "../../hooks/useContext";
 
 export function FromOrder({ setActive, hall }) {
-  const [dataOrder, setDataOrder] = useContext(Order);
-  const [typeO, setTypeO] = useState(dataOrder.order?.type ?? "b");
-  const [dateOE, setDateOE] = useState(dataOrder.dateEvent?.date);
-  const [dates] = useContext(Dates);
-  // console.log(dataOrder);
-  // console.log(dateOE);
+  const {
+    order: [order, setOrder],
+    dateEvent: [dateEvent, setDateEvent],
+    invoice: [, setInvoice],
+  } = useContext(ClientSideContext);
   const handleChange = ({ target: { value } }) => {
-    setTypeO(value);
+    setOrder((prv) => {
+      return {
+        ...prv,
+        type: value,
+      };
+    })
   };
-  useEffect(() => {
-    if (dataOrder.order && dataOrder.order?.type) {
-      setTypeO(dataOrder.order.type);
-    }
-  }, [dataOrder]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
-    setDataOrder((prv) => {
+    setInvoice((prv) => {
       return {
         ...prv,
-        order: {
-          ...prv.order,
-          num_guests: 1000,
-          num_m_adults: data.get("adults"),
-          num_m_children: data.get("children"),
-          num_m_bar: data.get("bar"),
-          type: data.get("typeO"),
-          total_payment: data.get("total_paymentO"),
-          hebrew_date: dates.dateH,
-          date: dateOE,
-        },
-        invoice: {
-          ...prv.invoice,
-          payment: data.get("paymentI"),
-        },
-        dateEvent: {
-          ...prv.dateEvent,
-          hebrew_date: dates.dateH,
-          date: dateOE,
-        },
+        payment: data.get("paymentI"),
+      };
+    });
+    setDateEvent((prv) => {
+      return {
+        ...prv,
+        hebrew_date: dateEvent.hebrew_date,
+        date: dateEvent.date,
+      };
+    });
+    setOrder((prv) => {
+      return {
+        ...prv,
+        num_guests: 1000,
+        num_m_adults: data.get("adults"),
+        num_m_children: data.get("children"),
+        num_m_bar: data.get("bar"),
+        total_payment: data.get("total_paymentO"),
+        hebrew_date: dateEvent.hebrew_date,
+        date: dateEvent.date,
       };
     });
     setActive((prv) => {
@@ -81,13 +78,10 @@ export function FromOrder({ setActive, hall }) {
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography component="h1" variant="h5">
+              <Typography component="h2" variant="h6">
                 תאריך
               </Typography>
-              <Calendar
-                idHall={hall?.id_hall}
-                setDateOE={setDateOE && setDateOE}
-              />
+              <Calendar />
             </Grid>
 
             <Grid item xs={5}>
@@ -99,8 +93,7 @@ export function FromOrder({ setActive, hall }) {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={typeO}
-                  name="typeO"
+                  value={order.type}
                   label=" רמת מנות "
                   onChange={handleChange}
                 >
@@ -110,7 +103,7 @@ export function FromOrder({ setActive, hall }) {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <BasicTable hall={hall} typeO={typeO} dataOrder={dataOrder} />
+              <BasicTable hall={hall} order={order} />
             </Grid>
             <Grid item xs={19}></Grid>
           </Grid>

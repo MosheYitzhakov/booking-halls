@@ -18,7 +18,6 @@ export default function Images({ imgs }) {
   return (
     <ImageGallery
                 autoPlay={true}
-                // showThumbnails={false}
                 items={im}
             />
   );

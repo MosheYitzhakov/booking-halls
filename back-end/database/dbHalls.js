@@ -4,7 +4,6 @@ const getHalls = async (name = null) => {
     let toSql = "";
     if (name) {
         toSql = `
-        
         WHERE name_hall = "${name}"`
     }
     try {

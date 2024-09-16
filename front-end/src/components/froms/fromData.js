@@ -36,8 +36,6 @@ export function FromData({ setActive }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({ nameC: data.get("nameC") });
-
     await setClients((prv) => {
       return {
         clientC: {
@@ -96,12 +94,6 @@ export function FromData({ setActive }) {
       });
     }
   };
-  console.log({
-    clients,
-    invoice,
-    order,
-  });
-
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />

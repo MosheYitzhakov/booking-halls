@@ -20,7 +20,7 @@ function App() {
         },
       ];
   return (
-    <div className="App" style={{ display: "block", height: "100%" }}>
+    <div className="App">
       <Header />
       {useRoutes(routes)}
     </div>

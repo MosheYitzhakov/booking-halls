@@ -15,8 +15,6 @@ export function SumOrder({ hall }) {
   const {
     clients: [clients],
     order: [order],
-    dateEvent: [dateEvent],
-    invoice: [invoice],
   } = useContext(ClientSideContext);
   const navigate = useNavigate();
   const price =

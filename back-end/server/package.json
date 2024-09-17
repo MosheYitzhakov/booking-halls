@@ -8,6 +8,6 @@
     "path": "^0.12.7"
   },
   "scripts": {
-    "start": "node server.js" 
+    "start": "node back-end/server.js" 
   }
 }

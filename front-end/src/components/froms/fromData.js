@@ -6,15 +6,12 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import { Order } from '../../hooks/useContext';
 import { ClientSideContext } from "../../hooks/useContext";
 
 export function FromData({ setActive }) {
-  // const [order, setOrder] = useContext(Order);
   const {
     clients: [clients, setClients],
     invoice: [invoice, setInvoice],
-    order: [order, setOrder],
   } = useContext(ClientSideContext);
   const [checkedC, setCheckedC] = useState(
     invoice.submits === "c" ? true : false
@@ -58,32 +55,6 @@ export function FromData({ setActive }) {
         submits: checkedC ? "c" : checkedK ? "k" : "",
       };
     });
-    // setOrder((prv) => {
-    //   return {
-    //     ...prv,
-    //     clientC: {
-    //       ...prv.clientC,
-    //       email: data.get('emailC'),
-    //       phone: data.get('phoneC'),
-    //       name: data.get("nameC"),
-    //       side:  "c" ,
-    //       degree:"client"
-    //     },
-    //     clientK: {
-    //       ...prv.clientK,
-    //       email: data.get('emailK'),
-    //       phone: data.get('phoneK'),
-    //       name: data.get("nameK"),
-    //       side:  "k",
-    //       degree:"client"
-    //     },
-    //     invoice: {
-    //       ...prv.invoice,
-    //       submits: checkedC ? "k" : checkedK ? "c" : "" }
-    //     ,
-
-    //   }
-    // })
     if (butten === "return") {
       setActive((prv) => {
         return prv - 1;

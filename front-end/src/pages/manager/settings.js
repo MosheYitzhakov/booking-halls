@@ -39,7 +39,7 @@ export function Settings({ data }) {
   const [updateTable, setUpdateTable] = useState(false);
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
-    setNewSettings((prev) => ({ ...prev, [name]: value }));
+    setNewSettings((prev) => ({ ...prev, [name]: value  ||'' }));
   };
   const handleUndoingChange = () => {
     setNewSettings(settings);
@@ -125,7 +125,7 @@ export function Settings({ data }) {
                 required
                 fullWidth
                 helperText=" שם מנהל "
-                value={newSettings?.name}
+                value={newSettings?.name || ""}
               />
             </Grid>
             <Grid item xs={6}>
@@ -134,7 +134,7 @@ export function Settings({ data }) {
                 required
                 fullWidth
                 helperText=" שם אולם "
-                value={newSettings?.name_hall}
+                value={newSettings?.name_hall || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -145,7 +145,7 @@ export function Settings({ data }) {
                 name="down_payment"
                 helperText=" דמי מקדמה "
                 type="number"
-                value={newSettings?.down_payment}
+                value={newSettings?.down_payment || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -157,7 +157,7 @@ export function Settings({ data }) {
                 type="number"
                 helperText=" מקסימום מוזמנים "
                 name="max_guests"
-                value={newSettings?.max_guests}
+                value={newSettings?.max_guests || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -171,14 +171,14 @@ export function Settings({ data }) {
                 helperText=" מינימום מנות  "
                 name="min_meals"
                 autoComplete="family-name"
-                value={newSettings?.min_meals}
+                value={newSettings?.min_meals || ""}
                 onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TableSettingManager
                 updateTable={updateTable}
-                settings={settings && settings}
+                settings={settings && settings }
               />
             </Grid>
 

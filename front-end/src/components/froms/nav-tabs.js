@@ -47,10 +47,6 @@ export default function NavTabs({ hall }) {
       });
     }
   }, [hall, setOrder, setDateEvent]);
-  // const isMinMeals =
-  //   Number(order.num_m_adults) + Number(order.num_m_children) >=
-  //   hall?.min_meals;
-  // console.log(order.map());
 
   const sumMeals =
     (isMinMeals(order.num_m_adults, order.num_m_children, hall.min_meals) &&

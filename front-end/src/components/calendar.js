@@ -31,7 +31,7 @@ export default function Calendar() {
 
 
   const dontSelectTuesdays = (day) => {
-    if (holidays?.items && holidays.items.length > 0) {
+    if (holidays?.items?.length) {
       for (let i = 0; i < holidays.items.length; i++) {
         const holidayDate = holidays.items[i].hdate.slice(0, -5);
         const dayJewishStr = day.jewishDateStr

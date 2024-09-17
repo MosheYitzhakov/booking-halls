@@ -109,7 +109,7 @@ const dataColumns = (data) => {
 
 export function Orders({ data }) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -142,8 +142,8 @@ export function Orders({ data }) {
               <TableHead>
                 {head ? head : null}
                 <TableRow key={"131313"}>
-                  {columns?.map((column) => (
-                    <TableCell key={column.id} style={{ top: 57 }}>
+                  {columns?.map((column, i) => (
+                    <TableCell key={column.id + i} style={{ top: 57 }}>
                       {column.label}
                     </TableCell>
                   ))}
@@ -156,7 +156,7 @@ export function Orders({ data }) {
                       page * rowsPerPage,
                       page * rowsPerPage + rowsPerPage
                     )
-                    ?.map((row) => {
+                    ?.map((row, i) => {
                       return (
                         <TableRow
                           hover
@@ -167,10 +167,10 @@ export function Orders({ data }) {
                               ? row.id_order
                               : row.id_invoices
                               ? row.id_invoices
-                              : row.id
+                              : i
                           }
                         >
-                          {columns.map((column) => {
+                          {columns.map((column, i) => {
                             const value =
                               column.id === "id_order" ? (
                                 <button
@@ -201,13 +201,13 @@ export function Orders({ data }) {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5, 20, 100]}
             component="div"
             count={rows?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={[10, 20, 100]}
           />
         </Paper>
       ) : (

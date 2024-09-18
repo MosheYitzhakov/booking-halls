@@ -7,7 +7,7 @@
     "jewish-date": "^2.0.8",
     "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.0.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
     "child_process": "^1.0.2",
     "mysql2": "^3.6.5"
   }

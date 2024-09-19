@@ -9,6 +9,8 @@ module.exports = router;
 router
   .get("/", async (req, res) => {
     try {
+      console.log("halls");
+      
       const halls = await getHalls();
       for (let i = 0; i < halls.length; i++) {
         halls[i].images = [];

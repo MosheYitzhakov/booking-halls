@@ -1,21 +1,21 @@
-const { pool } = require('./dbConnection')
-const { toJewishDate, formatJewishDateInHebrew} = require("jewish-date");
+const { pool } = require("./dbConnection");
+const { toJewishDate, formatJewishDateInHebrew } = require("jewish-date");
 
 const getOrders = async (nameM, date = null) => {
-    let toSql = "WHERE "
-    if (date) {
-        toSql += `
+  let toSql = "WHERE ";
+  if (date) {
+    toSql += `
          o.date >= '${date}'
-        AND `
-    }
-    toSql += ` id_hall IN (
+        AND `;
+  }
+  toSql += ` id_hall IN (
         select mh.id_hall from managers_halls mh
         join users u
         USING(id_user)
         WHERE u.name = "${nameM}"
         )`;
-    try {
-        const sql = `
+  try {
+    const sql = `
         SELECT o.*, K.name AS nameK,C.name AS nameC,
         K.phone AS phoneK,C.phone AS phoneC,
         K.email AS emailK,C.email AS emailC
@@ -27,118 +27,112 @@ const getOrders = async (nameM, date = null) => {
         ${toSql}
         
         order by o.date
-        `
-        // console.log(sql);
-        // return sql
-        const [res] = await pool.query(sql);
-        return res;
-    } catch (error) {
-        return error.message
-    }
-}
+        `;
+    // console.log(sql);
+    // return sql
+    const [res] = await pool.query(sql);
+    return res;
+  } catch (error) {
+    return error.message;
+  }
+};
 
 const putOrders = async (id_order, ...args) => {
-    const [all] = [...args]
-    let toSql = "";
+  const [all] = [...args];
+  let toSql = "";
 
-    for (const key in all) {
-        if (all[key] !== null)
-            toSql += `${key}= "${all[key]}",`
-    }
+  for (const key in all) {
+    if (all[key] !== null) toSql += `${key}= "${all[key]}",`;
+  }
 
-    if (!toSql) return "You cannot enter empty values"
+  if (!toSql) return "You cannot enter empty values";
 
-    toSql = toSql.slice(0, -1)
-    try {
-        const sql = `
+  toSql = toSql.slice(0, -1);
+  try {
+    const sql = `
         UPDATE orders
         SET ${toSql}
         WHERE id_order = ?
-    `
+    `;
 
-        const [{ affectedRows }] = await pool.query(sql, [id_order]);
-        if (affectedRows) return "updated order"
-        return 'not update'
-    } catch (error) {
-        return error.message
-    }
-
-
-}
+    const [{ affectedRows }] = await pool.query(sql, [id_order]);
+    if (affectedRows) return "updated order";
+    return "not update";
+  } catch (error) {
+    return error.message;
+  }
+};
 
 const postOrders = async (...args) => {
-    const [{ clientC, clientK, order, dateEvent, invoice }] = args;
+  const [{ clientC, clientK, order, dateEvent, invoice }] = args;
+  let conn = null;
+  try {
+    conn = await pool.getConnection();
+    await conn.beginTransaction();
 
-    const str = (obj) => {
-        let string = ""
-        for (const key in obj) {
-            string += `${key},`;
-        }
-        return string.slice(0, -1)
-    }
-
-
-    let conn = null;
-    try {
-        conn = await pool.getConnection();
-        await conn.beginTransaction()
-
-        let sql = `
+    let sql = `
           INSERT INTO users (${Object.keys(clientK)})
-         VALUES (?,?,?,?,?)`
-        const [clientKS] = await conn.query(sql, Object.values(clientK))
-        sql = `
+         VALUES (?,?,?,?,?)`;
+    const [clientKS] = await conn.query(sql, Object.values(clientK));
+    sql = `
             INSERT INTO users (${Object.keys(clientC)})
-             VALUES (?,?,?,?,?)`
-        const [clientCS] = await conn.query(sql, Object.values(clientC))
-        sql = `
+             VALUES (?,?,?,?,?)`;
+    const [clientCS] = await conn.query(sql, Object.values(clientC));
+    sql = `
               INSERT INTO orders (${Object.keys(order)})
-             VALUES (?,?,?,?,?,?,?,?,?)`
+             VALUES (?,?,?,?,?,?,?,?,?)`;
 
-        const [orderS] = await conn.query(sql, Object.values(order))
+    const [orderS] = await conn.query(sql, Object.values(order));
 
-        sql = `
+    sql = `
             INSERT INTO customers_orders (id_c, id_k, id_order)
-            VALUES (?,?,?)`
-        const [cCO] = await conn.query(sql, [clientCS.insertId, clientKS.insertId, orderS.insertId])
+            VALUES (?,?,?)`;
+    const [cCO] = await conn.query(sql, [
+      clientCS.insertId,
+      clientKS.insertId,
+      orderS.insertId,
+    ]);
 
-        sql = `
+    sql = `
          INSERT INTO events_schedule (${Object.keys(dateEvent)})
-         VALUES (?,?,?)`
+         VALUES (?,?,?)`;
 
-        const [dateEventS] = await conn.query(sql, Object.values(dateEvent))
+    const [dateEventS] = await conn.query(sql, Object.values(dateEvent));
 
-        sql = `
+    sql = `
        INSERT INTO invoices (id_user, payment,date,hebrew_date)
-       VALUES (?,?,?,?)`
+       VALUES (?,?,?,?)`;
 
-        const [invoiceS] = await conn.query(sql, [invoice.submits === 'k' ? clientKS.insertId : clientCS.insertId, invoice.payment, new Date().toISOString().slice(0, 19).replace('T', ' '), formatJewishDateInHebrew(toJewishDate(new Date()))])
+    const [invoiceS] = await conn.query(sql, [
+      invoice.submits === "k" ? clientKS.insertId : clientCS.insertId,
+      invoice.payment,
+      new Date().toISOString().slice(0, 19).replace("T", " "),
+      formatJewishDateInHebrew(toJewishDate(new Date())),
+    ]);
 
-
-        await conn.commit();
-        return orderS.insertId
-    } catch (error) {
-
-        if (conn) await conn.rollback();
-        return error.message;
-    } finally {
-        if (conn) conn.release();
-    }
-}
+    await conn.commit();
+    return orderS.insertId;
+  } catch (error) {
+    if (conn) await conn.rollback();
+    return error.message;
+  } finally {
+    if (conn) conn.release();
+  }
+};
 
 const deleteOrders = async (id_order) => {
-    try {
-        const sql = `
+  try {
+    const sql = `
     DELETE FROM  orders 
     WHERE id_order =?
     `;
-        const [{ affectedRows }] = await pool.query(sql, [id_order])
-        if (affectedRows) return `order ${id_order} deleted`
-        return `The order ${id_order} not deleted`
-    } catch (error) {
-        console.log(123);
-        return error.message
-    }
-}
+    const [{ affectedRows }] = await pool.query(sql, [id_order]);
+    if (affectedRows) return `order ${id_order} deleted`;
+    return `The order ${id_order} not deleted`;
+  } catch (error) {
+    console.log(123);
+    return error.message;
+  }
+};
 
-module.exports = { getOrders, putOrders, postOrders, deleteOrders }
+module.exports = { getOrders, putOrders, postOrders, deleteOrders };

@@ -68,7 +68,6 @@ export default function BasicTable({ hall }) {
       hallPrice.adults,
       sum?.adults
     ),
-
     createData(
       "מנות ילדים",
       <TextField

@@ -28,7 +28,8 @@ export function FromCreditCard({ setActive }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!numberCard || !expiry || !cvc || !name) return setAlert("כרטיס אשראי לא תקין")
+    if (numberCard < 1000000000000000 || expiry < 101 || !cvc || !name)
+      return setAlert("כרטיס אשראי לא תקין");
     try {
       const { data } = await instance.post(`/craetOrder`, {
        order: order,
@@ -37,6 +38,7 @@ export function FromCreditCard({ setActive }) {
        clientC: clients.clientK,
         invoice: invoice,
       });
+      // const data = { orderId: 1 };
       if (Number(data?.orderId)) {
         localStorage.setItem("orderId", JSON.stringify(data.orderId));
         setActive((prv) => {
@@ -143,7 +145,9 @@ export function FromCreditCard({ setActive }) {
                 placeholder="CVC"
                 pattern="\d{3,4}"
                 value={cvc}
-                onChange={(e) =>e.target.value <= 9999 && setCvc(e.target.value)}
+                onChange={(e) =>
+                  e.target.value <= 9999 && setCvc(e.target.value)
+                }
                 onFocus={(e) => setFocused(e.target.name)}
                 required
               />

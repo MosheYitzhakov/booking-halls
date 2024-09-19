@@ -1,100 +1,125 @@
-import React, { useEffect, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { TextField } from '@mui/material';
+import React, { useContext, useEffect, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { TextField } from "@mui/material";
+import { Loading } from "../loading";
+import { ClientSideContext } from "../../hooks/useContext";
 
-function createData(name, calories, fat, carbs, sum) {
-  return { name, calories, fat, carbs, sum };
-}
-
-
-export default function BasicTable({ hall, typeO, dataOrder }) {
-  const [meal, setMeal] = useState();
+export default function BasicTable({ hall }) {
+  const {order:[order]} = useContext(ClientSideContext);
+  const [meal, setMeal] = useState({
+    adults: null,
+    children: null,
+    bar: null,
+  });
   useEffect(() => {
-    if (typeof dataOrder?.order?.num_m_adults !== 'undefined') {
+    if (order.num_m_adults) {
       setMeal({
-        adults: dataOrder.order.num_m_adults,
-        children: dataOrder.order.num_m_children,
-        bar:dataOrder.order.num_m_bar ,
-      })
-    } else{
-      setMeal({
-        adults:'',
-        children: '',
-        bar: '',
-      })
+        adults: order.num_m_adults,
+        children: order.num_m_children,
+        bar: order.num_m_bar,
+      });
     }
+  }, [order]);
 
-  }, [dataOrder])
-  const typeB = typeO === 'b';
-  const hallPreic = typeB  ? { adults: hall?.p_b_adults, children: hall?.p_b_children, bar: hall?.p_b_bar } :
-    { adults: hall?.p_p_adults, children: hall?.p_p_children, bar: hall?.p_p_bar }
-  const sum = 
- meal ? {
-    adults: hallPreic.adults * meal.adults,
-    children: hallPreic.children * meal.children,
-    bar: hallPreic.bar * meal.bar
-  } :{
-    adults: '',
-    children: '',
-    bar:''
-  }
-
-
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
+  if (!hall | !meal) return <Loading />;
+  const handleInputChange = ({ target: { name, value } }) => {
     setMeal((prev) => ({ ...prev, [name]: value }));
-  }
+  };
+  const {
+    p_b_adults,
+    p_b_children,
+    p_b_bar,
+    p_p_adults,
+    p_p_children,
+    p_p_bar,
+    min_meals,
+    base_price,
+  } = hall;
+  const { adults, children, bar } = meal;
+
+  const hallPrice =
+  order.type === "b"
+      ? { adults: p_b_adults, children: p_b_children, bar: p_b_bar }
+      : { adults: p_p_adults, children: p_p_children, bar: p_p_bar };
+  const sum = {
+    adults: hallPrice.adults * adults,
+    children: hallPrice.children * children,
+    bar: hallPrice.bar * bar,
+  };
   const rows = [
-    createData('מנות מבוגר',
-      <TextField type='number' label="" variant="filled" name='adults' value={meal?.adults ? meal.adults : ''} onChange={handleInputChange} />
-      , hallPreic.adults,
-      sum?.adults),
+    createData(
+      "מנות מבוגר",
+      <TextField
+        type="number"
+        variant="filled"
+        name="adults"
+        value={meal.adults ?? ""}
+        onChange={handleInputChange}
+      />,
+      hallPrice.adults,
+      sum?.adults
+    ),
 
-    createData('מנות ילדים',
-      <TextField type='number' label="" variant="filled" name='children' value={ meal?.children?  meal.children:''} onChange={handleInputChange} />
-      , hallPreic.children,
-      sum?.children),
-    createData('מנות בר',
-      <TextField type='number' label="" variant="filled" name='bar' value={ meal?.bar? meal.bar:''} onChange={handleInputChange} />
-      , hallPreic.bar
-      , sum?.bar),
-    createData('מחיר בסיס לאולם',
-
+    createData(
+      "מנות ילדים",
+      <TextField
+        type="number"
+        variant="filled"
+        name="children"
+        value={meal.children ?? ""}
+        onChange={handleInputChange}
+      />,
+      hallPrice.children,
+      sum?.children
+    ),
+    createData(
+      "מנות בר",
+      <TextField
+        type="number"
+        variant="filled"
+        name="bar"
+        value={meal.bar ?? ""}
+        onChange={handleInputChange}
+      />,
+      hallPrice.bar,
+      sum?.bar
+    ),
+    createData(
+      "מחיר בסיס לאולם",
       <TextField
         variant="standard"
-        value={hall?.base_price}
+        value={base_price}
         InputProps={{
           readOnly: true,
         }}
-        name='paymentI'>
-      </TextField>),
-    createData(' סה"כ לתשלום ',
+        name="paymentI"
+      />
+    ),
+    createData(
+      ' סה"כ לתשלום ',
       <TextField
         variant="standard"
-        // sx={{textAlign:"center"}}
-        value={
-          sum?.adults +
-          sum?.children +
-          sum?.bar +
-          hall?.base_price}
+        name="total_paymentO"
+        value={sum?.adults + sum?.children + sum?.bar + base_price}
         InputProps={{
           readOnly: true,
         }}
-        name='total_paymentO'>
-      </TextField>),
+      />
+    ),
   ];
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell ></TableCell>
+            <TableCell></TableCell>
             <TableCell align="center">מספר מנות</TableCell>
             <TableCell align="center">מחיר מנה</TableCell>
             <TableCell align="center">סה"כ</TableCell>
@@ -104,20 +129,37 @@ export default function BasicTable({ hall, typeO, dataOrder }) {
           {rows.map((row) => (
             <TableRow
               key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="center">{row.calories}</TableCell>
-              <TableCell align="center">{row.fat}</TableCell>
-              <TableCell align="center">{row.carbs}</TableCell>
-              <TableCell align="center">{row.sum}</TableCell>
+              <TableCell align="center">{row.numMeals}</TableCell>
+              <TableCell align="center">{row.sumPerMeal}</TableCell>
+              <TableCell align="center">{row.total}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <h2 style={{color: (Number(meal?.children) + Number(meal?.adults)) >= hall?.min_meals? "green" :"red"}}> מינימום מנות מבוגר + וילדים: {hall?.min_meals} </h2>
+      <div
+        style={{
+          color:
+            Number(children) + Number(adults) >= min_meals ? "green" : "red",
+        }}
+      >
+        <h2>
+          מינימום מנות <span>(לא כולל מנות בר)</span>: {min_meals}
+        </h2>
+        <h3>
+          {Number(children) + Number(adults) < min_meals &&
+            "חסרים: " +
+              (min_meals - (Number(children) + Number(adults))) +
+              " מנות"}
+        </h3>
+      </div>
     </TableContainer>
   );
+}
+function createData(name, numMeals, sumPerMeal, total) {
+  return { name, numMeals, sumPerMeal, total };
 }

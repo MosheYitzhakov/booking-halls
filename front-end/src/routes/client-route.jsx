@@ -1,18 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import { Home } from "../pages/client/home";
+import { MainClientPage } from "../pages/client/main-client-page";
 import { Err } from "../error";
-import DatesAndOrderContext from "../hooks/useContext";
+import ClientSideContext from "../hooks/useContext";
 import { Hall } from "../pages/client/hall";
 
 export const ClientRoute = () => {
   return (
-    <DatesAndOrderContext>
+    <ClientSideContext>
       <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/main" element={<Home />} /> */}
+        <Route path="/" element={<MainClientPage />} />
         <Route path="/halls/:name" element={<Hall /> ? <Hall /> : <Hall />} />
         <Route path="*" element={<Err />} />
       </Routes>
-    </DatesAndOrderContext>
+    </ClientSideContext>
   );
 };

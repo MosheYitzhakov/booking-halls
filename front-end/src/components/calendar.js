@@ -7,14 +7,12 @@ import { formatDate } from "../functions/date";
 
 const urlCalenderHebrew =
   "https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&mf=on&start=2020-12-29&end=2022-12-29";
-export default function Calendar({ idHall = null }) {
+export default function Calendar() {
   const {
     dateEvent: [dateEvent, setDateEvent],
   } = useContext(ClientSideContext);
   const [eventsSchedule, setEventsSchedule] = useState([]);
   const [holidays, setHolidays] = useState({ items: [] });
-  console.log({ dateEvent });
-
   useEffect(() => {
     async function BlockingBusyDates() {
       try {
@@ -66,7 +64,7 @@ export default function Calendar({ idHall = null }) {
   return (
     <div style={{ width: "40%", display: "inline-block", margin: 12 }}>
       <ReactJewishDatePicker
-        value={dateEvent?.date ? new Date(dateEvent.date) : new Date()} // לוודא שהערך לא undefined
+        value={dateEvent?.date ? new Date(dateEvent.date) : new Date()}
         isHebrew
         canSelect={dontSelectTuesdays}
         onClick={(day) => {

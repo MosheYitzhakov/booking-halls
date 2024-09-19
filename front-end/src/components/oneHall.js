@@ -21,25 +21,23 @@ export default function Hall({ hall }) {
         width: "50%",
       }}
     >
-      <Button size="small">לפרטים והזמנה</Button>
-      <CardContent sx={{ flex: "1 0 auto" }}>
-        <Typography gutterBottom variant="h5" component="div">
-          {hall.name_hall}
-          <Typography variant="h6" color="text.secondary">
-            {hall.max_guests} כמות מוזמנים מקסימלי
+      <Button>
+        <CardContent sx={{ flex: "1 0 auto" }}>
+          <Typography gutterBottom variant="h5" component="div">
+            {hall.name_hall}
+            <Typography variant="h6" color="text.secondary">
+              {hall.max_guests} כמות מוזמנים מקסימלי
+            </Typography>
+            <Typography variant="h6" color="text.secondary">
+              {hall.min_meals} מינימום מנות
+            </Typography>
           </Typography>
-          <Typography variant="h6" color="text.secondary">
-            {hall.min_meals} מינימום מנות
-          </Typography>
-        </Typography>
-      </CardContent>
-
+        </CardContent>
+      </Button>
       {hall?.images?.[0]?.name && (
         <CardMedia
-          sx={{ flex: "1 0 auto", width: 250, display: "inline-block" }}
-          // title="green iguana"
+          sx={{ flex: "1 0 auto", width: "35%", display: "inline-block" }}
           image={require(`../images/${hall?.images[0].name}`)}
-          // alt="Live from space album cover"
         />
       )}
     </Card>

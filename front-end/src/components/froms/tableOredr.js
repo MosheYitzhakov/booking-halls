@@ -9,9 +9,12 @@ import Paper from "@mui/material/Paper";
 import { TextField } from "@mui/material";
 import { Loading } from "../loading";
 import { ClientSideContext } from "../../hooks/useContext";
+import { isMinMeals } from "../../functions/is-min-meals";
 
 export default function BasicTable({ hall }) {
-  const {order:[order]} = useContext(ClientSideContext);
+  const {
+    order: [order],
+  } = useContext(ClientSideContext);
   const [meal, setMeal] = useState({
     adults: null,
     children: null,
@@ -44,7 +47,7 @@ export default function BasicTable({ hall }) {
   const { adults, children, bar } = meal;
 
   const hallPrice =
-  order.type === "b"
+    order.type === "b"
       ? { adults: p_b_adults, children: p_b_children, bar: p_b_bar }
       : { adults: p_p_adults, children: p_p_children, bar: p_p_bar };
   const sum = {
@@ -143,15 +146,14 @@ export default function BasicTable({ hall }) {
       </Table>
       <div
         style={{
-          color:
-            Number(children) + Number(adults) >= min_meals ? "green" : "red",
+          color: isMinMeals(adults, children, min_meals) ? "green" : "red",
         }}
       >
         <h2>
           מינימום מנות <span>(לא כולל מנות בר)</span>: {min_meals}
         </h2>
         <h3>
-          {Number(children) + Number(adults) < min_meals &&
+          {!isMinMeals(adults, children, min_meals) &&
             "חסרים: " +
               (min_meals - (Number(children) + Number(adults))) +
               " מנות"}

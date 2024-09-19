@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+// import { Order } from '../../hooks/useContext';
 import { ClientSideContext } from "../../hooks/useContext";
 
 export function FromData({ setActive }) {
@@ -35,8 +36,6 @@ export function FromData({ setActive }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({ nameC: data.get("nameC") });
-
     await setClients((prv) => {
       return {
         clientC: {
@@ -95,12 +94,6 @@ export function FromData({ setActive }) {
       });
     }
   };
-  console.log({
-    clients,
-    invoice,
-    order,
-  });
-
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />

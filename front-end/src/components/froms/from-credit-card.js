@@ -28,6 +28,7 @@ export function FromCreditCard({ setActive }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if(!numberCard || !expiry || !cvc || !name) return setAlert("כרטיס אשראי לא תקין")
     try {
       const { data } = await instance.post(`/craetOrder`, {
        order: order,
@@ -36,9 +37,7 @@ export function FromCreditCard({ setActive }) {
        clientC: clients.clientK,
         invoice: invoice,
       });
-      // const data = { orderId: 123 };
       if (Number(data?.orderId)) {
-        console.log(data?.orderId);
         localStorage.setItem("orderId", JSON.stringify(data.orderId));
         setActive((prv) => {
           return prv + 1;
@@ -50,7 +49,6 @@ export function FromCreditCard({ setActive }) {
       return error.message;
     }
   };
-  console.log({ order, dateEvent, clients, invoice });
   const handleButton = (setActive) => {
     setActive((prv) => {
       return prv - 1;
@@ -98,10 +96,15 @@ export function FromCreditCard({ setActive }) {
             <Grid item xs={6} sm={6}>
               <TextField
                 label=" מספר כרטיס "
-                type="number"
                 name="number"
                 value={numberCard}
-                onChange={(e) => setNumberCard(e.target.value)}
+                onChange={(e) => {
+                  const maxValue = 9999999999999999;
+                  const inputValue = e.target.value;
+                  if (inputValue <= maxValue) {
+                    setNumberCard(inputValue);
+                  }
+                }}
                 onFocus={(e) => setFocused(e.target.name)}
                 required
               />
@@ -121,11 +124,12 @@ export function FromCreditCard({ setActive }) {
             <Grid item xs={6} sm={6}>
               <TextField
                 label="תוקף"
-                type="number"
                 name="expiry"
                 pattern="\d\d/\d\d"
                 value={expiry}
-                onChange={(e) => setExpiry(e.target.value)}
+                onChange={(e) =>
+                  e.target.value <= 9999 && setExpiry(e.target.value)
+                }
                 onFocus={(e) => setFocused(e.target.name)}
                 required
               />
@@ -134,13 +138,12 @@ export function FromCreditCard({ setActive }) {
             <Grid item xs={6}>
               <TextField
                 label="cvc"
-                type="number"
                 name="cvc"
                 className="form-control"
                 placeholder="CVC"
                 pattern="\d{3,4}"
                 value={cvc}
-                onChange={(e) => setCvc(e.target.value)}
+                onChange={(e) =>e.target.value <= 9999 && setCvc(e.target.value)}
                 onFocus={(e) => setFocused(e.target.name)}
                 required
               />

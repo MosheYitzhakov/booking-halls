@@ -1,39 +1,35 @@
-import { FromData } from "../froms/fromData";
-import { FromOrder } from "../froms/fromOrder";
-import { FromCreditCard } from "../froms/fromCreditCard";
+import { FromData } from "./fromData";
+import { FromOrder } from "./fromOrder";
+import { FromCreditCard } from "./from-credit-card";
 
 import React, { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-// import { Order } from "../../hooks/useContext";
 import { SumOrder } from "./summaryOrder";
 import { ClientSideContext } from "../../hooks/useContext";
+import { isMinMeals } from "../../functions/is-min-meals";
 
 const steps = [" הזמנה ", " פרטים ", " סגירת הזמנה "];
 
-const orderFormCheck = (alldataOrder) => {
-  for (const i in alldataOrder) {
-    for (const key in alldataOrder[i]) {
-      if (!alldataOrder[i][key]) {
+const orderFormCheck = (allDataOrder) => {
+  for (const i in allDataOrder) {
+    for (const key in allDataOrder[i]) {
+      if (!allDataOrder[i][key]) {
         return false;
       }
     }
   }
   return true;
 };
-export default function FullWidthTabs({ hall = null }) {
+export default function NavTabs({ hall }) {
   const [active, setActive] = useState(1);
   const [fullData, setFullData] = useState(false);
-
   const {
-    // allDataOrder: [allDataOrder, setAllDataOrder],
     clients: [clients],
     order: [order, setOrder],
     dateEvent: [dateEvent, setDateEvent],
-
-    // invoice: [invoice, setInvoice],
   } = useContext(ClientSideContext);
   useEffect(() => {
     if (hall) {
@@ -49,27 +45,20 @@ export default function FullWidthTabs({ hall = null }) {
           id_hall: hall.id_hall,
         };
       });
-      // setAlldataOrder((prv) => {
-      //   return {
-      //     ...prv,
-      //     order: {
-      //       ...prv.order,
-      //       id_hall: hall.id_hall,
-      //     },
-      //     dateEvent: { ...prv.dateEvent, id_hall: hall.id_hall },
-      //   };
-      // });
     }
   }, [hall, setOrder, setDateEvent]);
+  // const isMinMeals =
+  //   Number(order.num_m_adults) + Number(order.num_m_children) >=
+  //   hall?.min_meals;
+  // console.log(order.map());
+
   const sumMeals =
-    (Number(order.num_m_adults) + Number(order.num_m_children) >=
-      hall?.min_meals &&
+    (isMinMeals(order.num_m_adults, order.num_m_children, hall.min_meals) &&
       orderFormCheck(order) &&
       orderFormCheck(dateEvent) &&
       orderFormCheck(clients.clientC) &&
       orderFormCheck(clients.clientK)) ||
     active < 3;
-  // console.log(alldataOrder);
   if (!sumMeals) {
     setFullData(true);
     setActive((prv) => prv - 1);

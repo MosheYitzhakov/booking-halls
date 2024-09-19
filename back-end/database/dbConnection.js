@@ -11,6 +11,8 @@ const pool = mySQL.createPool({
 
 const checkDBConnection = async () => {
     console.log(process.env.DB_HOST)
+    console.log(process.env.DB_USER)
+    console.log(process.env.DB_NAME)
     try {
         const connection = await pool.getConnection();
         console.log("db connected");
@@ -19,6 +21,9 @@ const checkDBConnection = async () => {
     } catch (error) {
         const message = error.message + "\n" + "can`t connect to db";
         console.log(message);
+        console.log(process.env.DB_HOST);
+        console.log(process.env.DB_NAME);
+        
         return false;
     }
 }

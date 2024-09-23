@@ -18,24 +18,7 @@ const getEvents = async (id_hall = null) => {
         return error.message
     }
 }
-// const getFreeEvents = async (date) => {
-//     let toSql = "";
-//     if (id_hall) {
-//         toSql = `WHERE id_hall = "${id_hall}" `
-//     }
-//     try {
-//         const sql = `
-//         SELECT *
-//         FROM events_schedule
-//         WHERE hebrew_date = ?
-//         ORDER BY date DESC;
-//         `
-//         const [res] = await pool.query(sql, [date]);
-//         return res;
-//     } catch (error) {
-//         return error.message
-//     }
-// }
+
 const postEvents = async (id_hall, hebrew_date, date) => {
     try {
         const sql = `

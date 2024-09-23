@@ -38,7 +38,7 @@ export function FromCreditCard({ setActive }) {
        clientC: clients.clientK,
         invoice: invoice,
       });
-      // const data = { orderId: 1 };
+      // const data = { orderId: "for example" };
       if (Number(data?.orderId)) {
         localStorage.setItem("orderId", JSON.stringify(data.orderId));
         setActive((prv) => {

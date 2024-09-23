@@ -9,7 +9,7 @@ export const ClientRoute = () => {
     <ClientSideContext>
       <Routes>
         <Route path="/" element={<MainClientPage />} />
-        <Route path="/halls/:name" element={<Hall /> ? <Hall /> : <Hall />} />
+        <Route path="/halls/:name" element={<Hall />} />
         <Route path="*" element={<Err />} />
       </Routes>
     </ClientSideContext>

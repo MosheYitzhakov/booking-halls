@@ -6,12 +6,10 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import { Order } from "../../hooks/useContext";
 import { useNavigate } from "react-router-dom";
 import { ClientSideContext } from "../../hooks/useContext";
 
 export function SumOrder({ hall }) {
-  // const [order] = useContext(Order);
   const {
     clients: [clients],
     order: [order],

@@ -20,12 +20,6 @@ const getHalls = async (name = null) => {
   }
 };
 const getSettings = async (nameM) => {
-  let toSql = "";
-  // if (name) {
-  //     toSql = `
-
-  //     WHERE name_hall = "${name}"`
-  // }
   try {
     const sql = `
         select h.*, u.* 
@@ -69,7 +63,6 @@ const putSetting = async (id_hall, ...args) => {
   if (!toSql) return "You cannot enter empty values";
 
   toSql = toSql.slice(0, -1);
-  //   return toSql;
   try {
     const sql = `
         UPDATE halls

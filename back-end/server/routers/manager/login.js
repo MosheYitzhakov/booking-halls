@@ -4,6 +4,31 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 module.exports = router;
 
+/**
+ * @swagger
+ * /api/login:
+ *   post:
+ *     summary: Login
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       404:
+ *         description: No found user
+ * 
+ *     tags: [Manager]
+ * 
+ */
 router.post("/", async (req, res) => {
   try {
     const name = req.body?.name;

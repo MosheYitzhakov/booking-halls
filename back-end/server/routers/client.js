@@ -6,7 +6,14 @@ const { getEvents } = require("../../database/dbEventsSchedule");
 const router = express.Router();
 module.exports = router;
 
-
+/**
+ * @swagger
+ * tags:
+ *   - name: Client
+ *     description: API for client
+ *   - name: Manager
+ *     description: API for manager
+ */
 /**
  * @swagger
  * /api/:

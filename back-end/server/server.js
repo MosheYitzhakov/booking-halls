@@ -23,17 +23,10 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 console.log(
   `See the entire API at swagger-ui => ${swaggerDocs.servers[0].url}/api-docs`
 );
+console.log(swaggerDocs);
 
 app.use(cors());
 app.use(express.json());
-/**
- * @swagger
- * tags:
- *   - name: Client
- *     description: API for client
- *   - name: Manager
- *     description: API for manager
- */
 app.use("/api/managers/", managerRouter);
 app.use("/api/", clientRouter);
 app.use("/*", (req, res) => res.send("not found"));

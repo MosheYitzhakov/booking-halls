@@ -12,7 +12,7 @@ const dbConfig = {
  password: process.env.DB_PASSWORD,
  database: process.env.DB_NAME,
 };
-console.log(process.env.BACKUP_DIR)
+// console.log(process.env.BACKUP_DIR)
 
 // Backup directory
 const backupDir = process.env.BACKUP_DIR;

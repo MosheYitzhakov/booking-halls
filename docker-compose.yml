@@ -1,0 +1,43 @@
+
+services:
+  # שירות פרונטאנד עבור React.js
+  frontend:
+    build:
+      context: ./front-end
+    container_name: frontend
+    ports:
+      - '3000:80'  # נחשוף את הפורט 80 של Nginx לפורט 3000
+    volumes:
+      - ./front-end:/app
+      - /app/node_modules
+
+  # שירות באקאנד עבור Node.js
+  backend:
+    build:
+      context: ./back-end  # שינוי כאן
+    container_name: backend
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./back-end/server:/app
+      - /app/node_modules
+    environment:
+        DB_HOST: ${DB_HOST}  # הכתובת של מסד הנתונים
+        DB_USER: ${DB_USER}
+        DB_PASS: ${DB_PASSWORD}  # סיסמת המשתמש
+        DB_NAME: ${DB_NAME}
+
+  # שירות מסד נתונים MySQL
+  db:
+    image: mysql:latest
+    container_name: mysql-booking-halls
+    environment:
+        DB_HOST: ${DB_HOST}  # הכתובת של מסד הנתונים
+        DB_USER: ${DB_USER}
+        DB_PASS: ${DB_PASSWORD}  # סיסמת המשתמש
+        DB_NAME: ${DB_NAME}
+
+    volumes:
+      - ./back-end/database/backups:/docker-entrypoint-initdb.d
+    ports:
+      - '3307:3306'

@@ -31,11 +31,11 @@ export function FromCreditCard({ setActive }) {
     if (numberCard < 1000000000000000 || expiry < 101 || !cvc || !name)
       return setAlert("כרטיס אשראי לא תקין");
     try {
-      const { data } = await instance.post(`/craetOrder`, {
-       order: order,
-       dateEvent: dateEvent,
-       clientK:  clients.clientK,
-       clientC: clients.clientK,
+      const { data } = await instance.post(`/craeteOrder`, {
+        order: order,
+        dateEvent: dateEvent,
+        clientK: clients.clientK,
+        clientC: clients.clientK,
         invoice: invoice,
       });
       // const data = { orderId: "for example" };

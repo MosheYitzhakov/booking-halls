@@ -4,7 +4,7 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const { checkDBConnection } = require("../database/dbConnection");
 const cors = require("cors");
-const clientRouter = require("./routers/client");
+const clientRouter = require("./routers/client/client");
 const managerRouter = require("./routers/manager/authentication");
 const port = process.env.PORT || 3335;
 const url = process.env.RENDER_EXTERNAL_URL || `http://localhost:${port}`;
@@ -26,7 +26,14 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 console.log(
   `See the entire API at swagger-ui => ${swaggerDocs.servers[0].url}/api-docs`
 );
-
+// /**
+//  * @swagger
+//  * tags:
+//  *   - name: Client
+//  *     description: API for client
+//  *   - name: Manager
+//  *     description: API for manager
+//  */
 app.use(cors());
 app.use(express.json());
 app.use("/api/managers/", managerRouter);

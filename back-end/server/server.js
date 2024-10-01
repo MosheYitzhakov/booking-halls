@@ -54,7 +54,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../front-end/build', 'index.html'));
 });
 app.get("/", (req, res) => res.send("Welcome to Booking Halls API"));
-app.use("/*", (req, res) => res.send("not found"));
+// app.use("/*", (req, res) => res.send("not found"));
 
 const connection = checkDBConnection();
 if (connection) {

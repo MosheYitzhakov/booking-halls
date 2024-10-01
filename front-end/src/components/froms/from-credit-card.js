@@ -45,6 +45,7 @@ export function FromCreditCard({ setActive }) {
           return prv + 1;
         });
       } else {
+        console.error(data?.orderId);
         setAlert(" התאריך שלך כבר נתפס בחר תאריך אחר");
       }
     } catch (error) {

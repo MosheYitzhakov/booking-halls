@@ -34,7 +34,7 @@ console.log(
 //  *     description: API for manager
 //  */
 
-const allowedOrigins = [process.env.RENDER_FRONTEND_URL];
+const allowedOrigins = [process.env.RENDER_FRONTEND_URL, "http://localhost:3000"];
 
 app.use(
   cors({

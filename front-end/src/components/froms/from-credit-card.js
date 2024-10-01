@@ -44,9 +44,12 @@ export function FromCreditCard({ setActive }) {
         setActive((prv) => {
           return prv + 1;
         });
-      } else {
+      } else if (data?.orderId.startsWith("Duplicate entry")) {
         console.error(data?.orderId);
         setAlert(" התאריך שלך כבר נתפס בחר תאריך אחר");
+      } else {
+        setAlert(data?.orderId);
+        console.error(data?.orderId);
       }
     } catch (error) {
       return error.message;

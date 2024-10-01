@@ -8,7 +8,6 @@ const clientRouter = require("./routers/client/client");
 const managerRouter = require("./routers/manager/authentication");
 const port = process.env.PORT || 3335;
 const url = process.env.RENDER_EXTERNAL_URL || `http://localhost:${port}`;
-console.log({ url });
 
 const swaggerOptions = {
   swaggerDefinition: {

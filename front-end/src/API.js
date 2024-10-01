@@ -4,8 +4,6 @@ const url =
     ? "http://localhost:3335/api/"
     : process.env.REACT_APP_RENDER_EXTERNAL_URL + "/api/";
 
-    console.log(url);
-    
 const instance = axios.create({
   baseURL: url,
 });

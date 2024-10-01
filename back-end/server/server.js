@@ -34,7 +34,16 @@ console.log(
 //  *   - name: Manager
 //  *     description: API for manager
 //  */
-app.use(cors());
+
+const allowedOrigins = [process.env.RENDER_FRONTEND_URL];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/api/managers/", managerRouter);
 app.use("/api/", clientRouter);

@@ -6,6 +6,8 @@ import { ClientRoute } from "./routes/client-route";
 
 function App() {
   const { pathname } = useLocation();
+  console.log({pathname});
+  
   const routes = pathname.startsWith("/managers")
     ? [
         {

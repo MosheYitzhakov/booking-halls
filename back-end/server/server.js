@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
@@ -46,6 +47,11 @@ app.use(
 app.use(express.json());
 app.use("/api/managers/", managerRouter);
 app.use("/api/", clientRouter);
+
+app.use(express.static(path.join(__dirname, '../../front-end/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../front-end/build', 'index.html'));
+});
 app.get("/", (req, res) => res.send("Welcome to Booking Halls API"));
 app.use("/*", (req, res) => res.send("not found"));
 

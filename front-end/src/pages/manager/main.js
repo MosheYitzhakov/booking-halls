@@ -25,12 +25,10 @@ export function Main() {
                 } else if (path[3] === 'settings') {
                     url = "/managers/settings/"
                 }
-                console.log(url);
                 const { data } = await instance.get((url + path[2]), { headers: { auth: JSON.parse(localStorage.uesrToken) } });
                 if (data === "on token" || data === "No found Correct authentication ") {
                     nauigat('/managers/login', { state: " החיבור התנתק לצורך אימות " })
                 }
-                console.log(data);
                 setData(data)
             } catch (error) {
                 return error.message

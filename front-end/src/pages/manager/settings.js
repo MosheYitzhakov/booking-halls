@@ -11,7 +11,6 @@ import { useLocation } from "react-router-dom";
 import instance from "../../API";
 
 export function Settings({ data }) {
-  console.log(data);
   const { pathname } = useLocation();
   const path = pathname.split("/");
   const nameM = "/" + path[1] + "/" + path[3];
@@ -39,14 +38,13 @@ export function Settings({ data }) {
   const [updateTable, setUpdateTable] = useState(false);
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
-    setNewSettings((prev) => ({ ...prev, [name]: value  ||'' }));
+    setNewSettings((prev) => ({ ...prev, [name]: value || '' }));
   };
   const handleUndoingChange = () => {
     setNewSettings(settings);
     setUpdateTable(!updateTable);
   };
   useEffect(() => {
-    console.log(nameM + "/" + path[2]);
     async function name() {
       try {
         setSettings(data[0]);
@@ -78,7 +76,6 @@ export function Settings({ data }) {
         },
         { headers: { auth: JSON.parse(localStorage.uesrToken) } }
       );
-      console.log(data);
       if (data === "updated setting") {
         setSettings({
           name_hall: dataAll.get("name_hall"),
@@ -94,7 +91,6 @@ export function Settings({ data }) {
         });
       }
     } catch (error) {
-      console.log(error.message);
       return error.message;
     }
   };
@@ -178,7 +174,7 @@ export function Settings({ data }) {
             <Grid item xs={12}>
               <TableSettingManager
                 updateTable={updateTable}
-                settings={settings && settings }
+                settings={settings && settings}
               />
             </Grid>
 

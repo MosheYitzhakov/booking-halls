@@ -47,7 +47,7 @@ app.use(
 app.use(express.json());
 app.use("/api/managers/", managerRouter);
 app.use("/api/", clientRouter);
-console.log({path:path.join(__dirname, '../../front-end/build')});
+// console.log({path:path.join(__dirname, '../../front-end/build')});
 
 app.use(express.static(path.join(__dirname, '../../front-end/build')));
 app.get('*', (req, res) => {

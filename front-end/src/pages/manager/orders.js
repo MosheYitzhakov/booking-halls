@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { Loading } from "../../components/loading";
 
 const columnsOrsers = [
   { id: "id_order", label: " ID  " },
@@ -124,7 +125,6 @@ export function Orders({ data }) {
   let head = dataHead(data);
   return (
     <>
-      {console.log(data)}
       {columns ? (
         <Paper
           sx={{
@@ -166,8 +166,8 @@ export function Orders({ data }) {
                             row.id_order
                               ? row.id_order
                               : row.id_invoices
-                              ? row.id_invoices
-                              : i
+                                ? row.id_invoices
+                                : i
                           }
                         >
                           {columns.map((column, i) => {
@@ -224,7 +224,7 @@ export function Orders({ data }) {
             py: 6,
           }}
         >
-          <h1> אין נתונים זמינים</h1>
+          {Loading()}
         </Paper>
       )}
     </>

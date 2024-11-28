@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 import instance from '../../API';
-export const Login = ({state}) => {
+export const Login = ({ state }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,21 +10,16 @@ export const Login = ({state}) => {
 
   const handleLogin = async () => {
     const { data } = await instance.post(`/managers/login/`, { name: username, password });
-    console.log(data);
-    if (typeof data === 'object') {
-      localStorage.setItem("uesrToken", JSON.stringify(data.token))
-      navigate(`/managers/${username}/settings`)
-      console.log(data.user);
-      return console.log('ok');
-    } else {
-      return setIncorrect(true)
-    }
+    if (typeof data !== 'object')
+      return setIncorrect(true);
+    localStorage.setItem("uesrToken", JSON.stringify(data.token))
+    navigate(`/managers/${username}/settings`)
   };
 
 
   return (
-    <div className="login-container" style={{backgroundColor: "antiquewhite"}}>
-       
+    <div className="login-container" style={{ backgroundColor: "antiquewhite" }}>
+
       <h2 className='login'>Login</h2>
       <form >
         <label>
@@ -39,7 +34,7 @@ export const Login = ({state}) => {
           Login
         </button>
       </form>
-     <p style={{fontSize:20}}>{state && state}</p>
+      <p style={{ fontSize: 20 }}>{state && state}</p>
       {incorrect ? <p>The data is incorrect</p> : ""}
     </div>
   );

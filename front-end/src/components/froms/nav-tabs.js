@@ -81,7 +81,7 @@ export default function NavTabs({ hall }) {
       <Box sx={{ marginBottom: "5%" }}>{from[active - 1]}</Box>
       <Box>
         {fullData && active < 3 && (
-          <p style={{ fontSize: 25 }}> לא מלאת את כל הפרטים </p>
+          <p style={{ fontSize: 25,color:'red' }}> לא מלאת את כל הפרטים </p>
         )}
       </Box>
     </Box>

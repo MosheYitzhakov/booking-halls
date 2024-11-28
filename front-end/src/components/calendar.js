@@ -29,17 +29,16 @@ export default function Calendar() {
     BlockingBusyDates();
   }, [dateEvent.id_hall]);
 
-
   const dontSelectTuesdays = (day) => {
     if (holidays?.items?.length) {
       for (let i = 0; i < holidays.items.length; i++) {
-        const holidayDate = holidays.items[i].hdate.slice(0, -5);
         const dayJewishStr = day.jewishDateStr
           .replace("Tishri", "Tishrei")
           .slice(0, -5);
         const dayAdarStr = day.jewishDateStr
           .replace("AdarII", "Adar II")
           .slice(0, -5);
+        const holidayDate = holidays.items[i].hdate.slice(0, -5);
 
         if (dayJewishStr === holidayDate || dayAdarStr === holidayDate) {
           return false;

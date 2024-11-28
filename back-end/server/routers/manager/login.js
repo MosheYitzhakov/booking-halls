@@ -33,10 +33,10 @@ router.post("/", async (req, res) => {
   try {
     const name = req.body?.name;
     const password = req.body?.password;
-    if (!name || !password) throw new Error("Missing data");
-    console.log(password, name);
+    if (!name || !password) return;
+    // console.log(password, name);
     const dataManager = await getManager(name, password);
-    console.log(dataManager);
+    // console.log(dataManager);
     if (!dataManager.length) {
       res.send("No found user");
     } else {

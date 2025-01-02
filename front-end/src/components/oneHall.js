@@ -4,6 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { formatNumber } from "../functions/formatPrice";
 
 export default function Hall({ hall }) {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function Hall({ hall }) {
           <Typography gutterBottom variant="h5" component="div">
             {hall.name_hall}
             <Typography variant="h6" color="text.secondary">
-              {hall.max_guests} כמות מוזמנים מקסימלי
+              {formatNumber(hall.max_guests)} כמות מוזמנים מקסימלי
             </Typography>
             <Typography variant="h6" color="text.secondary">
               {hall.min_meals} מינימום מנות

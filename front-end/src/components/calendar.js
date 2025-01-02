@@ -54,7 +54,7 @@ export default function Calendar() {
       }
     }
 
-    if (day.date.getDay() === 6) {
+    if (day.date.getDay() === 6 || day.date.getDay() === 5) {
       return false;
     }
 

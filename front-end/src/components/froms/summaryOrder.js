@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import { ClientSideContext } from "../../hooks/useContext";
+import { formatPrice } from "../../functions/formatPrice";
 
 export function SumOrder({ hall }) {
   const {
@@ -132,7 +133,7 @@ export function SumOrder({ hall }) {
             </Grid>
             <Grid item xs={12} sm={7}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {price.adults}
+                {formatPrice(price.adults)}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -143,7 +144,7 @@ export function SumOrder({ hall }) {
 
             <Grid item xs={12} sm={7}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {price.children}
+                {formatPrice(price.children)}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -154,7 +155,7 @@ export function SumOrder({ hall }) {
 
             <Grid item xs={12} sm={7}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {price.bar}
+                {formatPrice(price.bar)}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -165,7 +166,7 @@ export function SumOrder({ hall }) {
 
             <Grid item xs={12} sm={7}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {hall.base_price}
+                {formatPrice(hall.base_price)}
               </Typography>
               <TextField
                 InputProps={{
@@ -186,7 +187,7 @@ export function SumOrder({ hall }) {
 
             <Grid item xs={12} sm={7}>
               <Typography component="h3" variant="p" textAlign={"center"}>
-                {price.adults + price.bar + price.children + hall.base_price}
+                {formatPrice(price.adults + price.bar + price.children + hall.base_price)}
               </Typography>
             </Grid>
           </Grid>

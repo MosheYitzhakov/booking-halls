@@ -10,7 +10,6 @@ import { TextField } from "@mui/material";
 import { Loading } from "../loading";
 import { ClientSideContext } from "../../hooks/useContext";
 import { isMinMeals } from "../../functions/is-min-meals";
-import { formatNumber, formatPrice } from "../../functions/formatPrice";
 
 export default function BasicTable({ hall }) {
   const {
@@ -67,7 +66,7 @@ export default function BasicTable({ hall }) {
         onChange={handleInputChange}
       />,
       hallPrice.adults,
-      formatPrice(sum?.adults)
+      sum?.adults
     ),
     createData(
       "מנות ילדים",
@@ -79,7 +78,7 @@ export default function BasicTable({ hall }) {
         onChange={handleInputChange}
       />,
       hallPrice.children,
-      formatPrice(sum?.children)
+      (sum?.children)
     ),
     createData(
       "מנות בר",
@@ -91,13 +90,13 @@ export default function BasicTable({ hall }) {
         onChange={handleInputChange}
       />,
       hallPrice.bar,
-      formatPrice(sum?.bar)
+      (sum?.bar)
     ),
     createData(
       "מחיר בסיס לאולם",
       <TextField
         variant="standard"
-        value={formatPrice(base_price)}
+        value={(base_price)}
         InputProps={{
           readOnly: true,
         }}
@@ -109,7 +108,7 @@ export default function BasicTable({ hall }) {
       <TextField
         variant="standard"
         name="total_paymentO"
-        value={formatPrice(sum?.adults + sum?.children + sum?.bar + base_price)}
+        value={(sum?.adults + sum?.children + sum?.bar + base_price)}
         InputProps={{
           readOnly: true,
         }}

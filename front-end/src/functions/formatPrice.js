@@ -1,3 +1,4 @@
+// Not used
 export const formatPrice = (price) => {
     return new Intl.NumberFormat('en-IL', {
         style: 'currency',
